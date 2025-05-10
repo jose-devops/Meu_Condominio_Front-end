@@ -1,0 +1,92 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-coluna-esquerda {
+  width: 65%;
+  background: linear-gradient(to right, #326978 0%, #4892AB 50%, #5DBCDE 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-img {
+  width: 400px;
+  height: auto;
+}
+
+.login-coluna-direita {
+  width: 35%;
+  background-color: white;
+  padding: 80px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-titulo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #202020;
+  text-align: center;
+  margin-bottom: 30px;
+  text-align: left;
+  
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #333;
+  
+}
+
+.login-form input {
+  padding: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.botao-entrar {
+  padding: 12px;
+  background-color: #404040;
+  color: #4892AB;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  width: 300px;
+  
+}
+
+.registro-texto {
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.link-registro {
+  color: #4892AB;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.botao-trocar {
+  padding: 8px 12px;
+  border: 1px solid #4892AB;
+  background: none;
+  border-radius: 5px;
+  color: #202020;
+  cursor: pointer;
+  font-size: 12px;
+}
