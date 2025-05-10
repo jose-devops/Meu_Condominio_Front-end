@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TelaTipoAcesso from './screens/TipoAcesso';
 import LoginProprietario from './screens/Proprietario/Login/LoginProprietario';
+import LoginMorador from './screens/Morador/Login/LoginMorador';
 
 
 function AppRoutes() {
@@ -10,7 +11,8 @@ function AppRoutes() {
         <Routes>
         {/* Rota sem menu lateral */}
         <Route path="/" element={<TelaTipoAcesso />} />
-         <Route path="/login-proprietario" element={<LoginProprietario />} />
+        <Route path="/login-proprietario" element={<LoginProprietario />} />
+        <Route path="/login-morador" element={<LoginMorador />} />
 
       </Routes>
 
