@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container-tipo-acesso {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.coluna-logo {
+  width: 65%;
+  background: linear-gradient(to right, #326978 0%, #4892AB 50%, #5DBCDE 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  width: 412px;
+  height: 483px;
+}
+
+.coluna-conteudo {
+  width: 35%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.tipo_de_acesso {
+  color: #404040;
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.botoes-acesso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+ /* Alinha verticalmente os itens */
+}
+
+.card-botao {
+  border: 1px solid #326978;
+  border-radius: 8px;
+  width: 140px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+
+.icone-acesso {
+  margin-top: 30px;
+  
+  width: 50px;
+  height: 50px;
+}
+
+.botao_acesso {
+  background-color: #404040;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 20px; 
+  font-weight: bold;
+  width: 165px;  
+  height: 70px; 
+  margin-top: 20px;
+}
+
+
+/* Responsivo para telas menores */
+@media (max-width: 1024px) {
+  .container-tipo-acesso {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .coluna-logo,
+  .coluna-conteudo {
+    width: 100%;
+    height: auto;
+  }
+
+  .logo-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .botoes-acesso {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .botao_acesso {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tipo_de_acesso {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .card-botao {
+    width: 120px;
+    height: 120px;
+  }
+
+  .icone-acesso {
+    width: 40px;
+    height: 40px;
+  }
+
+  .botao_acesso {
+    padding: 20px;
+  }
+}
