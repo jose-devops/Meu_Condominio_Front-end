@@ -7,6 +7,9 @@ import RegistroProprietario from './screens/RegistroProprietario';
 import TelaPrincipal from './screens/Proprietario/TelaPrincipal/TelaPrincipal'; // TelaPrincipal
 import MenuLateral from './screens/Components/MenuLateral/MenuLateral'; // MenuLateral
 
+
+
+
 function AppRoutes() {
   return (
     <Router>
@@ -15,7 +18,11 @@ function AppRoutes() {
         <Route path="/" element={<TelaTipoAcesso />} />
         <Route path="/login-proprietario" element={<LoginProprietario />} />
         <Route path="/login-morador" element={<LoginMorador />} />
+feature/interface-PaginaPrincipalProprietario
         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
+
+         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
+
 
         {/* Rota com Menu Lateral e Tela Principal */}
         <Route
