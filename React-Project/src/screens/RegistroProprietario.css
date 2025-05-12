@@ -1,0 +1,128 @@
+/* Centraliza o conteúdo */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #326978 0%, #4892AB 50%, #5DBCDE 100%);
+}
+
+/* Estilo do card */
+.card {
+    background-color: #EEEEEE;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Estilo dos campos de input */
+.form-group {
+    margin-bottom: 15px;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="radio"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input[type="radio"] {
+    width: auto;
+}
+
+/* Estilo do botão */
+.btn-primary {
+    background-color: #ffffff;
+    border-color: #326978;
+    color: #326978;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #326978;
+    color: white;
+}
+
+/* Estilo do separador (linha horizontal) */
+hr {
+    border: 0;
+    border-top: 3px solid #174743; /* Cor da linha de separação */
+    margin: 20px 0; /* Espaço ao redor do separador */
+}
+
+/* Estilo das labels */
+label {
+    font-weight: bold;
+}
+
+/* Alinhamento dos radio buttons */
+.form-group input[type="radio"] {
+    margin-left: 10px;
+}
+
+.text-center {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        padding: 12px;
+    }
+
+    /* Fazer as colunas ficarem uma embaixo da outra em telas pequenas */
+    .form-container {
+        flex-direction: column;
+    }
+
+    /* Ajuste no card para as colunas ficarem em tela pequena */
+    .form-left,
+    .form-right {
+        max-width: 100%;
+    }
+}
+
+/* Layout para as colunas */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Espaço entre as colunas */
+    flex-wrap: wrap; /* Permite que as colunas se ajustem em telas menores */
+}
+
+/* Coluna esquerda */
+.form-left {
+    flex: 1;
+    max-width: 48%; /* Limita o tamanho da coluna à 48% */
+}
+
+/* Coluna direita */
+.form-right {
+    flex: 1;
+    max-width: 48%; /* Limita o tamanho da coluna à 48% */
+}
