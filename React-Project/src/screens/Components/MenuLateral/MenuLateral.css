@@ -1,0 +1,123 @@
+/* Barra Lateral */
+.sidebar {
+  width: 250px;
+  background-color: #326978 !important; 
+  color: white;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Itens do menu */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+}
+
+/* Itens individuais no menu */
+.sidebar-item {
+  padding: 15px;
+  text-align: center; 
+}
+
+/* Links do menu */
+.sidebar-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+}
+
+/* Textos dentro do menu */
+.sidebar-text {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+/* Ajustes no ícone do menu */
+#sidebar-icon {
+  font-size: 30px;
+}
+
+/* Botão de alternância */
+.sidebar-toggle {
+  background-color: transparent;
+  border: none;
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Esconder os textos quando o menu for recolhido */
+.sidebar.retracted .sidebar-text {
+  display: none;
+}
+
+/* Ajuste do conteúdo principal */
+.main-content {
+  margin-left: 250px; 
+  padding: 20px;
+}
+
+/* Ativar o menu recolhido */
+.sidebar.retracted {
+  width: 80px; 
+}
+
+/* Ajuste do botão de expandir/recolher */
+button {
+  padding: 10px;
+  background-color: #326978;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilização do botão de recolher e expandir */
+.sidebar-toggle {
+  background-color: #1E5F5A; 
+  border: 7px solid #1E5F5A; 
+  padding: 20px;
+  border-radius: 50%; 
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease; 
+  background-color: transparent;
+  border: none;
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Estilos para a barra lateral expandida */
+.sidebar:not(.retracted) #sidebar-icon {
+  transform: rotate(180deg); 
+  margin-left: 180px; 
+}
+
+/* Colocar o último item (botão de "Sair") na parte inferior */
+.sidebar ul:last-child {
+  margin-top: auto; 
+  padding-top: 15px; 
+}
+
+/* Ajustes no ícone do menu */
+.sidebar-item img {
+  background-color: white; 
+  border: 2px solid white;  
+  border-radius: 20%;  
+  padding: 7px; 
+  width: 40px;  
+  height: 40px;  
+  transition: background-color 0.3s ease, border-color 0.3s ease; 
+}
