@@ -6,7 +6,7 @@ import LoginMorador from './screens/Morador/Login/LoginMorador';
 import RegistroProprietario from './screens/RegistroProprietario';
 import TelaPrincipal from './screens/Proprietario/TelaPrincipal/TelaPrincipal'; // TelaPrincipal
 import MenuLateral from './screens/Components/MenuLateral/MenuLateral'; // MenuLateral
-
+import LogoAndNotification from './screens/Components/MenuLateral/Logo&Notificacao/LogoAndNotification';
 
 
 
@@ -30,6 +30,7 @@ feature/interface-PaginaPrincipalProprietario
           element={
             <div style={{ display: 'flex' }}>
               <MenuLateral />
+              <LogoAndNotification />
               <TelaPrincipal />
             </div>
           }

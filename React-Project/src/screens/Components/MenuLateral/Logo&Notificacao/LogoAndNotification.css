@@ -1,0 +1,39 @@
+/* LogoAndNotification.css */
+
+/* Contêiner principal do cabeçalho */
+.header-container {
+  display: flex;
+  justify-content: flex-end;  /* Alinha logo e notificação à direita */
+  align-items: center;
+  width: 900px;  /* Largura fixa para a área azul (ajuste conforme necessário) */
+  position: fixed;  /* Deixa o cabeçalho fixo no topo */
+  top: 0;
+  left: 50%;
+  transform: translateX(-10%);
+  height: 200px;
+}
+
+/* Estilo da logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  
+}
+
+.logo {
+  height: 80px;
+}
+
+/* Estilo do ícone de notificação */
+.notification-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 50px; 
+  border: 2px solid #326978;
+  padding: 10px;
+  border-radius: 10px; 
+}
+
+
+
