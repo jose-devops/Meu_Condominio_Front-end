@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuLateral from '../../Components/MenuLateral/MenuLateral'; 
 import LogoAndNotification from '../../Components/MenuLateral/Logo&Notificacao/LogoAndNotification';
+import MenuPrincipal from '../../Components/MenuLateral/MenuPrincipal/MenuPrincipal';// import novo
 import './TelaPrincipal.css'; // Estilo da tela principal
 
 const TelaPrincipal = () => {
@@ -15,7 +16,7 @@ const TelaPrincipal = () => {
       <div className="content-container">
         <MenuLateral />
         <div className="main-content">
-          <h1>Bem-vindo à Tela Principal</h1>
+          <MenuPrincipal />
         </div>
       </div>
     </div>
