@@ -1,0 +1,77 @@
+/* Evitar scroll horizontal geral */
+body, html, #root {
+    overflow-x: hidden;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container principal da tela */
+  .tela-principal {
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  /* Conteúdo com sidebar fechada */
+  .main-content.no-sidebar {
+    margin-left: 60px; /* ou zero, ou o espaço do botão hambúrguer */
+    transition: margin-left 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  /* Opcional: ajuste para o menu lateral */
+  .sidebar.open {
+    width: 250px; /* largura normal */
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar.closed {
+    width: 60px; /* largura mínima (somente ícone hamburger) */
+    transition: width 0.3s ease;
+    overflow: hidden;
+  }
+  
+  /* Botão hamburguer */
+  .hamburger-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  .main-content {
+    transition: margin-left 0.3s ease;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+  
+  .main-content.with-sidebar {
+    margin-left: 250px;
+  }
+  
+  .main-content.no-sidebar {
+    margin-left: 60px;
+  }
+  
+  /* Evita scroll horizontal */
+  body, html, #root {
+    overflow-x: hidden;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .main-content.with-sidebar .pesquisa-container {
+    margin-left: 0; /* quando menu aberto, sem margem extra */
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.no-sidebar .pesquisa-container {
+    margin-left: 80px; /* desloca para direita para não ficar sobre o menu recolhido */
+    transition: margin-left 0.3s ease;
+  }
+  

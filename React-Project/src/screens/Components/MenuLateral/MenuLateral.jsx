@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './MenuLateral.css'; 
 
-// Corrigindo as importações dos ícones diretamente
 import iconeHome from '../../IMG/ICON/tela-principal/icone-home.png';
 import iconeAgendamento from '../../IMG/ICON/tela-principal/icone-agendamento.png';
 import iconeInquilino from '../../IMG/ICON/tela-principal/icone-inquilino.png';
@@ -10,13 +9,7 @@ import iconeImovel from '../../IMG/ICON/tela-principal/icone-imovel.png';
 import iconePrestadores from '../../IMG/ICON/tela-principal/icone-prestadores.png';
 import iconeSair from '../../IMG/ICON/tela-principal/icone-sair.png';
 
-const MenuLateral = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
+const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
   return (
     <div className={`sidebar ${isCollapsed ? 'retracted' : ''}`}>
       {/* Botão de alternância */}

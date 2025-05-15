@@ -1,0 +1,88 @@
+/* Contêiner principal do cabeçalho */
+.header-container {
+  display: flex;
+  justify-content: flex-end; /* Alinha logo e notificação à direita */
+  align-items: center;
+  width: 50%; /* Largura fixa para a área azul (ajuste conforme necessário) */
+  position: fixed; /* Deixa o cabeçalho fixo no topo */
+  top: 0;
+  left: 50%;
+  transform: translateX(-10%);
+  height: 20%;
+  z-index: 10; /* Para garantir que fique acima de outros elementos */
+}
+
+/* Estilo da logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Torna o logo clicável */
+  position: relative; /* Necessário para o posicionamento absoluto do modal */
+}
+
+/* Logo */
+.logo {
+  height: 80px;
+}
+
+/* Estilo do ícone de notificação */
+.notification-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+  border: 2px solid #326978;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Estilo do modal */
+.modal-container {
+  position: absolute; /* Modal posicionado em relação ao contêiner da logo */
+  top: 80%; /* Coloca o modal abaixo do logo */
+  right: 0; /* Alinha o modal à direita do contêiner */
+  background-color: #404040;
+  display: flex;
+  width: 150px; /* Largura do modal */
+  border-radius: 8px;
+  z-index: 1000; /* Para garantir que fique em cima de tudo */
+  border: 1px solid #404040;
+}
+
+.modal {
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
+  width: 100%;
+
+}
+
+.modal ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal ul li {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 16px;
+  
+  
+}
+
+.modal ul li:hover {
+  background-color: #f0f0f0;
+}
+
+
+.modal ul li svg {
+  margin-right: 15px; /* Espaço entre ícone e texto */
+}
+.divider {
+  border: none;
+  border-top: 2px solid #326978;
+  margin: 20px 0; /* Espaçamento vertical */
+}
+

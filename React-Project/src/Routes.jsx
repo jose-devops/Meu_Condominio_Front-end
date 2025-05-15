@@ -6,8 +6,8 @@ import LoginMorador from './screens/Morador/Login/LoginMorador';
 import RegistroProprietario from './screens/RegistroProprietario';
 import TelaPrincipal from './screens/Proprietario/TelaPrincipal/TelaPrincipal'; // TelaPrincipal
 import MenuLateral from './screens/Components/MenuLateral/MenuLateral'; // MenuLateral
-
-
+import LogoAndNotification from './screens/Components/MenuLateral/Logo&Notificacao/LogoAndNotification';
+import MenuPrincipal from './screens/Components/MenuLateral/MenuPrincipal/MenuPrincipal';
 
 
 function AppRoutes() {
@@ -29,7 +29,6 @@ feature/interface-PaginaPrincipalProprietario
           path="/tela-principal"
           element={
             <div style={{ display: 'flex' }}>
-              <MenuLateral />
               <TelaPrincipal />
             </div>
           }
