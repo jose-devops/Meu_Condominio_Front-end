@@ -1,0 +1,34 @@
+/* Barra de pesquisa */
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Garante que a pesquisa ocupe o máximo de espaço disponível */
+    max-width: 500px; /* Largura máxima da barra de pesquisa */
+    height: 200px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    border: 3px solid #404040;
+  }
+  
+
+  /* Estilizando o ícone de lupa */
+.icone-pesquisa {
+    
+    color: #1e5f5a; /* Cor do ícone */
+    cursor: pointer; /* Mostra que o ícone é clicável */
+    margin-right: 10px; /* Espaçamento entre o ícone e o campo de texto */
+    transition: transform 0.2s ease; /* Adiciona um efeito de transição */
+    padding: 8px;
+    border-radius: 10px;
+    border: 3px solid #404040;
+  }
+  
+  .icone-pesquisa:hover {
+    transform: scale(1.2); /* Aumenta o ícone quando passar o mouse sobre ele */
+    color: #ff7f00; /* Muda a cor do ícone quando hover */
+  }
+  
