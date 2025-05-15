@@ -1,25 +1,12 @@
 /* Container para alinhar tudo */
 .navbar-wrapper {
     position: relative;
-    margin-left: 250px; /* considerando sidebar */
-    margin-top: 2z0px;
-}
-
-/* Fundo verde atrás dos botões */
-.navbar-background {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 155%;
-    height: 100px;
-    background-color: #326978;
-    border-radius: 10px;
+    margin-left: 10px; /* considerando sidebar */
+    margin-top: 40px;
 }
 
 /* Navbar real com os botões */
 .navbar {
-    top: 10%;
     position: relative;
     display: flex;
     justify-content: center;
@@ -28,6 +15,20 @@
     flex-wrap: wrap;
 }
 
+  /* Fundo atrás dos botões (navbar-background) */
+  .navbar-background {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: calc(100% - 40px); /* evitar ultrapassar */
+    height: 100px;
+    background-color: #326978;
+    border-radius: 10px;
+    z-index: 0;
+  }
+  
 /* Botões */
 .nav-item {
     position: relative;
@@ -61,7 +62,7 @@
 }
 
 .nav-item:hover {
-    transform: translateY(40px);
+    transform: translateY(20px);
     transition: transform 0.2s ease;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     background-color: #326978;
