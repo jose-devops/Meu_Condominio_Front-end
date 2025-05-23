@@ -1,0 +1,36 @@
+.campo-busca-container {
+  display: none;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 3px solid #404040;
+  height: 38px;
+  font-size: 0.9rem;
+}
+
+.icone-pesquisa {
+  color: #1e5f5a;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: transform 0.2s ease;
+  padding: 8px;
+  border-radius: 10px;
+  border: 3px solid #404040;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.icone-pesquisa:hover {
+  transform: scale(1.2);
+  color: #ff7f00;
+}

@@ -30,7 +30,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/agendamentos" className="sidebar-link">
             <div className="icon-container">
               <img src={iconeAgendamento} alt="Agendamento" width="30" height="30" />
             </div>
