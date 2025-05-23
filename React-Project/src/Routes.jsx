@@ -8,7 +8,7 @@ import TelaPrincipal from './screens/Proprietario/TelaPrincipal/TelaPrincipal'; 
 import MenuLateral from './screens/Components/MenuLateral/MenuLateral'; // MenuLateral
 import LogoAndNotification from './screens/Components/MenuLateral/Logo&Notificacao/LogoAndNotification';
 import MenuPrincipal from './screens/Components/MenuLateral/MenuPrincipal/MenuPrincipal';
-
+import TelaAgendamento from './screens/Proprietario/Agendamento/TelaAgendamento'; // <<< IMPORTAÇÃO NOVA
 
 function AppRoutes() {
   return (
@@ -30,6 +30,15 @@ feature/interface-PaginaPrincipalProprietario
           element={
             <div style={{ display: 'flex' }}>
               <TelaPrincipal />
+            </div>
+          }
+        />
+        {/* ROTA NOVA DE AGENDAMENTOS */}
+        <Route
+          path="/agendamentos"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaAgendamento/>
             </div>
           }
         />
