@@ -9,6 +9,8 @@ import MenuLateral from './screens/Components/MenuLateral/MenuLateral'; // MenuL
 import LogoAndNotification from './screens/Components/MenuLateral/Logo&Notificacao/LogoAndNotification';
 import MenuPrincipal from './screens/Components/MenuLateral/MenuPrincipal/MenuPrincipal';
 import TelaAgendamento from './screens/Proprietario/Agendamento/TelaAgendamento'; // <<< IMPORTAÇÃO NOVA
+import TelaContratos from './screens/Proprietario/Contratos/TelaContratos'; // <<< Import correto
+
 
 function AppRoutes() {
   return (
@@ -39,6 +41,14 @@ feature/interface-PaginaPrincipalProprietario
           element={
             <div style={{ display: 'flex' }}>
               <TelaAgendamento/>
+            </div>
+          }
+        />
+        <Route
+          path="/contratos"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaContratos/>
             </div>
           }
         />

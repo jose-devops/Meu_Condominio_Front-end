@@ -46,7 +46,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/contratos" className="sidebar-link">
             <div className="icon-container">
               <img src={iconeContratos} alt="Contratos" width="30" height="30" />
             </div>
