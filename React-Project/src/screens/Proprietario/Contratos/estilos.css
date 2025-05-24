@@ -1,0 +1,288 @@
+/* Estilos para a tela de contratos - reutilizando a base da tela de agendamento */
+.tela-contratos-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f8;
+  color: #333;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* MENU LATERAL */
+.sidebar {
+  width: 260px;
+  background-color: #326978;
+  color: #f0f3f7;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 2px 0 8px rgb(0 0 0 / 0.1);
+  overflow-y: auto;
+}
+
+.sidebar.retracted {
+  width: 70px !important;
+}
+
+/* Conteúdo principal */
+.conteudo-principal {
+  margin-left: 260px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  overflow: hidden;
+  background-color: #fff;
+  width: calc(100% - 260px);
+}
+
+.tela-contratos-container.sidebar-collapsed .conteudo-principal {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
+/* CABEÇALHO */
+.header {
+  position: fixed;
+  left: 260px;
+  right: 0;
+  top: 0;
+  height: 64px;
+  background: #ffffff;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: none;
+  z-index: 900;
+  transition: left 0.3s ease, width 0.3s ease;
+  width: calc(100% - 260px);
+}
+
+.tela-contratos-container.sidebar-collapsed .header {
+  left: 70px;
+  width: calc(100% - 70px);
+}
+
+.conteudo-contratos {
+  padding: 88px 32px 24px 32px;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Título - Ajustado para 30% da largura */
+.titulo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: -70px;
+  width: 10%; /* Ajustado para 30% conforme solicitado */
+  max-width: 10%;
+  min-width: 100px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.contratos-icon {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  color: #326978;
+}
+
+/* Container controles (busca + botões) */
+.controles-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -30px;
+  gap: 16px;
+  width: 100%;
+}
+
+.busca-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.botoes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.botao-atualizar {
+  background-color: #326978;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  height: 38px;
+  width: 38px;
+  transition: background-color 0.3s ease;
+}
+
+.botao-atualizar:hover {
+  background-color: #265561;
+}
+
+.botao-atualizar svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Tabela contratos */
+.tabela-agendamentos {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tabela-agendamentos thead tr {
+  background-color: #326978;
+  color: white;
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela-agendamentos thead th {
+  padding: 12px 15px;
+  border: none;
+  user-select: none;
+  cursor: default;
+}
+
+.tabela-agendamentos thead th:first-child {
+  border-top-left-radius: 4px;
+}
+
+.tabela-agendamentos thead th:last-child {
+  border-top-right-radius: 4px;
+  text-align: 50%;
+}
+
+.tabela-agendamentos tbody tr {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tabela-agendamentos tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.tabela-agendamentos tbody td {
+  padding: 12px 15px;
+  border: none;
+  vertical-align: middle;
+}
+
+.tabela-agendamentos tbody td:first-child {
+  text-align: center;
+  width: 40px;
+}
+
+.tabela-agendamentos tbody td:last-child {
+  text-align: center;
+  width: 100px;
+}
+
+/* Botões da coluna ações */
+.acoes button {
+  background-color: transparent;
+  border: none;
+  color: #326978;
+  cursor: pointer;
+  margin: 0 4px;
+  padding: 6px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.acoes button:hover {
+  color: #1d4049;
+}
+
+/* RESPONSIVO */
+
+/* Tela pequena: sidebar vira drawer overlay */
+@media (max-width: 768px) {
+  /* Sidebar offscreen por padrão */
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    width: 260px;
+    transition: transform 0.3s ease;
+    z-index: 1001;
+  }
+  /* Quando aberto */
+  .tela-contratos-container.sidebar-collapsed .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Conteúdo principal 100% largura */
+  .conteudo-principal {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding-top: 64px;
+  }
+
+  /* Header full width */
+  .header {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Tabela com scroll horizontal */
+  .tabela-agendamentos {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Controles em coluna */
+  .controles-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .busca-container {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .botoes-container {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  /* Título responsivo */
+  .titulo-container {
+    width: 100%;
+    max-width: 100%;
+  }
+}
