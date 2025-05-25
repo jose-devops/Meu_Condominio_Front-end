@@ -1,4 +1,6 @@
 import React from 'react';
+import PrivateRoute from './routes/PrivateRoute';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TelaTipoAcesso from './screens/TipoAcesso';
 import LoginProprietario from './screens/Proprietario/Login/LoginProprietario';
@@ -30,9 +32,11 @@ feature/interface-PaginaPrincipalProprietario
         <Route
           path="/tela-principal"
           element={
+            <PrivateRoute>
             <div style={{ display: 'flex' }}>
               <TelaPrincipal />
             </div>
+            </PrivateRoute>
           }
         />
         {/* ROTA NOVA DE AGENDAMENTOS */}

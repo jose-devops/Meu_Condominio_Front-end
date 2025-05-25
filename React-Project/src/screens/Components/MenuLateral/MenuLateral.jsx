@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Adicionado para navegação
+
 import './MenuLateral.css'; 
 
 import iconeHome from '../../IMG/ICON/tela-principal/icone-home.png';
@@ -10,6 +12,31 @@ import iconePrestadores from '../../IMG/ICON/tela-principal/icone-prestadores.pn
 import iconeSair from '../../IMG/ICON/tela-principal/icone-sair.png';
 
 const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
+
+    const navigate = useNavigate();
+
+  // Função para logout
+  const handleLogout = () => {
+    // 1. Remove o token/localStorage (ajuste conforme sua aplicação)
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // 2. Redireciona para a tela de login
+    navigate('/login-proprietario');
+  };
+
+  // Itens do menu (para evitar repetição)
+  const menuItems = [
+    { icon: iconeHome, label: 'Home', path: '/' },
+    { icon: iconeAgendamento, label: 'Agendamento', path: '/agendamentos' },
+    { icon: iconeInquilino, label: 'Inquilino', path: '/inquilino' },
+    { icon: iconeContratos, label: 'Contratos', path: '/contratos' },
+    { icon: iconeImovel, label: 'Imóvel', path: '/imovel' },
+    { icon: iconePrestadores, label: 'Prestadores', path: '/prestadores' },
+  ];
+
+
+
   return (
     <div className={`sidebar ${isCollapsed ? 'retracted' : ''}`}>
       {/* Botão de alternância */}
@@ -74,11 +101,12 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
       {/* Menu sair */}
       <ul>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <button className="sidebar-link" onClick={handleLogout}>
             <div className="icon-container">
               <img src={iconeSair} alt="Sair" width="30" height="30" />
             </div>
-          </a>
+            {!isCollapsed && <span className="sidebar-text">Sair</span>}
+          </button>
         </li>
       </ul>
     </div>
