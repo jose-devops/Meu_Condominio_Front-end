@@ -17,3 +17,7 @@ export const logout = () => {
 export const isLoggedIn = () => {
   return !!getToken();
 };
+
+export const getTipoAcesso = () => {
+  return localStorage.getItem('tipoAcesso');
+};
