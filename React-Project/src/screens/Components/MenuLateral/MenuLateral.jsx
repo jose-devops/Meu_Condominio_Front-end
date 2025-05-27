@@ -22,7 +22,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
       {/* Itens do Menu */}
       <ul className="list-unstyled flex-grow-1">
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/tela-principal" className="sidebar-link">
             <div className="icon-container">
               <img src={iconeHome} alt="Home" width="30" height="30" />
             </div>
@@ -38,7 +38,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/morador" className="sidebar-link">
             <div className="icon-container">
               <img src={iconeInquilino} alt="Inquilino" width="30" height="30" />
             </div>
@@ -46,7 +46,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/contratos" className="sidebar-link">
             <div className="icon-container">
               <img src={iconeContratos} alt="Contratos" width="30" height="30" />
             </div>
@@ -54,7 +54,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/imovel" className="sidebar-link">
             <div className="icon-container">
               <img src={iconeImovel} alt="Imóvel" width="30" height="30" />
             </div>
@@ -62,7 +62,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item">
-          <a href="#" className="sidebar-link">
+          <a href="/prestadores" className="sidebar-link">
             <div className="icon-container">
               <img src={iconePrestadores} alt="Prestadores" width="30" height="30" />
             </div>
