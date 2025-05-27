@@ -23,6 +23,8 @@ function AppRoutes() {
     <Router>
       <Routes>
         {/* Rota sem menu lateral */}
+        
+
         <Route path="/" element={<TelaTipoAcesso />} />
         <Route path="/login-proprietario" element={<LoginProprietario />} />
         <Route path="/login-morador" element={<LoginMorador />} />

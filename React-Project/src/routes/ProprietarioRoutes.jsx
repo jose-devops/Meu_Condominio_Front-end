@@ -5,8 +5,15 @@ import RoleProtectedRoute from './RoleProtectedRoute';
 import TelaPrincipal from '../screens/Proprietario/TelaPrincipal/TelaPrincipal';
 import TelaAgendamento from '../screens/Proprietario/Agendamento/TelaAgendamento';
 import TelaContratos from '../screens/Proprietario/Contratos/TelaContratos';
+import SplashScreen from '../screens/Components/SplashScreen'; // ajuste o caminho se necessário
 
 const routes = [
+
+  <Route
+    key="splash-screen"
+    path="/SplashScreen"
+    element={<SplashScreen />}
+  />,
   <Route
     key="tela-principal"
     path="/tela-principal"
