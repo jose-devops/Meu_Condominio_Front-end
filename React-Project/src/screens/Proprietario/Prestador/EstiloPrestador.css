@@ -1,0 +1,266 @@
+/* Container principal */
+.tela-prestador-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f8;
+  color: #333;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* MENU LATERAL */
+.sidebar {
+  width: 260px;
+  background-color: #326978;
+  color: #f0f3f7;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.sidebar.retracted {
+  width: 70px !important;
+}
+
+/* Conteúdo principal */
+.conteudo-principal {
+  margin-left: 260px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  overflow: hidden;
+  background-color: #fff;
+  width: calc(100% - 260px);
+}
+
+.tela-prestador-container.sidebar-collapsed .conteudo-principal {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
+/* Header */
+.header {
+  position: fixed;
+  left: 260px;
+  right: 0;
+  top: 0;
+  height: 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: none;
+  z-index: 900;
+  width: calc(100% - 260px);
+}
+
+.tela-prestador-container.sidebar-collapsed .header {
+  left: 70px;
+  width: calc(100% - 70px);
+}
+
+/* Conteúdo da tela */
+.conteudo-prestador {
+  padding: 140px 32px 24px 32px;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Título */
+.titulo-container {
+  display: flex;
+  align-items: center;
+  margin-top: -30px;
+  margin-bottom: -80px;
+  width: auto;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.prestador-icon {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  color: #326978;
+}
+
+/* Controles */
+.controles-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 5px;
+  gap: 16px;
+  width: 100%;
+}
+
+.busca-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.botoes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botão atualizar */
+.botao-atualizar {
+  background-color: #326978;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  height: 38px;
+  width: 38px;
+  transition: background-color 0.3s ease;
+}
+
+.botao-atualizar:hover {
+  background-color: #265561;
+}
+
+/* Tabela */
+.tabela-prestadores {
+  margin-top: -100px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.tabela-prestadores thead tr {
+  background-color: #326978;
+  color: white;
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela-prestadores thead th {
+  padding: 12px 15px;
+}
+
+.tabela-prestadores tbody tr {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tabela-prestadores tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.tabela-prestadores tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+.tabela-prestadores tbody td:first-child {
+  text-align: center;
+  width: 60px;
+}
+
+.tabela-prestadores tbody td:last-child {
+  text-align: center;
+  width: 100px;
+}
+
+/* Ações */
+.acoes button {
+  background-color: transparent;
+  border: none;
+  color: #326978;
+  cursor: pointer;
+  margin: 0 4px;
+  padding: 6px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.acoes button:hover {
+  color: #1d4049;
+}
+
+.acoes .icon-edit:hover {
+  color: #ff9800;
+}
+
+.acoes .icon-delete:hover {
+  color: #f44336;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 260px;
+    transition: transform 0.3s ease;
+  }
+
+  .tela-prestador-container.sidebar-collapsed .sidebar {
+    transform: translateX(0);
+  }
+
+  .conteudo-principal {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding-top: 64px;
+  }
+
+  .header {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .tabela-prestadores {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .controles-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .busca-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .botoes-container {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .titulo-container {
+    width: 100%;
+  }
+}
