@@ -11,7 +11,7 @@ import MenuPrincipal from './screens/Components/MenuLateral/MenuPrincipal/MenuPr
 import TelaAgendamento from './screens/Proprietario/Agendamento/TelaAgendamento'; // <<< IMPORTAÇÃO NOVA
 import TelaContratos from './screens/Proprietario/Contratos/TelaContratos'; // <<< Import correto
 import TelaImovel from './screens/Proprietario/Imovel/TelaImovel';
-
+import TelaPrestador from './screens/Proprietario/Prestador/TelaPrestador';
 
 
 function AppRoutes() {
@@ -59,6 +59,14 @@ feature/interface-PaginaPrincipalProprietario
           element={
             <div style={{ display: 'flex' }}>
               <TelaImovel/>
+            </div>
+          }
+        />
+        <Route
+          path="/prestadores"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaPrestador/>
             </div>
           }
         />
