@@ -1,4 +1,4 @@
-/* Estilos para a tela de contratos - reutilizando a base da tela de agendamento */
+/* Container principal */
 .tela-contratos-container {
   display: flex;
   min-height: 100vh;
@@ -22,7 +22,7 @@
   left: 0;
   top: 0;
   z-index: 1000;
-  box-shadow: 2px 0 8px rgb(0 0 0 / 0.1);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 }
 
@@ -48,7 +48,7 @@
   width: calc(100% - 70px);
 }
 
-/* CABEÇALHO */
+/* Header */
 .header {
   position: fixed;
   left: 260px;
@@ -56,13 +56,11 @@
   top: 0;
   height: 64px;
   background: #ffffff;
-  border-bottom: none;
   display: flex;
   align-items: center;
   padding: 0 24px;
   box-shadow: none;
   z-index: 900;
-  transition: left 0.3s ease, width 0.3s ease;
   width: calc(100% - 260px);
 }
 
@@ -71,8 +69,9 @@
   width: calc(100% - 70px);
 }
 
+/* Conteúdo da tela */
 .conteudo-contratos {
-  padding: 88px 32px 24px 32px;
+  padding: 140px 32px 24px 32px;
   overflow-y: auto;
   flex-grow: 1;
   display: flex;
@@ -81,14 +80,13 @@
   box-sizing: border-box;
 }
 
-/* Título - Ajustado para 30% da largura */
+/* Título */
 .titulo-container {
   display: flex;
   align-items: center;
-  margin-bottom: -70px;
-  width: 10%; /* Ajustado para 30% conforme solicitado */
-  max-width: 10%;
-  min-width: 100px;
+  margin-top: -30px;
+  margin-bottom: -80px;
+  width: auto;
 }
 
 .titulo {
@@ -106,12 +104,13 @@
   color: #326978;
 }
 
-/* Container controles (busca + botões) */
+/* Controles */
 .controles-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: -30px;
+  margin-bottom: 30px;
+  margin-top: 5px;
   gap: 16px;
   width: 100%;
 }
@@ -128,6 +127,7 @@
   gap: 10px;
 }
 
+/* Botão atualizar */
 .botao-atualizar {
   background-color: #326978;
   border: none;
@@ -147,19 +147,14 @@
   background-color: #265561;
 }
 
-.botao-atualizar svg {
-  width: 18px;
-  height: 18px;
-}
-
-/* Tabela contratos */
+/* Tabela */
 .tabela-agendamentos {
+  margin-top: -100px;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 14px;
   color: #333;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .tabela-agendamentos thead tr {
@@ -171,18 +166,6 @@
 
 .tabela-agendamentos thead th {
   padding: 12px 15px;
-  border: none;
-  user-select: none;
-  cursor: default;
-}
-
-.tabela-agendamentos thead th:first-child {
-  border-top-left-radius: 4px;
-}
-
-.tabela-agendamentos thead th:last-child {
-  border-top-right-radius: 4px;
-  text-align: 50%;
 }
 
 .tabela-agendamentos tbody tr {
@@ -196,7 +179,6 @@
 
 .tabela-agendamentos tbody td {
   padding: 12px 15px;
-  border: none;
   vertical-align: middle;
 }
 
@@ -210,7 +192,7 @@
   width: 100px;
 }
 
-/* Botões da coluna ações */
+/* Ações */
 .acoes button {
   background-color: transparent;
   border: none;
@@ -226,63 +208,51 @@
   color: #1d4049;
 }
 
-/* RESPONSIVO */
-
-/* Tela pequena: sidebar vira drawer overlay */
+/* Responsivo */
 @media (max-width: 768px) {
-  /* Sidebar offscreen por padrão */
   .sidebar {
-    position: fixed;
     transform: translateX(-100%);
     width: 260px;
     transition: transform 0.3s ease;
-    z-index: 1001;
   }
-  /* Quando aberto */
+
   .tela-contratos-container.sidebar-collapsed .sidebar {
     transform: translateX(0);
   }
 
-  /* Conteúdo principal 100% largura */
   .conteudo-principal {
     margin-left: 0 !important;
     width: 100% !important;
     padding-top: 64px;
   }
 
-  /* Header full width */
   .header {
     left: 0 !important;
     width: 100% !important;
   }
 
-  /* Tabela com scroll horizontal */
   .tabela-agendamentos {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
   }
 
-  /* Controles em coluna */
   .controles-container {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .busca-container {
     width: 100%;
-    max-width: 100%;
     margin-bottom: 15px;
   }
-  
+
   .botoes-container {
     width: 100%;
     justify-content: flex-end;
   }
-  
-  /* Título responsivo */
+
   .titulo-container {
     width: 100%;
-    max-width: 100%;
   }
 }

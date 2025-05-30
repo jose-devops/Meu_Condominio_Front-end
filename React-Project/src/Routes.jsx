@@ -16,6 +16,8 @@ import LogoAndNotification from './screens/Components/MenuLateral/Logo&Notificac
 import MenuPrincipal from './screens/Components/MenuLateral/MenuPrincipal/MenuPrincipal';
 import TelaAgendamento from './screens/Proprietario/Agendamento/TelaAgendamento'; // <<< IMPORTAÇÃO NOVA
 import TelaContratos from './screens/Proprietario/Contratos/TelaContratos'; // <<< Import correto
+import TelaImovel from './screens/Proprietario/Imovel/TelaImovel';
+import TelaPrestador from './screens/Proprietario/Prestador/TelaPrestador';
 
 
 function AppRoutes() {
@@ -39,12 +41,24 @@ function AppRoutes() {
         {/*APAGAR DEPOIS QUE TIVER TODAS AS TELAS E MANTER AS ROTAS PROTEGITAS POR TIPO */}
         {/* TODO: Cole aqui as rotas antigas enquanto finalizam as migrações */}
 
-
-
-  
-
-
+        <Route
+          path="/imovel"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaImovel/>
+            </div>
+          }
+        />
+        <Route
+          path="/prestadores"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaPrestador/>
+            </div>
+          }
+        />
       </Routes>
+      
     </Router>
   );
 }
