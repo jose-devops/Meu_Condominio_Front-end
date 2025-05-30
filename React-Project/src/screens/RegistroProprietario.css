@@ -7,22 +7,78 @@
     background: linear-gradient(to right, #326978 0%, #4892AB 50%, #5DBCDE 100%);
 }
 
+.card{
+    width: 950px;
+    height: auto;
+    
+    
+    
+
+}
+
+
+
 /* Estilo do card */
-.card {
+.modal-area {
     background-color: #EEEEEE;
-    padding: 30px;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 800px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    
+    
+}
+
+
+.top-bar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px; /* altura da barra preta */
+  background-color: #383e3e; /* cor preta puxada para cinza escuro */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.NameFormRegister{
+    margin-top: 10%;
+    margin-bottom: 15%;
+
 }
 
 /* Título */
-h2 {
+h1 {
     font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
     font-weight: bold;
+    color: #4d4d4d;
+    
+}
+
+.form-register-propietario{
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+    
+    
+}
+
+.back-to-login-area{
+    width: 100%;
+    text-align: center;
+}
+
+.back-to-login-area a {
+    text-decoration: none;
+    color: #0b3c47;
+    font-weight: 600;
+
+}
+
+
+.back-to-login-area a:hover {
+    
+    color: #326978;
+   
+
 }
 
 /* Estilo dos campos de input */
@@ -34,8 +90,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="tel
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #0b3c47;
+    border-radius: 5px;
     font-size: 14px;
 }
 
@@ -43,27 +99,15 @@ input[type="radio"] {
     width: auto;
 }
 
-/* Estilo do botão */
-.btn-primary {
-    background-color: #ffffff;
-    border-color: #326978;
-    color: #326978;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 100%;
-}
 
-.btn-primary:hover {
-    background-color: #326978;
-    color: white;
-}
+
+
 
 /* Estilo do separador (linha horizontal) */
-hr {
-    border: 0;
-    border-top: 3px solid #174743; /* Cor da linha de separação */
-    margin: 20px 0; /* Espaço ao redor do separador */
+.linha-central {
+  width: 2px;
+  background-color: #0b3c47;
+  margin: 0 30px;
 }
 
 /* Estilo das labels */
@@ -76,44 +120,62 @@ label {
     margin-left: 10px;
 }
 
-.text-center {
-    text-align: center;
-    margin-top: 20px;
+.buttom-register-area {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 30px;
+
 }
 
-/* Responsividade para telas pequenas */
-@media (max-width: 768px) {
-    .card {
-        padding: 20px;
-    }
+.buttom-register-area button{
+    width: 150px;
+    font-size: 12px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #0b3c47;
+    font-weight: 600;
+    border: 2px solid #0b3c47;
+    
 
-    .form-group {
-        margin-bottom: 10px;
-    }
-
-    .btn-primary {
-        padding: 12px;
-    }
-
-    /* Fazer as colunas ficarem uma embaixo da outra em telas pequenas */
-    .form-container {
-        flex-direction: column;
-    }
-
-    /* Ajuste no card para as colunas ficarem em tela pequena */
-    .form-left,
-    .form-right {
-        max-width: 100%;
-    }
 }
+
+
+.buttom-register-area button:hover{
+    background-color: #0b3c47;
+    color: #fff;
+    
+
+}
+
+.tipo-radio{
+    width: 100%;
+    height: 30px;   
+}
+
+
+.radio-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+   
+}
+
+input[type="radio"] {
+  accent-color: #0b3c47; /* verde-azulado escuro */
+}
+
 
 /* Layout para as colunas */
 .form-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Espaço entre as colunas */
-    flex-wrap: wrap; /* Permite que as colunas se ajustem em telas menores */
+    gap: 20px; 
+    flex-wrap: wrap; 
+    padding: 100px;
 }
+
 
 /* Coluna esquerda */
 .form-left {
@@ -125,4 +187,79 @@ label {
 .form-right {
     flex: 1;
     max-width: 48%; /* Limita o tamanho da coluna à 48% */
+}
+
+
+
+
+
+
+
+@media (max-width: 992px) {
+    /* Para telas intermediárias, reduz padding do form-container */
+    .form-container {
+        padding: 30px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Para tablets e telas pequenas, empilha as colunas */
+    .form-container {
+        flex-direction: column;
+        padding: 20px 20px;
+    }
+
+    .form-left,
+    .form-right {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    /* Remove linha central para evitar espaço desnecessário */
+    .linha-central {
+        display: none;
+    }
+
+    .NameFormRegister {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Para celulares, reduz ainda mais o padding e font sizes */
+
+    .container {
+        padding: 10px;
+    }
+
+    .modal-area {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"] {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .buttom-register-area button {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .radio-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .radio-buttons label {
+        margin-bottom: 5px;
+    }
 }

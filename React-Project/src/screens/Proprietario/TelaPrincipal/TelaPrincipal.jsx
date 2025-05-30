@@ -11,6 +11,7 @@ const TelaPrincipal = () => {
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   return (
+    
     <div className="tela-principal">
       {/* Cabeçalho com Logo e Notificação */}
       <header className="header">

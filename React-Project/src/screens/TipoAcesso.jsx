@@ -1,7 +1,7 @@
 import React from 'react';
 import './TipoAcesso.css';
 import { Link } from 'react-router-dom';
-import logo from './IMG/logo/logo_principal.png';
+import logo from './IMG/logo/logo_principal_white.png';
 import iconeInquilino from './IMG/ICON/icone-chave.png';
 import iconeProprietario from './IMG/ICON/icone-casa.png';
 
