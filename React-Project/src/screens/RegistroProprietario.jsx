@@ -30,8 +30,10 @@ const RegistroProprietario = () => {
     return (
         <div className="container">
             <div className="card p-4">
-                <h2 className="text-center">CADASTRO DE PROPRIETÁRIO</h2>
-                <form onSubmit={handleSubmit} className="form-container">
+
+                <div className="modal-area">
+                    <div className="top-bar"></div>
+                    <form onSubmit={handleSubmit} className="form-container">
                     <div className="form-left">
                         <div className="form-group">
                             <label htmlFor="nome">Nome</label>
@@ -57,23 +59,26 @@ const RegistroProprietario = () => {
                                 placeholder="Razão"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Tipo:</label>
-                            <div>
+
+
+                        <div className="form-group tipo-radio">
+                            
+                            <div className='radio-buttons'>
+                                <label>Tipo:</label>
                                 <input
                                     type="radio"
-                                    id="fisico"
+                                    id="FISICO"
                                     name="tipo"
-                                    value="fisico"
-                                    checked={formData.tipo === 'fisico'}
+                                    value="FISICO"
+                                    checked={formData.tipo === 'FISICO'}
                                     onChange={handleChange}
                                 /> Físico
                                 <input
                                     type="radio"
                                     id="juridico"
                                     name="tipo"
-                                    value="juridico"
-                                    checked={formData.tipo === 'juridico'}
+                                    value="JURIDICO"
+                                    checked={formData.tipo === 'JURIDICO'}
                                     onChange={handleChange}
                                 /> Jurídico
                             </div>
@@ -90,6 +95,10 @@ const RegistroProprietario = () => {
                                 placeholder="CPF / CNPJ"
                             />
                         </div>
+
+
+
+
                         <div className="form-group">
                             <label htmlFor="telefone">Telefone</label>
                             <input
@@ -116,12 +125,22 @@ const RegistroProprietario = () => {
                         </div>
                     </div>
 
-                    {/* Linha separadora entre os dados e o login */}
-                    <hr />
+
+                     <div className="linha-central"></div>
+
+
 
                     {/* Coluna direita */}
                     <div className="form-right">
-                        <div className="form-group">
+
+                        <div className='NameFormRegister'>
+                            <h1>CADASTRO DE</h1>
+                            <h1>PROPRIETÁRIO</h1>
+                        </div>
+
+                        <form class="form-register-propietario">
+
+                                                    <div className="form-group">
                             <label htmlFor="email">E-mail</label>
                             <input
                                 type="email"
@@ -145,11 +164,25 @@ const RegistroProprietario = () => {
                                 placeholder="Senha"
                             />
                         </div>
-                        <div className="text-center mt-4">
-                            <button type="submit" className="btn btn-primary">CADASTRAR</button>
+
+                        <div className="buttom-register-area">
+                            <button type="submit">CADASTRAR</button>
                         </div>
+
+                        </form>
+
+                        <div className='back-to-login-area'>
+                            <p className="login-texto">
+                            Já possui uma conta? <Link to="/login-proprietario">ENTRAR</Link>
+                            </p>  
+                        </div>
+
+
                     </div>
                 </form>
+                </div>
+                
+
             </div>
         </div>
     );

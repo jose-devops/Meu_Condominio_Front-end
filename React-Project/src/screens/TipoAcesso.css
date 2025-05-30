@@ -81,6 +81,10 @@
   margin-top: 20px;
 }
 
+.botao_acesso:hover{
+  background-color: #326978;
+}
+
 
 /* Responsivo para telas menores */
 @media (max-width: 1024px) {
