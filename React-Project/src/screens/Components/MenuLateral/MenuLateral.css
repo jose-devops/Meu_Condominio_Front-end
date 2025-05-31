@@ -11,7 +11,21 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: width 0.3s ease;
 }
+
+/* Centraliza o ícone dentro do container */
+.sidebar.retracted .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+
+
 
 /* Itens do menu */
 .sidebar ul {
@@ -99,6 +113,10 @@ button {
   position: relative;
 }
 
+
+
+
+
 /* Estilos para a barra lateral expandida */
 .sidebar:not(.retracted) #sidebar-icon {
   transform: rotate(180deg); 
@@ -121,3 +139,19 @@ button {
   height: 40px;  
   transition: background-color 0.3s ease, border-color 0.3s ease; 
 }
+
+.sidebar-link:hover .icon-container {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+ 
+}
+
+
+.sidebar.retracted .sidebar-item button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+

@@ -6,7 +6,8 @@ import Pesquisa from '../../Components/MenuLateral/Pesquisa/Pesquisa';
 import './TelaPrincipal.css';
 
 const TelaPrincipal = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
 
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 

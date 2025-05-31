@@ -1,5 +1,6 @@
 import { registrarProprietario } from '../api/proprietarioService';
 
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -26,6 +27,8 @@ const RegistroProprietario = () => {
   
   const [erroGeral, setErroGeral] = useState('');
   const [sucesso, setSucesso] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -211,15 +214,29 @@ const RegistroProprietario = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="senha">Senha</label>
-                <input
-                  type="password"
-                  id="senha"
-                  name="senha"
-                  className="form-control"
-                  value={formData.senha}
-                  onChange={handleChange}
-                  placeholder="Senha"
-                />
+                <div class="senha-container">
+
+                  <input
+                    type={mostrarSenha ? 'text' : 'password'}
+                    id="senha"
+                    name="senha"
+                    className="form-control"
+                    value={formData.senha}
+                    onChange={handleChange}
+                    placeholder="Senha"
+
+                    
+                  />
+
+                <i
+                  className={`fa-solid ${mostrarSenha ? 'fa-eye-slash' : 'fa-eye'} icone-olho`}
+                  onClick={() => setMostrarSenha(!mostrarSenha)}
+                ></i>
+
+                </div>
+
+
+
 
                 {erroSenha && <span className="mensagem-erro">{erroSenha}</span>}
 

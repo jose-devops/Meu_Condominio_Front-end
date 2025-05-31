@@ -126,6 +126,7 @@ label {
     align-items: center;
     display: flex;
     margin-top: 30px;
+    margin-bottom: 10%;
 
 }
 
@@ -241,6 +242,36 @@ input[type="radio"] {
   margin-left: 10px;
   font-weight: 600;
 }
+
+
+
+.senha-container {
+  position: relative;
+}
+
+.input-senha {
+  padding-right: 30px; 
+}
+
+.icone-olho {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #4892AB;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 @keyframes fadeOut {
   to {
