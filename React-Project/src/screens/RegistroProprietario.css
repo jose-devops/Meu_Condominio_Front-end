@@ -126,6 +126,7 @@ label {
     align-items: center;
     display: flex;
     margin-top: 30px;
+    margin-bottom: 10%;
 
 }
 
@@ -188,6 +189,103 @@ input[type="radio"] {
     flex: 1;
     max-width: 48%; /* Limita o tamanho da coluna à 48% */
 }
+
+
+
+.toast-sucesso-personalizado {
+  height: 60px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ddd;
+  color: #004c5f;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  display: flex;
+  z-index: 10000;
+  width: 300px;
+  animation: fadeOut 0.3s ease-in-out 3.7s forwards;
+}
+
+.toast-barra-lateral-sucesso {
+  width: 10px;
+  background-color: #2d7e94; /* azul escuro */
+  border-radius: 8px 0px 0px 8px;
+}
+
+.toast-conteudo {
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.text-toats{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.toast-texto-sucesso {
+  font-weight: bold;
+  color: #12802d;
+  flex: 1;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+.toast-fechar {
+  cursor: pointer;
+  font-size: 20px;
+  color: #004c5f;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+
+
+.senha-container {
+  position: relative;
+}
+
+.input-senha {
+  padding-right: 30px; 
+}
+
+.icone-olho {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #4892AB;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+}
+
+
+
+
+
+
 
 
 

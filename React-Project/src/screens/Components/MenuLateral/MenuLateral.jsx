@@ -39,10 +39,15 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
 
   return (
     <div className={`sidebar ${isCollapsed ? 'retracted' : ''}`}>
+
+
       {/* Botão de alternância */}
       <div className="sidebar-toggle">
         <button id="toggle-btn" className="btn" onClick={toggleSidebar}>
-          <span id="sidebar-icon">&#9776;</span>
+          <span id="sidebar-icon">
+            <i className={`fa-solid ${isCollapsed ? 'fa-solid fa-bars' : 'fa-solid fa-bars'}`}></i>
+
+          </span>
         </button>
       </div>
       
