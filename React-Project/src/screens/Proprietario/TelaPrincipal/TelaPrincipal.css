@@ -12,6 +12,8 @@
   .header-principal{
     width: 100%;
     height: 200px;
+    transition: margin-left 0.3s ease;
+
     
     
 
@@ -20,7 +22,7 @@
   .title-header{
     padding: 60px;
     width: 100%;
-    margin-left: 70px;
+    
     justify-content: space-between;
     
 
@@ -92,6 +94,9 @@
     padding: 20px;
     
   }
+
+
+  
   
   .main-content.with-sidebar {
     margin-left: 250px;
@@ -118,4 +123,12 @@
     margin-left: 80px; /* desloca para direita para não ficar sobre o menu recolhido */
     transition: margin-left 0.3s ease;
   }
+
+  .header-principal.with-sidebar {
+  margin-left: 250px;
+}
+
+.header-principal.no-sidebar {
+  margin-left: 60px;
+}
   

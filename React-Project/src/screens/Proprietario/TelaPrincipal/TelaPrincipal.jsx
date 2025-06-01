@@ -18,7 +18,7 @@ const TelaPrincipal = () => {
 
 
      
-      <header className="header-principal">
+      <header className={`header-principal ${isCollapsed ? 'no-sidebar' : 'with-sidebar'}`}>
 
 
 

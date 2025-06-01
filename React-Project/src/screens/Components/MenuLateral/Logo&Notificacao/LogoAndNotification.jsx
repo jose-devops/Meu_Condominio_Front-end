@@ -21,6 +21,8 @@ const LogoAndNotification = () => {
         <i class="fa-solid fa-user user"></i>
       </div>
 
+      
+
       {modalOpen && (
         <div className="modal-container" onClick={() => setModalOpen(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>

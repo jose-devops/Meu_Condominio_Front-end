@@ -29,6 +29,10 @@
 
 }
 
+.logo-container:hover{
+  background-color: #31545e;
+}
+
 
 
 
@@ -52,6 +56,12 @@
   padding: 10px;
   border-radius: 10px;
   background-color: #326978;
+}
+
+
+.notification-container:hover{
+  background-color: #31545e;
+
 }
 
 /* Estilo do modal */
