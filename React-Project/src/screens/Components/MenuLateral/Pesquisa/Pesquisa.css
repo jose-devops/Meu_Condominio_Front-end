@@ -5,6 +5,7 @@
     width: 100%; /* Garante que a pesquisa ocupe o máximo de espaço disponível */
     max-width: 500px; /* Largura máxima da barra de pesquisa */
     height: 200px;
+    background-color: #ff7f00;
   }
   
   .search-bar input {

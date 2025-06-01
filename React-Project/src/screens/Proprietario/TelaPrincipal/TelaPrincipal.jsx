@@ -5,6 +5,8 @@ import MenuPrincipal from '../../Components/MenuLateral/MenuPrincipal/MenuPrinci
 import Pesquisa from '../../Components/MenuLateral/Pesquisa/Pesquisa';
 import './TelaPrincipal.css';
 
+
+
 const TelaPrincipal = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -12,11 +14,28 @@ const TelaPrincipal = () => {
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   return (
-    
     <div className="tela-principal">
-      {/* Cabeçalho com Logo e Notificação */}
-      <header className="header">
-        <LogoAndNotification />
+
+
+     
+      <header className="header-principal">
+
+
+
+        <div className='title-header'>
+
+          <h1>Olá, Proprietario</h1>
+          <h2>Seja bem vindo!</h2>
+
+        <div class='header-userArea'>
+          <LogoAndNotification />
+        </div>
+        </div>
+
+
+
+
+        
       </header>
 
       {/* Layout com Menu Lateral e Conteúdo */}
@@ -24,8 +43,7 @@ const TelaPrincipal = () => {
         <MenuLateral isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
 
         <div className={`main-content ${isCollapsed ? 'no-sidebar' : 'with-sidebar'}`}>
-          <Pesquisa />
-          <MenuPrincipal />
+          <MenuPrincipal/>
         </div>
       </div>
     </div>

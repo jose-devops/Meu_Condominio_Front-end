@@ -10,6 +10,7 @@
   transform: translateX(-10%);
   height: 20%;
   z-index: 10; /* Para garantir que fique acima de outros elementos */
+  
 }
 
 /* Estilo da logo */
@@ -18,35 +19,52 @@
   align-items: center;
   cursor: pointer; /* Torna o logo clicável */
   position: relative; /* Necessário para o posicionamento absoluto do modal */
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px;
+  width: 44px;
+  justify-content: center;
+  border: 2px solid #326978;
+  background-color: #326978;
+
 }
 
-/* Logo */
-.logo {
-  height: 80px;
+
+
+
+.user {
+  font-size: 20px;
+  color: #ffffff;
+
+  
 }
+
+
+
 
 /* Estilo do ícone de notificação */
 .notification-container {
   position: relative;
   display: flex;
   align-items: center;
-  margin-right: 50px;
+  margin-right: 20px;
   border: 2px solid #326978;
   padding: 10px;
   border-radius: 10px;
+  background-color: #326978;
 }
 
 /* Estilo do modal */
 .modal-container {
   position: absolute; /* Modal posicionado em relação ao contêiner da logo */
-  top: 80%; /* Coloca o modal abaixo do logo */
+  top: 70%; /* Coloca o modal abaixo do logo */
   right: 0; /* Alinha o modal à direita do contêiner */
-  background-color: #404040;
+ 
   display: flex;
   width: 150px; /* Largura do modal */
   border-radius: 8px;
   z-index: 1000; /* Para garantir que fique em cima de tudo */
-  border: 1px solid #404040;
+  border: 1px solid #326978;
 }
 
 .modal {
@@ -59,7 +77,7 @@
 
 .modal ul {
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .modal ul li {
@@ -68,21 +86,32 @@
   margin: 10px 0;
   cursor: pointer;
   font-size: 16px;
+  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 40px;
+  
   
   
 }
 
 .modal ul li:hover {
-  background-color: #f0f0f0;
+  color: #326978;
+  font-weight: 600;
+  
 }
 
 
 .modal ul li svg {
   margin-right: 15px; /* Espaço entre ícone e texto */
+  font-size: 20px;
+  color: #326978;
 }
+
+
 .divider {
   border: none;
   border-top: 2px solid #326978;
-  margin: 20px 0; /* Espaçamento vertical */
+  margin: 20px 0;
+  border-radius: 10px;
 }
 
