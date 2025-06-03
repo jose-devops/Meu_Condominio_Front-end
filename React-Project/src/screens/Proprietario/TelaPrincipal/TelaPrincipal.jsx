@@ -27,9 +27,11 @@ const TelaPrincipal = () => {
           <h1>Olá, Proprietario</h1>
           <h2>Seja bem vindo!</h2>
 
-        <div class='header-userArea'>
-          <LogoAndNotification />
-        </div>
+          <div class='header-userArea'>
+            <LogoAndNotification />
+          </div>
+
+        
         </div>
 
 

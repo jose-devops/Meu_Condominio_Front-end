@@ -1,13 +1,11 @@
 import React from 'react';
 import { FaSearch } from "react-icons/fa";
-import './CampoBusca.css';
+import './CampoBuscaAgendamentos.css';
 
-/**
- * Componente de campo de busca com ícone separado
- */
-const CampoBusca = ({ placeholder, value, onChange }) => {
+
+const CampoBuscaAgendamentos = ({ placeholder, value, onChange }) => {
   return (
-    <div className="search-bar">
+    <div className="search-bar-agendamentos">
       <input
         type="text"
         className="form-control"
@@ -19,4 +17,4 @@ const CampoBusca = ({ placeholder, value, onChange }) => {
   );
 };
 
-export default CampoBusca;
+export default CampoBuscaAgendamentos;

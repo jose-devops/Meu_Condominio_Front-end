@@ -1,0 +1,19 @@
+
+.search-bar-agendamentos{
+    width: 500px;
+ 
+ 
+  
+ 
+}
+
+.search-bar-agendamento input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 3px solid #404040;
+  height: 38px;
+  font-size: 0.9rem;
+}
+
+

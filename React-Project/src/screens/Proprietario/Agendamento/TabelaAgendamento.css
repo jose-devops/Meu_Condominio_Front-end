@@ -1,0 +1,44 @@
+
+.tabela-agendamento {
+ 
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.tabela-agendamento thead tr {
+  background-color: #326978;
+  color: white;
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela-agendamento thead th {
+  padding: 12px 15px;
+}
+
+.tabela-agendamento tbody tr {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tabela-agendament tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.tabela-agendamento tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+.tabela-agendamento tbody td:first-child {
+  text-align: center;
+  width: 40px;
+}
+
+.tabela-agendamento tbody td:last-child {
+  text-align: center;
+  width: 100px;
+}
