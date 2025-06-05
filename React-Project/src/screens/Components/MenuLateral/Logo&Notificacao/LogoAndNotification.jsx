@@ -14,12 +14,14 @@ const LogoAndNotification = () => {
   return (
     <div className="header-container">
       <div className="notification-container">
-        <FaBell size={24} color={unread ? '#326978' : 'black'} />
+        <FaBell size={20} color={unread ? '#fff' : '#fff'} />
       </div>
 
       <div className="logo-container" onClick={toggleModal}>
-        <img src={logo} alt="Logo" className="logo" />
+        <i class="fa-solid fa-user user"></i>
       </div>
+
+      
 
       {modalOpen && (
         <div className="modal-container" onClick={() => setModalOpen(false)}>

@@ -1,0 +1,311 @@
+/* Container principal */
+.tela-inquilino-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f8f9fa; /* Cor de fundo geral mais clara */
+  color: #212529;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Conteúdo principal */
+.conteudo-principal {
+  margin-left: 260px; /* Largura padrão do MenuLateral */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  overflow: hidden;
+  background-color: #ffffff; /* Fundo branco para a área de conteúdo */
+  width: calc(100% - 260px);
+}
+
+.tela-inquilino-container.sidebar-collapsed .conteudo-principal {
+  margin-left: 70px; /* Largura do menu recolhido */
+  width: calc(100% - 70px);
+}
+
+/* Header - Ajustado para ter uma borda inferior */
+.header {
+  position: fixed;
+  left: 260px;
+  right: 0;
+  top: 0;
+  height: 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */ /* Sombra sutil */
+  border-bottom: 1px solid #dee2e6; /* Borda inferior como na imagem 3.png */
+  z-index: 900;
+  width: calc(100% - 260px);
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+.tela-inquilino-container.sidebar-collapsed .header {
+  left: 70px;
+  width: calc(100% - 70px);
+}
+
+/* Conteúdo da tela - Ajustado padding e removido margens negativas */
+.conteudo-inquilino {
+  padding: 88px 32px 24px 32px; /* Aumentado padding superior (64px header + 24px espaço) */
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Título - Ajustado espaçamento */
+.titulo-container {
+  display: flex;
+  align-items: center;
+  margin-top: -40px;     /* <<< Sobe o título */
+  margin-bottom: 16px;   /* <<< Espaço padrão abaixo do título */
+  width: auto;           /* <<< Corrige valores inválidos */
+  max-width: 100%;
+  min-width: 200px;
+}
+
+
+.titulo {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600; /* Um pouco menos pesado que 700 */
+  color: #343a40;
+  display: flex;
+  align-items: center;
+}
+
+.inquilino-icon {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  color: #326978;
+}
+
+/* Controles - Ajustado espaçamento */
+.controles-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px; /* Espaçamento padrão */
+  gap: 16px;
+  width: 100%;
+}
+
+.busca-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Permitir que a busca cresça */
+  max-width: 400px; /* Limitar largura da busca se necessário */
+}
+
+.botoes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botão atualizar - Estilo ajustado */
+.botao-atualizar {
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  color: #495057;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  height: 38px; /* Altura padrão para alinhar com input/outros botões */
+  width: 38px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.botao-atualizar:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.botao-atualizar svg {
+  width: 16px;
+  height: 16px;
+  fill: #495057;
+}
+
+/* Botão Novo (assumindo que BotaoNovo.jsx usa uma classe como .btn-novo) */
+.btn-novo {
+  background-color: #326978;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.btn-novo:hover {
+  background-color: #2a5866;
+}
+
+/* Tabela - Ajustado espaçamento e estilo */
+.tabela-inquilinoes-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.tabela-inquilinoes {
+  /* Removido margin-top negativo */
+  width: 100%;
+  border-collapse: collapse; /* Usar collapse para melhor controle de bordas */
+  font-size: 14px;
+  color: #212529;
+  min-width: 900px; /* Ajustar conforme necessidade das colunas */
+}
+
+.tabela-inquilinoes thead tr {
+  /* background-color: #e9ecef; */ /* Cinza claro como alternativa */
+  background-color: #f8f9fa; /* Cinza bem claro como na imagem */
+  color: #495057;
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6; /* Borda mais grossa abaixo do header */
+}
+
+.tabela-inquilinoes thead th {
+  padding: 12px 15px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.tabela-inquilinoes tbody tr {
+  background-color: white;
+  border-bottom: 1px solid #dee2e6; /* Linha separadora padrão */
+}
+
+.tabela-inquilinoes tbody tr:last-child {
+  border-bottom: none; /* Remover borda da última linha */
+}
+
+.tabela-inquilinoes tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+.tabela-inquilinoes tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+/* Colunas específicas - Ajustes finos se necessário */
+.tabela-inquilinoes th:first-child,
+.tabela-inquilinoes td:first-child {
+  text-align: center;
+  width: 40px;
+}
+
+.tabela-inquilinoes th:nth-child(2),
+.tabela-inquilinoes td:nth-child(2) {
+  width: 60px;
+}
+
+.tabela-inquilinoes th:last-child,
+.tabela-inquilinoes td:last-child {
+  text-align: center;
+  width: 100px;
+}
+
+/* Ações - Ajustado para ícones */
+.acoes {
+  white-space: nowrap;
+}
+
+.acoes .btn-acao {
+  background: none;
+  border: none;
+  color: #6c757d; /* Cinza padrão para ícones */
+  cursor: pointer;
+  margin: 0 2px;
+  padding: 4px;
+  display: inline-flex; /* Para alinhar ícones */
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.acoes .btn-acao svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.acoes .btn-acao:hover {
+  color: #343a40;
+  background-color: #e9ecef;
+}
+
+/* Responsivo - Manter como estava, pode precisar de ajustes finos */
+@media (max-width: 992px) { /* Ajustar breakpoint se necessário */
+  .conteudo-principal {
+    margin-left: 70px; /* Forçar menu recolhido em telas menores */
+    width: calc(100% - 70px);
+  }
+  .header {
+    left: 70px;
+    width: calc(100% - 70px);
+  }
+  /* Esconder sidebar completamente em telas muito pequenas ou ajustar */
+}
+
+@media (max-width: 768px) {
+  /* Manter regras anteriores para mobile */
+  .conteudo-principal {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding-top: 64px;
+  }
+
+  .header {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .controles-container {
+    flex-direction: column;
+    align-items: stretch; /* Esticar elementos */
+  }
+
+  .busca-container {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 15px;
+  }
+
+  .botoes-container {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .titulo-container {
+    width: 100%;
+  }
+  .conteudo-inquilino {
+    padding: 80px 16px 16px 16px; /* Reduzir padding lateral */
+  }
+}
+

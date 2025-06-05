@@ -1,0 +1,212 @@
+/* Fundo escurecido do modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo padrão */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Container do conteúdo do modal - Ajustado conforme 4.png */
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 0; /* Controlado por header/body/footer */
+  width: 100%;
+  max-width: 700px; /* Largura ajustada para comportar os campos lado a lado */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Cabeçalho do modal - Ajustado */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e9ecef; /* Linha separadora mais sutil */
+  /* background-color: #f8f9fa; */ /* Remover fundo do header para ficar branco como na imagem */
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 1rem; /* Tamanho um pouco menor */
+  font-weight: 600;
+  color: #495057; /* Cor do texto */
+  text-transform: uppercase;
+}
+
+.btn-fechar {
+  background: none;
+  border: none;
+  font-size: 1.6rem; /* Tamanho do X */
+  font-weight: 400;
+  color: #adb5bd; /* Cinza claro */
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.btn-fechar:hover {
+  color: #495057;
+}
+
+/* Corpo do modal (formulário) - Ajustado */
+.modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaçamento entre as linhas */
+  overflow-y: auto;
+  max-height: calc(80vh - 120px); /* Limitar altura (considerando header/footer) */
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Espaço entre label e input */
+}
+
+.form-group.full-width {
+  flex-basis: 100%;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+/* Estilos para inputs, select e textarea - Ajustado conforme 4.png */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff; /* Fundo branco */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #326978;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(50, 105, 120, 0.25); /* Sombra de foco */
+}
+
+.form-group input[type="date"] {
+  /* Estilização específica para data pode ser necessária */
+  position: relative;
+}
+
+/* Ícone de calendário (pseudo-elemento ou SVG) - Exemplo */
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px; /* Altura ajustada */
+}
+
+/* Rodapé do modal (botões) - Ajustado conforme 4.png */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid #e9ecef;
+  /* background-color: #f8f9fa; */ /* Remover fundo do footer */
+}
+
+/* Estilos dos botões - Ajustado conforme 4.png */
+.btn-cadastrar,
+.btn-cancelar {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-cadastrar {
+  background-color: #326978; /* Cor principal */
+  color: white;
+  border-color: #326978;
+}
+
+.btn-cadastrar:hover {
+  background-color: #2a5866;
+  border-color: #2a5866;
+}
+
+.btn-cancelar {
+  background-color: #6c757d; /* Cinza */
+  color: white;
+  border-color: #6c757d;
+}
+
+.btn-cancelar:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+  }
+  .modal-body {
+    padding: 20px;
+    max-height: calc(90vh - 110px);
+  }
+  .modal-header, .modal-footer {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .modal-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .btn-cadastrar,
+  .btn-cancelar {
+    width: 100%;
+  }
+}
+

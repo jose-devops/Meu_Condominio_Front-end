@@ -1,4 +1,10 @@
 import React from 'react';
+import PrivateRoute from './routes/PrivateRoute';
+import ProprietarioRoutes from './routes/ProprietarioRoutes';
+
+
+
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TelaTipoAcesso from './screens/TipoAcesso';
 import LoginProprietario from './screens/Proprietario/Login/LoginProprietario';
@@ -12,48 +18,29 @@ import TelaAgendamento from './screens/Proprietario/Agendamento/TelaAgendamento'
 import TelaContratos from './screens/Proprietario/Contratos/TelaContratos'; // <<< Import correto
 import TelaImovel from './screens/Proprietario/Imovel/TelaImovel';
 import TelaPrestador from './screens/Proprietario/Prestador/TelaPrestador';
-
+import TelaInquilino from './screens/Proprietario/Inquilino/TelaInquilino';
 
 function AppRoutes() {
   return (
     <Router>
       <Routes>
         {/* Rota sem menu lateral */}
+        
+
         <Route path="/" element={<TelaTipoAcesso />} />
         <Route path="/login-proprietario" element={<LoginProprietario />} />
         <Route path="/login-morador" element={<LoginMorador />} />
-feature/interface-PaginaPrincipalProprietario
         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
 
-         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
+
+        {/*Rotas protegidas por tipo de acesso */}
+        {ProprietarioRoutes}
+       
 
 
-        {/* Rota com Menu Lateral e Tela Principal */}
-        <Route
-          path="/tela-principal"
-          element={
-            <div style={{ display: 'flex' }}>
-              <TelaPrincipal />
-            </div>
-          }
-        />
-        {/* ROTA NOVA DE AGENDAMENTOS */}
-        <Route
-          path="/agendamentos"
-          element={
-            <div style={{ display: 'flex' }}>
-              <TelaAgendamento/>
-            </div>
-          }
-        />
-        <Route
-          path="/contratos"
-          element={
-            <div style={{ display: 'flex' }}>
-              <TelaContratos/>
-            </div>
-          }
-        />
+        {/*APAGAR DEPOIS QUE TIVER TODAS AS TELAS E MANTER AS ROTAS PROTEGITAS POR TIPO */}
+        {/* TODO: Cole aqui as rotas antigas enquanto finalizam as migrações */}
+
         <Route
           path="/imovel"
           element={
@@ -70,10 +57,16 @@ feature/interface-PaginaPrincipalProprietario
             </div>
           }
         />
-
-
+          <Route
+          path="/morador"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaInquilino/>
+            </div>
+          }
+        />
       </Routes>
-      
+
     </Router>
   );
 }
