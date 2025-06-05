@@ -1,6 +1,4 @@
-
 .tabela-agendamento {
- 
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -10,21 +8,23 @@
 
 .tabela-agendamento thead tr {
   background-color: #326978;
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: 600;
   text-align: left;
 }
 
 .tabela-agendamento thead th {
   padding: 12px 15px;
+  text-align: center;
 }
 
 .tabela-agendamento tbody tr {
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
+  text-align: center;
 }
 
-.tabela-agendament tbody tr:hover {
+.tabela-agendamento tbody tr:hover {
   background-color: #f5f5f5;
 }
 
@@ -34,11 +34,51 @@
 }
 
 .tabela-agendamento tbody td:first-child {
-  text-align: center;
   width: 40px;
 }
 
+
 .tabela-agendamento tbody td:last-child {
+ 
   text-align: center;
-  width: 100px;
+}
+
+.acoes-agendamento {
+  width:100% ;
+  display: flex;
+  justify-content:ce;
+  gap: 5px; 
+  text-align: center;
+  align-items: center;
+  
+}
+
+.acoes-agendamento button {
+  width: 100%;
+  background-color: #d6d6d6;
+  border-radius: 5px;
+  padding: 8px 0px; 
+  color: #326978; 
+
+}
+
+
+.btn-editar-agendamento, .btn-excluir-agendamento {
+  background: none;
+  border: none;
+  font-size: 15px; 
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btn-editar-agendamento:hover {
+  background-color: #326978;
+  color: #fff;
+}
+
+.btn-excluir-agendamento:hover {
+   background-color: #326978;
+  color: #fff;
 }

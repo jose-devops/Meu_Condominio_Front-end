@@ -10,6 +10,11 @@ import LogoAndNotification from "../../Components/MenuLateral/Logo&Notificacao/L
 import './TelaAgendamento.css';
 import CampoBuscaAgendamentos from '../../Components/Agendamentos/CampoBuscaAgendamentos';
 
+
+
+
+
+
 function getProprietarioIdFromToken(token) {
   if (!token) return null;
   try {
@@ -58,7 +63,12 @@ export default function TelaAgendamento() {
       await excluirAgendamento(idExcluir); 
       setModalConfirmOpen(false);
       setIdExcluir(null);
-      
+      // Forçando o toast a ser exibido após exclusão
+      setToastMensagem('Agendamento excluído com sucesso!');
+      // Ou você pode fazer a chamada à função 'handleSalvarComToast' caso ela manipule a resposta da exclusão
+      setTimeout(() => {
+        setToastMensagem('');
+      }, 3000); // Limpa a mensagem do toast após 3 segundos
     }
   }
 
@@ -206,28 +216,14 @@ export default function TelaAgendamento() {
               onCancel={cancelarExclusao}
             />
           )}
-
-          {toastMensagem && (
-            <div className="toast-sucesso-personalizado">
-              <div className="toast-barra-lateral"></div>
-              <div className="toast-conteudo">
-                <div className="text-toats">
-                  <span className="toast-texto">{toastMensagem}</span>
-                </div>
-              </div>
-              <span className="toast-fechar" onClick={() => setToastMensagem('')}>
-                ×
-              </span>
-            </div>
-          )}
         </main>
       </div>
 
 
       {toastMensagem && (
-        <div className="toast-sucesso-personalizado">
-          <div className="toast-barra-lateral"></div>
-          <div className="toast-conteudo">
+        <div className="toast-agendamento">
+          <div className="toast-sucesso-barra-lateral"></div>
+          <div className="toast-sucesso-conteudo-agendamento">
             <div className="text-toats">
               <span className="toast-texto">{toastMensagem}</span>
             </div>

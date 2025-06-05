@@ -1,5 +1,7 @@
 import React from 'react';
 import './TabelaAgendamento.css';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'; // Importe os ícones
+
 
 function formatarDataHora(dataISO) {
   if (!dataISO) return '';
@@ -37,17 +39,15 @@ export default function TabelaAgendamentos({ dados, onEditar, onExcluir }) {
             <td>{formatarDataHora(agendamento.dataFim)}</td>
             <td>{agendamento.status}</td>
             <td>{agendamento.observacao || '-'}</td>
-            <td className="acoes">
-              <button onClick={() => onEditar(agendamento)} title="Editar" className="btn-editar">
-                &#9998;
+            <td className="acoes-agendamento">
+              <button onClick={() => onEditar(agendamento)} title="Editar" className="btn-editar-agendamento">
+                <AiOutlineEdit style={{strokeWidth: 100 }} /> {/* Ícone de editar com stroke mais grosso */}
+
               </button>
 
-              <button 
-                onClick={() => onExcluir(agendamento.id)} 
-                title="Excluir" 
-                className="btn-excluir"
-              >
-                &#128465; {/* Ícone lixeira */}
+              <button onClick={() => onExcluir(agendamento.id)} title="Excluir" className="btn-excluir-agendamento">
+                <AiOutlineDelete style={{ strokeWidth: 80 }} /> {/* Ícone de lixeira com stroke mais grosso */}
+
               </button>
             </td>
           </tr>

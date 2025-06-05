@@ -128,133 +128,128 @@ export default function ModalAgendamento({ agendamento, token, onClose, onSalvar
         }
       }}
     >
-      <div className="modal-conteudo" ref={modalRef}>
-        <h3>AGENDAMENTO</h3>
-        <div className="modal-form">
+      <div className="modal-agendamento" ref={modalRef}>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>Descrição</label>
-              <input
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-              />
-              {erros.descricao && <span className="erro-campo">{erros.descricao}</span>}
-            </div>
+        <div className='modal-agendamento-area'>
 
-            <div className="form-group">
-              <label>Tipo agendamento</label>
-              <select
-                value={tipoAgendamento}
-                onChange={(e) => setTipoAgendamento(e.target.value)}
-              >
-                <option value="">Selecione...</option>
-                {tiposAgendamento.map((tipo) => (
-                  <option key={tipo} value={tipo}>
-                    {tipo
-                      .replace('_', ' ')
-                      .toLowerCase()
-                      .replace(/^\w/, (c) => c.toUpperCase())}
-                  </option>
-                ))}
-              </select>
-              {erros.tipoAgendamento && <span className="erro-campo">{erros.tipoAgendamento}</span>}
-            </div>
+
+          <div className='modal-agendamento-header'>
+            <h1>AGENDAMENTO</h1>
+            <button className="close-button" onClick={onClose}>
+              <i className="fas fa-times"></i> 
+            </button> {/* Botão de Fechar */}
+
           </div>
+        
+       
+          <div className="modal-form-agendamento">
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>Local</label>
-              <input
-                value={local}
-                onChange={(e) => setLocalAgendamento(e.target.value)}
-              />
-              {erros.local && <span className="erro-campo">{erros.local}</span>}
-            </div>
-          </div>
+            <div className="row-form-agendamento">
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>Status</label>
-              <select value={status} onChange={(e) => setStatus(e.target.value)}>
-                <option value="">Selecione...</option>
-                {statusOptions.map((status) => (
-                  <option key={status} value={status}>
-                    {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
-                  </option>
-                ))}
-              </select>
-              {erros.status && <span className="erro-campo">{erros.status}</span>}
-            </div>
-            <div className="form-group tipo-radio">
-              <label>Tipo:</label>
-              <div className="radio-options">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="tipoPessoa"
-                    value="Proprietário"
-                    checked={tipoPessoa === 'Proprietário'}
-                    onChange={(e) => setTipoPessoa(e.target.value)}
-                  />
-                  Proprietário
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="tipoPessoa"
-                    value="Inquilino"
-                    checked={tipoPessoa === 'Inquilino'}
-                    onChange={(e) => setTipoPessoa(e.target.value)}
-                  />
-                  Inquilino
-                </label>
+
+              <div className="form-group-agendamento">
+                <label>Descrição</label>
+                <input
+                  value={descricao}
+                  onChange={(e) => setDescricao(e.target.value)}
+                />
+                {erros.descricao && <span className="erro-campo">{erros.descricao}</span>}
+              </div>
+
+              <div className="form-group-agendamento">
+                <label>Tipo agendamento</label>
+                <select
+                  value={tipoAgendamento}
+                  onChange={(e) => setTipoAgendamento(e.target.value)}
+                >
+                  <option value="">Selecione...</option>
+                  {tiposAgendamento.map((tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo
+                        .replace('_', ' ')
+                        .toLowerCase()
+                        .replace(/^\w/, (c) => c.toUpperCase())}
+                    </option>
+                  ))}
+                </select>
+                {erros.tipoAgendamento && <span className="erro-campo">{erros.tipoAgendamento}</span>}
               </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>Data Início</label>
-              <input
-                type="datetime-local"
-                value={dataInicio}
-                onChange={(e) => setDataInicio(e.target.value)}
-              />
-              {erros.dataInicio && <span className="erro-campo">{erros.dataInicio}</span>}
+            <div className="row-form-agendamento">
+              <div className="form-group-agendamento">
+                <label>Local</label>
+                <input
+                  value={local}
+                  onChange={(e) => setLocalAgendamento(e.target.value)}
+                />
+                {erros.local && <span className="erro-campo">{erros.local}</span>}
+              </div>
+
+              <div className="form-group-agendamento">
+                <label>Status</label>
+                <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                  <option value="">Selecione...</option>
+                  {statusOptions.map((status) => (
+                    <option key={status} value={status}>
+                      {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                </select>
+                {erros.status && <span className="erro-campo">{erros.status}</span>}
+              </div>
             </div>
-            <div className="form-group">
-              <label>Data Fim</label>
-              <input
-                type="datetime-local"
-                value={dataFim}
-                onChange={(e) => setDataFim(e.target.value)}
-              />
-              {erros.dataFim && <span className="erro-campo">{erros.dataFim}</span>}
+
+            <div className="row-form-agendamento">
+              <div className="form-group-agendamento">
+                <label>Data Início</label>
+                <input
+                  type="datetime-local"
+                  value={dataInicio}
+                  onChange={(e) => setDataInicio(e.target.value)}
+                />
+                {erros.dataInicio && <span className="erro-campo">{erros.dataInicio}</span>}
+              </div>
+              <div className="form-group-agendamento">
+                <label>Data Fim</label>
+                <input
+                  type="datetime-local"
+                  value={dataFim}
+                  onChange={(e) => setDataFim(e.target.value)}
+                />
+                {erros.dataFim && <span className="erro-campo">{erros.dataFim}</span>}
+              </div>
             </div>
+
+            <div className="form-group-agendamento full-width">
+              <label>Observação</label>
+              <textarea
+                value={observacao}
+                onChange={(e) => setObservacao(e.target.value)}
+                rows="4"
+              />
+            </div>
+
           </div>
 
-          <div className="form-group full-width">
-            <label>Observação</label>
-            <textarea
-              value={observacao}
-              onChange={(e) => setObservacao(e.target.value)}
-              rows="4"
-            />
-          </div>
+          <div className='buttons-agendamento-form'>
+            <div className="botoes-agendamento">
+                <button
+                  onClick={handleSalvarAgendamento}
+                  className="btn-cadastrar-agendamento"
+                >
+                  {agendamento ? 'SALVAR' : 'CADASTRAR'}
+                </button>
+                <button onClick={onClose} className="btn-cancelar-agendamento">
+                  CANCELAR
+                </button>
+              </div>
+              
+            </div>
 
-          <div className="botoes">
-            <button
-              onClick={handleSalvarAgendamento}
-              className="btn-cadastrar"
-            >
-              {agendamento ? 'SALVAR' : 'CADASTRAR'}
-            </button>
-            <button onClick={onClose} className="btn-cancelar">
-              CANCELAR
-            </button>
-          </div>
         </div>
+
+
       </div>
     </div>
   );
