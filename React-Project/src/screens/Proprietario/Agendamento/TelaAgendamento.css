@@ -13,20 +13,31 @@
 }
 
 .header-agendamentos{
- 
+
   width: 100%;
   height: 100px;
   padding: 60px;
+ 
   
 }
 
 .title-header-agendamentos{
-  background-color: #326978;
-
   width: 100%;
-  height: 100%;
+  display: flex;
   
 
+}
+
+.Logo-Notification{
+  width: 50%;
+  height: 100%;
+  justify-content: end;
+  
+ 
+}
+
+.title-agendamento{
+  width: 50%;
 }
 
 .title-header-agendamentos h1{
@@ -106,14 +117,14 @@
   
 }
 
-.botoes-container {
+.botoes-container-agendamento {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 /* Botão atualizar */
-.botao-atualizar {
+.botao-atualizar-agendamentos {
   background-color: #326978;
   border: none;
   color: white;
@@ -128,8 +139,8 @@
   transition: background-color 0.3s ease;
 }
 
-.botao-atualizar:hover {
-  background-color: #265561;
+.botao-atualizar-agendamentos:hover {
+  background-color: #18b8e0;
 }
 
 .Area-Tabela-Agendamentos{
