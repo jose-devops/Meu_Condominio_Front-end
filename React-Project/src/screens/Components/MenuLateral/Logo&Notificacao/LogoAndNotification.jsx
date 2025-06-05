@@ -24,8 +24,8 @@ const LogoAndNotification = () => {
       
 
       {modalOpen && (
-        <div className="modal-container" onClick={() => setModalOpen(false)}>
-          <div className="modal" onClick={e => e.stopPropagation()}>
+        <div className="modal-container-user" onClick={() => setModalOpen(false)}>
+          <div className="modal-user" onClick={e => e.stopPropagation()}>
             <ul>
               <li><FaUserCircle /> Perfil</li>
               <li><FaCog /> Config</li>

@@ -1,12 +1,9 @@
-.campo-busca-container {
-  display: none;
-}
 
-.search-bar {
+.search-bar{
+ 
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 500px;
 }
 
 .search-bar input {

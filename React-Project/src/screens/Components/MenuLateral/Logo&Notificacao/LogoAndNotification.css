@@ -3,14 +3,12 @@
   display: flex;
   justify-content: flex-end; /* Alinha logo e notificação à direita */
   align-items: center;
-  width: 50%; /* Largura fixa para a área azul (ajuste conforme necessário) */
-  position: fixed; /* Deixa o cabeçalho fixo no topo */
+  
   top: 0;
   left: 50%;
-  transform: translateX(-10%);
   height: 20%;
-  z-index: 10; /* Para garantir que fique acima de outros elementos */
-  
+  z-index: 1000; /* Para garantir que fique acima de outros elementos */
+
 }
 
 /* Estilo da logo */
@@ -65,19 +63,19 @@
 }
 
 /* Estilo do modal */
-.modal-container {
+.modal-container-user {
   position: absolute; /* Modal posicionado em relação ao contêiner da logo */
-  top: 70%; /* Coloca o modal abaixo do logo */
-  right: 0; /* Alinha o modal à direita do contêiner */
- 
+  top: 15%; /* Coloca o modal abaixo do ícone */
+  right: 10; /* Alinha o modal à direita do contêiner */
   display: flex;
   width: 150px; /* Largura do modal */
   border-radius: 8px;
   z-index: 1000; /* Para garantir que fique em cima de tudo */
   border: 1px solid #326978;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para destacar o modal */
 }
 
-.modal {
+.modal-user {
   background-color: white;
   padding: 5px;
   border-radius: 10px;
@@ -85,12 +83,12 @@
 
 }
 
-.modal ul {
+.moda-user ul {
   list-style-type: none;
   padding: 10px;
 }
 
-.modal ul li {
+.modal-user ul li {
   display: flex;
   align-items: center;
   margin: 10px 0;
@@ -104,14 +102,14 @@
   
 }
 
-.modal ul li:hover {
+.modal-user ul li:hover {
   color: #326978;
   font-weight: 600;
   
 }
 
 
-.modal ul li svg {
+.modal-user ul li svg {
   margin-right: 15px; /* Espaço entre ícone e texto */
   font-size: 20px;
   color: #326978;
