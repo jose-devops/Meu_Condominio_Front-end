@@ -1,10 +1,6 @@
 import React from 'react';
 import PrivateRoute from './routes/PrivateRoute';
 import ProprietarioRoutes from './routes/ProprietarioRoutes';
-
-
-
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TelaTipoAcesso from './screens/TipoAcesso';
 import LoginProprietario from './screens/Proprietario/Login/LoginProprietario';
@@ -18,7 +14,7 @@ import TelaAgendamento from './screens/Proprietario/Agendamento/TelaAgendamento'
 import TelaContratos from './screens/Proprietario/Contratos/TelaContratos'; // <<< Import correto
 import TelaImovel from './screens/Proprietario/Imovel/TelaImovel';
 import TelaPrestador from './screens/Proprietario/Prestador/TelaPrestador';
-
+import TelaPrincipalMorador from './screens/Morador/TelaPrincipal/TelaPrincipalMorador';
 
 function AppRoutes() {
   return (
@@ -31,6 +27,9 @@ function AppRoutes() {
         <Route path="/login-proprietario" element={<LoginProprietario />} />
         <Route path="/login-morador" element={<LoginMorador />} />
         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
+
+        <Route path="/tela-principal-morador" element={<TelaPrincipalMorador />} />
+
 
 
         {/*Rotas protegidas por tipo de acesso */}

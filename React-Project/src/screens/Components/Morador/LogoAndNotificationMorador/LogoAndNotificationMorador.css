@@ -1,0 +1,103 @@
+/* Contêiner principal do cabeçalho */
+.header-container-morador {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    top: 0;
+    left: 50%;
+    height: 20%;
+    z-index: 1000;
+  }
+  
+  .logo-container-morador {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    height: 44px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 44px;
+    justify-content: center;
+    border: 2px solid #326978;
+    background-color: #326978;
+  }
+  
+  .logo-container-morador:hover{
+    background-color: #31545e;
+  }
+  
+  .user-morador {
+    font-size: 20px;
+    color: #ffffff;
+  }
+  
+  .notification-container-morador {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border: 2px solid #326978;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #326978;
+  }
+  
+  .notification-container-morador:hover{
+    background-color: #31545e;
+  }
+  
+  /* Estilo do modal */
+  .modal-container-user-morador {
+    position: absolute;
+    top: 15%;
+    right: 10;
+    display: flex;
+    width: 150px;
+    border-radius: 8px;
+    z-index: 1000;
+    border: 1px solid #326978;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-user-morador {
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+  }
+  
+  .modal-user-morador ul {
+    list-style-type: none;
+    padding: 10px;
+  }
+  
+  .modal-user-morador ul li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 40px;
+  }
+  
+  .modal-user-morador ul li:hover {
+    color: #326978;
+    font-weight: 600;
+  }
+  
+  .modal-user-morador ul li svg {
+    margin-right: 15px;
+    font-size: 20px;
+    color: #326978;
+  }
+  
+  .divider-morador {
+    border: none;
+    border-top: 2px solid #326978;
+    margin: 20px 0;
+    border-radius: 10px;
+  }
+  
