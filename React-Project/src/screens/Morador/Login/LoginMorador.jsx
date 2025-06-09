@@ -1,17 +1,13 @@
-
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Importe o Link do react-router-dom
 import './LoginMorador.css';
 import logo from '../../IMG/logo/logo_principal.png';
-import React, { useState } from 'react';
-
 
 function LoginMorador() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
   return (
     <div className="login-container">
-
-
-
       {/* Lado esquerdo */}
       <div className="login-coluna-esquerda">
         <img src={logo} alt="Logo" className="logo-img" />
@@ -19,24 +15,18 @@ function LoginMorador() {
 
       {/* Lado direito */}
       <div className="login-coluna-direita">
-
         <div className="login-info">
-
-          <div class="titulo-login">
+          <div className="titulo-login">
             <h1>LOGIN</h1>
             <h1>MORADOR</h1>
           </div>
-
         </div>
 
-
         <form className="login-form">
-
-          <div class="form-group">
+          <div className="form-group">
             <label>Email</label>
             <input type="email" required />
           </div>
-
 
           <div className="form-group">
             <label>Senha</label>
@@ -53,22 +43,15 @@ function LoginMorador() {
             </div>
           </div>
 
-
-
-
-
-
-
-
-          <div class="btn-acess-form">
-            <button type="button" className="botao-entrar">Entrar</button>
+          <div className="btn-acess-form">
+            <Link to="/tela-principal-morador">
+              <button type="button" className="botao-entrar">Entrar</button>
+            </Link>
           </div>
-
         </form>
 
-    
         <Link to="/">
-          <button className="botao-trocar">Alterar Acesso</button> 
+          <button className="botao-trocar">Alterar Acesso</button>
         </Link>
       </div>
     </div>

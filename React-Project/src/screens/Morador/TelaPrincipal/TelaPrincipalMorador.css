@@ -1,0 +1,113 @@
+/* Container principal da tela */
+.tela-principal-morador {
+    height: 900px;
+    width: 100%;
+    position: absolute;
+  }
+  
+  .header-principal-morador-area {
+    width: 100%;
+    height: 100px;
+    padding: 60px;
+  }
+  
+  .header-principal-morador {
+    height: 200px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .title-header-principal-morador {
+    padding: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title-principal-morador {
+    width: 50%;
+  }
+  
+  .Notification-User-morador {
+    width: 100%;
+  }
+  
+  .title-principal-morador h1 {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #326978;
+  }
+  
+  .title-principal-morador h2 {
+    color: #3d3d3d;
+  }
+  
+  /* Conteúdo com sidebar fechada */
+  .main-content-morador.no-sidebar-morador {
+    margin-left: 60px;
+    transition: margin-left 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  /* Ajuste para o menu lateral */
+  .sidebar-morador.open {
+    width: 250px;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar-morador.closed {
+    width: 60px;
+    transition: width 0.3s ease;
+    overflow: hidden;
+  }
+  
+  /* Botão hamburguer (ajustar caso use) */
+  .hamburger-btn-morador {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .main-content-morador {
+    transition: margin-left 0.3s ease;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+  
+  .main-content-morador.with-sidebar-morador {
+    margin-left: 250px;
+  }
+  
+  .main-content-morador.no-sidebar-morador {
+    margin-left: 60px;
+  }
+  
+  /* Evita scroll horizontal */
+  body, html, #root {
+    overflow-x: hidden;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .main-content-morador.with-sidebar-morador .pesquisa-container-morador {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content-morador.no-sidebar-morador .pesquisa-container-morador {
+    margin-left: 80px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .header-principal-morador.with-sidebar-morador {
+    margin-left: 250px;
+  }
+  
+  .header-principal-morador.no-sidebar-morador {
+    margin-left: 60px;
+  }
+  
