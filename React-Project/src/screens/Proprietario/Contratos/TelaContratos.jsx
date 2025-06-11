@@ -8,19 +8,13 @@ import MenuLateral from "../../Components/MenuLateral/MenuLateral";
 import LogoAndNotification from "../../Components/MenuLateral/Logo&Notificacao/LogoAndNotification";
 import './estilos.css';
 
-export default function TelaContratos() {
+export default function TelaContratos({ token }) {  
   const [contratos, setContratos] = useState([]);
   const [busca, setBusca] = useState('');
   const [modalAberto, setModalAberto] = useState(false);
   const [contratoSelecionado, setContratoSelecionado] = useState(null);
   const [sidebarRetracted, setSidebarRetracted] = useState(false);
 
-  useEffect(() => {
-    const dadosMock = [
-      // Dados de exemplo serão adicionados aqui quando houver integração com o banco
-    ];
-    setContratos(dadosMock);
-  }, []);
 
   const contratosFiltrados = contratos.filter(c =>
     (c.imovel && c.imovel.toLowerCase().includes(busca.toLowerCase())) ||
@@ -104,6 +98,7 @@ export default function TelaContratos() {
           {modalAberto && (
             <ModalContrato
               contrato={contratoSelecionado}
+              token={token} 
               onClose={fecharModal}
               onSalvar={salvarContrato}
             />
