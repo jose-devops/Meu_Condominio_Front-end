@@ -148,7 +148,7 @@
 }
 
 /* Tabela */
-.tabela-agendamentos {
+.tabela-contratos {
   margin-top: -100px;
   width: 100%;
   border-collapse: separate;
@@ -157,37 +157,37 @@
   color: #333;
 }
 
-.tabela-agendamentos thead tr {
+.tabela-contratos thead tr {
   background-color: #326978;
   color: white;
   font-weight: 600;
   text-align: left;
 }
 
-.tabela-agendamentos thead th {
+.tabela-contratos thead th {
   padding: 12px 15px;
 }
 
-.tabela-agendamentos tbody tr {
+.tabela-contratos tbody tr {
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.tabela-agendamentos tbody tr:hover {
+.tabela-contratos tbody tr:hover {
   background-color: #f5f5f5;
 }
 
-.tabela-agendamentos tbody td {
+.tabela-contratos tbody td {
   padding: 12px 15px;
   vertical-align: middle;
 }
 
-.tabela-agendamentos tbody td:first-child {
+.tabela-contratos tbody td:first-child {
   text-align: center;
   width: 40px;
 }
 
-.tabela-agendamentos tbody td:last-child {
+.tabela-contratos tbody td:last-child {
   text-align: center;
   width: 100px;
 }

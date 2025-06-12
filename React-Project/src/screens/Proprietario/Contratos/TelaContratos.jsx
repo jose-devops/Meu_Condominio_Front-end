@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { listarContratos } from '../../../api/Proprietario-Api/ContratoService'; // ajuste o caminho conforme sua pasta
+import { excluirContrato as deletarContratoProprietario } from '../../../api/Proprietario-Api/ContratoService';
 
+
+
+import ConfirmDialog from '../../Components/ConfirmDialog';
 import CampoBusca from "../../Components/CampoBusca/CampoBusca";
 import TabelaContratos from "./TabelaContratos";
 import ModalContrato from "./ModalContrato";
@@ -14,6 +19,9 @@ export default function TelaContratos({ token }) {
   const [modalAberto, setModalAberto] = useState(false);
   const [contratoSelecionado, setContratoSelecionado] = useState(null);
   const [sidebarRetracted, setSidebarRetracted] = useState(false);
+  const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
+  const [idExcluir, setIdExcluir] = useState(null);
+  const [toastMensagem, setToastMensagem] = useState('');
 
 
   const contratosFiltrados = contratos.filter(c =>
@@ -36,6 +44,16 @@ export default function TelaContratos({ token }) {
     setModalAberto(false);
   }
 
+  function abrirConfirmacaoExclusao(id) {
+    setIdExcluir(id);
+    setModalConfirmOpen(true);
+  }
+
+  function cancelarExclusao() {
+    setModalConfirmOpen(false);
+    setIdExcluir(null);
+  }
+
   function salvarContrato(novoContrato) {
     if (contratoSelecionado) {
       setContratos(cts =>
@@ -47,19 +65,61 @@ export default function TelaContratos({ token }) {
     fecharModal();
   }
 
-  function excluirContrato(id) {
-    setContratos(cts => cts.filter(c => c.id !== id));
+  async function excluirContrato(id) {
+    try {
+      const token = localStorage.getItem('token');
+      await deletarContratoProprietario(id, token);
+      setContratos(ags => ags.filter(a => a.id !== id));
+      setToastMensagem("Contrato excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir contrato:", error);
+      setToastMensagem("Erro ao excluir contrato.");
+    }
   }
+
+
+  
+async function confirmarExclusao() {
+  if (idExcluir !== null) {
+    try {
+      const token = localStorage.getItem('token');
+      await deletarContratoProprietario(idExcluir, token); // função da API
+      setContratos(contratos => contratos.filter(c => c.id !== idExcluir));
+      setToastMensagem('Contrato excluído com sucesso!');
+    } catch (error) {
+      console.error("Erro ao excluir contrato:", error);
+      setToastMensagem('Erro ao excluir contrato.');
+    } finally {
+      setModalConfirmOpen(false);
+      setIdExcluir(null);
+      setTimeout(() => setToastMensagem(''), 3000);
+    }
+  }
+}
 
   function toggleSidebar() {
     setSidebarRetracted(prev => !prev);
   }
 
-  function atualizarDados() {
-    // Função para atualizar os dados (simulação)
-    console.log("Atualizando dados...");
-    // Aqui poderia ter uma chamada à API
+function atualizarDados() {
+  listarContratos()
+    .then(setContratos)
+    .catch((erro) => console.error("Erro ao atualizar contratos:", erro));
+}
+
+
+  useEffect(() => {
+  async function carregarContratos() {
+    try {
+      const resultado = await listarContratos();
+      setContratos(resultado);
+    } catch (erro) {
+      console.error("Erro ao listar contratos:", erro);
+    }
   }
+
+  carregarContratos();
+}, []);
 
   return (
     <div className={`tela-contratos-container ${sidebarRetracted ? 'sidebar-collapsed' : ''}`}>
@@ -92,8 +152,10 @@ export default function TelaContratos({ token }) {
           </div>
           <TabelaContratos
             dados={contratosFiltrados}
+            contratos={contratos}
             onEditar={abrirModalParaEditar}
-            onExcluir={excluirContrato}
+            onExcluir={abrirConfirmacaoExclusao}
+
           />
           {modalAberto && (
             <ModalContrato
@@ -104,7 +166,31 @@ export default function TelaContratos({ token }) {
             />
           )}
         </main>
+
+
+        {modalConfirmOpen && (
+          <ConfirmDialog
+            mensagem={`Tem certeza que deseja excluir o contrato de ID: ${idExcluir}?`}
+            onConfirm={confirmarExclusao}
+            onCancel={cancelarExclusao}
+          />
+        )}
       </div>
+
+
+      {toastMensagem && (
+        <div className="toast-contrato">
+          <div className="toast-sucesso-barra-lateral"></div>
+          <div className="toast-sucesso-conteudo-contrato">
+            <div className="text-toats">
+              <span className="toast-texto">{toastMensagem}</span>
+            </div>
+          </div>
+          <span className="toast-fechar" onClick={() => setToastMensagem('')}>
+            ×
+          </span>
+        </div>
+      )}
     </div>
   );
 }

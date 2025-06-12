@@ -11,8 +11,8 @@ const CONTRATO_CADASTRAR_URL = 'http://localhost:8080/contratos/cadastrar';
 
 // Função para listar os contratos
 export const listarContratos = async () => {
-  const token = localStorage.getItem('token');
-  const response = await axios.get(BASE_URL, {
+  const token = localStorage.getItem('token'); 
+  const response = await axios.get(`${BASE_URL}/listar`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -21,19 +21,17 @@ export const listarContratos = async () => {
 };
 
 // Função para cadastrar um contrato
-// contratoService.js
 export const cadastrarContrato = async (contratoData, arquivo) => {
+
   const token = localStorage.getItem('token');
-  
+
   const formData = new FormData();
-  
-  // 1. Adiciona o JSON do contrato como Blob
   const contratoBlob = new Blob([JSON.stringify(contratoData)], {
     type: 'application/json'
   });
   formData.append('contrato', contratoBlob, 'contrato.json');
 
-  // 2. Adiciona o arquivo
+
   if (arquivo) {
     formData.append('arquivo', arquivo);
   }
@@ -41,7 +39,7 @@ export const cadastrarContrato = async (contratoData, arquivo) => {
   const response = await axios.post(`${BASE_URL}/cadastrar`, formData, {
     headers: {
       'Authorization': `Bearer ${token}`,
-      // O Axios define automaticamente 'Content-Type: multipart/form-data'
+  
     }
   });
 
@@ -84,34 +82,16 @@ export const listarStatusContrato = async () => {
   return response.data;
 };
 
-/* Função para editar um contrato
-export const editarContrato = async (id, dadosContrato) => {
-  const token = localStorage.getItem('token');
-  const payload = {
-    nome: dadosContrato.nome,
-    dataInicio: dadosContrato.dataInicio,
-    dataFim: dadosContrato.dataFim,
-    valor: dadosContrato.valor,
-  };
 
-  const response = await axios.put(`${BASE_URL}/${id}`, payload, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
-};
-*/
 
 // Função para excluir um contrato
 export const excluirContrato = async (id) => {
   const token = localStorage.getItem('token');
-  const response = await axios.delete(`${BASE_URL}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const response = await axios.delete(`${BASE_URL}/deletar/${id}`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
   return response.data;
 };

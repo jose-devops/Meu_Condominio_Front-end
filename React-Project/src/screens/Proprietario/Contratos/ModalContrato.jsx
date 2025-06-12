@@ -5,17 +5,14 @@ import {listarImoveis, listarMoradores, listarStatusContrato, cadastrarContrato}
 import axios from 'axios';
 
 
-export default function ModalContrato({ contrato, onClose, onSalvar, token }) {
-
-
+export default function ModalContrato({ contrato, onClose, onSalvar, token, }) {
 
   const [imoveis, setImoveis] = useState([]);
   const [moradores, setMoradores] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
+  const [imovel, setImovel] = useState('');
 
 
-
-  const [imovel, setImovel] = useState(contrato?.imovel || '');
 
   const [morador, setMorador] = useState(contrato?.morador || '');
   const [dataPosse, setDataPosse] = useState(contrato?.dataPosse || '');
@@ -27,6 +24,59 @@ export default function ModalContrato({ contrato, onClose, onSalvar, token }) {
   const [tipoContrato, setTipoContrato] = useState(contrato?.tipoContrato || 'Venda');
   const [observacao, setObservacao] = useState(contrato?.observacao || '');
   const [modeloContrato, setModeloContrato] = useState(null);
+
+
+
+
+
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const imoveisData = await listarImoveis();
+      const moradoresData = await listarMoradores();
+      const statusData = await listarStatusContrato();
+
+      setImoveis(imoveisData); 
+      setMoradores(moradoresData);
+      setStatusOptions(statusData);
+    } catch (error) {
+      console.error("Erro ao carregar imóveis ou moradores", error);
+    }
+  }
+
+  fetchData();
+}, []);
+
+
+
+useEffect(() => {
+  if (!contrato) return;
+
+
+
+  // Define o tipo de contrato formatado
+  setTipoContrato(
+    contrato.tipoContrato === 'ALUGUEL' ? 'Aluguel' :
+    contrato.tipoContrato === 'VENDA' ? 'Venda' :
+    'Venda' // Valor padrão
+  );
+
+  // Define o imóvel - corrigido aqui
+  setImovel(contrato.imovel?.id?.toString() || contrato.imovelId?.toString() || '');
+
+  // Restante dos campos
+  setMorador(contrato.morador?.id?.toString() || contrato.moradorId?.toString() || '');
+  setDataPosse(contrato.dataInicioVigencia || '');
+  setDataDespejo(contrato.dataFimVigencia || '');
+  setValorMulta(contrato.valorMulta?.toString() || '');
+  setValorAluguel(contrato.valorAluguel?.toString() || '');
+  setDataAssinatura(contrato.dataAssinatura || '');
+  setStatus(contrato.status || '');
+  setObservacao(contrato.observacao || '');
+  setModeloContrato(null);
+
+    console.log(contrato)
+}, [contrato]); // Removidas as dependências desnecessárias
 
 
     function getProprietarioIdFromToken(token) {
@@ -46,45 +96,23 @@ export default function ModalContrato({ contrato, onClose, onSalvar, token }) {
 
 
 
-
-
-  useEffect(() => {
-    // Carregar imóveis e moradores do backend
-    async function fetchData() {
-      try {
-        const imoveisData = await listarImoveis(); // Chama a função para listar imóveis
-        setImoveis(imoveisData); // Atualiza o estado com os imóveis
-        const moradoresData = await listarMoradores(); // Chama a função para listar moradores
-        setMoradores(moradoresData); // Atualiza o estado com os moradores
-        const statusData = await listarStatusContrato();
-        setStatusOptions(statusData);
-      } catch (error) {
-        console.error("Erro ao carregar imóveis ou moradores", error);
-      }
-    }
-
-    fetchData(); // Carrega os dados ao montar o componente
-  }, [contrato]); // Rodar apenas uma vez quando o componente for montado
-
-
 // ModalContrato.jsx
 const handleSalvarContrato = async (e) => {
   e.preventDefault();
 
-  // Verifica campos obrigatórios
   if (!imovel || !morador || !dataAssinatura) {
     alert("Preencha os campos obrigatórios: Imóvel, Morador e Data de Assinatura");
     return;
   }
 
-  // Cria objeto exatamente como foi preenchido
   const contratoData = {
+    id: contrato?.id || null, // usado na edição
     imovelId: imovel,
     moradorId: morador,
     dataDespejo: dataDespejo || undefined,
     valorMulta: valorMulta ? Number(valorMulta) : undefined,
     valorAluguel: valorAluguel ? Number(valorAluguel) : undefined,
-    status: status || undefined, // Envia undefined se vazio
+    status: status || undefined,
     tipoContrato: tipoContrato.toUpperCase(),
     observacao: observacao || undefined,
     dataAssinatura,
@@ -92,31 +120,41 @@ const handleSalvarContrato = async (e) => {
     dataFimVigencia: dataDespejo
   };
 
-  console.log('Dados brutos do formulário:', contratoData);
-
   try {
-    const response = await cadastrarContrato(contratoData, modeloContrato);
-    console.log('Resposta do backend:', response);
+    const formData = new FormData();
+    formData.append("contrato", new Blob([JSON.stringify(contratoData)], { type: "application/json" }));
+    if (modeloContrato) {
+      formData.append("arquivo", modeloContrato);
+    }
+
+    const url = contrato?.id
+      ? `http://localhost:8080/contratos/alterar/${contrato.id}`
+      : `http://localhost:8080/contratos/cadastrar`;
+
+    const response = await axios({
+      method: contrato?.id ? "put" : "post",
+      url,
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${token || localStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data"
+      }
+    });
+
+    onSalvar({
+      tipo: "sucesso",
+      mensagem: contrato ? "Contrato atualizado com sucesso!" : "Contrato cadastrado com sucesso!"
+    });
+
     onClose();
   } catch (error) {
-    console.error('Erro completo:', {
-      request: error.config,
-      response: error.response
+    console.error("Erro ao salvar contrato:", error);
+    onSalvar({
+      tipo: "erro",
+      mensagem: "Erro ao salvar o contrato."
     });
-    alert(`Erro: ${error.response?.data?.message || error.message}`);
   }
 };
-
-
-
-
-
-  
-
-
-
-
-
 
 
   return (
@@ -194,14 +232,14 @@ const handleSalvarContrato = async (e) => {
               <div className='col-2-form-contrato'>
                 <div className="form-group-contrato">
                   <label>Imóvel</label>
-                  <select value={imovel} onChange={e => setImovel(e.target.value)}>
-                    <option value="">Selecione...</option>
-                    {imoveis.map((imovel) => (
-                      <option key={imovel.id} value={imovel.id}>
-                        {imovel.descricao} {/* Exibindo a descrição do imóvel */}
-                      </option>
-                    ))}
-                  </select>
+                    <select value={imovel} onChange={e => setImovel(e.target.value.toString())}>
+                      <option value="">Selecione...</option>
+                      {imoveis.map((imovelObj) => (
+                        <option key={imovelObj.id} value={imovelObj.id.toString()}>
+                          {imovelObj.descricao}
+                        </option>
+                      ))}
+                    </select>
                 </div>
 
                 <div className="form-group-contrato">
@@ -238,9 +276,11 @@ const handleSalvarContrato = async (e) => {
                     }} 
                     accept=".pdf,.doc,.docx" 
                   />
+                
                 </div>
               </div>
             </div>
+
 
             <div className="row-form-contrato">
               <div className="form-group-contrato full-width">
