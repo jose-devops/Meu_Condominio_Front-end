@@ -7,6 +7,10 @@ const MORADORES_URL = 'http://localhost:8080/morador/listar'; // URL para a list
 const STATUS_CONTRATO_URL = 'http://localhost:8080/enums/status-contrato';
 const CONTRATO_CADASTRAR_URL = 'http://localhost:8080/contratos/cadastrar';
 
+function authHeader() {
+  const token = localStorage.getItem('token');
+  return { Authorization: `Bearer ${token}` };
+}
 
 
 // Função para listar os contratos
@@ -20,33 +24,43 @@ export const listarContratos = async () => {
   return response.data;
 };
 
+
+
+
+
 // Função para cadastrar um contrato
-export const cadastrarContrato = async (contratoData, arquivo) => {
-
-  const token = localStorage.getItem('token');
-
+export const cadastrarContrato = (contratoData, arquivo) => {
   const formData = new FormData();
-  const contratoBlob = new Blob([JSON.stringify(contratoData)], {
-    type: 'application/json'
-  });
-  formData.append('contrato', contratoBlob, 'contrato.json');
+  formData.append(
+    'contrato',
+    new Blob([JSON.stringify(contratoData)], { type: 'application/json' }),
+    'contrato.json'
+  );
+  if (arquivo) formData.append('arquivo', arquivo);
 
-
-  if (arquivo) {
-    formData.append('arquivo', arquivo);
-  }
-
-  const response = await axios.post(`${BASE_URL}/cadastrar`, formData, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-  
-    }
-  });
-
-  return response.data;
+  return axios.post(
+    `${BASE_URL}/cadastrar`,
+    formData,
+    { headers: authHeader() }
+  ).then(res => res.data);
 };
 
+// **nova** função para alterar
+export const alterarContrato = (id, contratoData, arquivo) => {
+  const formData = new FormData();
+  formData.append(
+    'contrato',
+    new Blob([JSON.stringify(contratoData)], { type: 'application/json' }),
+    'contrato.json'
+  );
+  if (arquivo) formData.append('arquivo', arquivo);
 
+  return axios.put(
+    `${BASE_URL}/alterar/${id}`,
+    formData,
+    { headers: authHeader() }
+  ).then(res => res.data);
+};
 
 // Função para listar imóveis
 export const listarImoveis = async () => {

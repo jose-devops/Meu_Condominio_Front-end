@@ -223,11 +223,13 @@
   border: 2px solid #326978;
 }
 
-.erro-campo {
+.campo-erro {
   color: #f50800;
   font-size: 0.75rem;
   margin-top: -5px;
   display: block;
+  margin-bottom: 15px;
+  
 }
 
 

@@ -1,4 +1,6 @@
-// src/screens/Proprietario/Contratos/TabelaContratos.jsx
+
+import './TabelaContratos.css';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import React from 'react';
 
 export default function TabelaContratos({ dados, onEditar, onExcluir }) {
@@ -32,12 +34,12 @@ export default function TabelaContratos({ dados, onEditar, onExcluir }) {
             <td>{contrato.status}</td>
             <td>{contrato.valorAluguel}</td>
             <td>{contrato.valorMulta}</td>
-            <td className="acoes">
-              <button onClick={() => onEditar(contrato)} title="Editar" className="btn-editar">
-                &#9998;
+            <td className="acoes-contratos">
+              <button onClick={() => onEditar(contrato)} title="Editar" className="btn-editar-contratos">
+                <AiOutlineEdit style={{strokeWidth: 100 }} /> {/* Ícone de editar com stroke mais grosso */}
               </button>
-              <button onClick={() => onExcluir(contrato.id)} title="Excluir" className="btn-excluir">
-                &#128465;
+              <button onClick={() => onExcluir(contrato.id)} title="Excluir" className="btn-excluir-contratos">
+                <AiOutlineDelete style={{ strokeWidth: 80 }} /> {/* Ícone de lixeira com stroke mais grosso */}
               </button>
             </td>
           </tr>
