@@ -1,0 +1,23 @@
+.search-bar-contratos {
+  position: relative;
+  width: 500px;
+}
+
+.search-bar-contratos input {
+  width: 100%;
+  
+  border-radius: 5px;
+  border: 2px solid #404040;
+  height: 38px;
+  font-size: 0.9rem;
+  padding-left: 40px; /* Garantir que o ícone tenha espaço adequado */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%); /* Alinha verticalmente o ícone */
+  font-size: 16px;
+  color:  #326978;;
+}

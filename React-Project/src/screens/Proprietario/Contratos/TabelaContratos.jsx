@@ -1,15 +1,18 @@
-// src/screens/Proprietario/Contratos/TabelaContratos.jsx
+
+import './TabelaContratos.css';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import React from 'react';
 
 export default function TabelaContratos({ dados, onEditar, onExcluir }) {
   return (
-    <table className="tabela-agendamentos">
+    <table className="tabela-contratos">
       <thead>
         <tr>
           <th><input type="checkbox" /></th>
           <th>ID</th>
           <th>Imóvel</th>
           <th>Inquilino</th>
+          <th>Proprietario</th>
           <th>Data posse</th>
           <th>Data despejo</th>
           <th>Status</th>
@@ -23,19 +26,20 @@ export default function TabelaContratos({ dados, onEditar, onExcluir }) {
           <tr key={contrato.id}>
             <td><input type="checkbox" /></td>
             <td>{contrato.id.toString().padStart(2, '0')}</td>
-            <td>{contrato.imovel}</td>
-            <td>{contrato.inquilino}</td>
-            <td>{contrato.dataPosse}</td>
-            <td>{contrato.dataDespejo}</td>
+            <td>{contrato.observacao || 'N/A'}</td>
+            <td>{contrato.nomeMorador || 'N/A'}</td> 
+            <td>{contrato.nomeProprietario || 'N/A'}</td>
+            <td>{contrato.dataInicioVigencia || 'N/A'}</td>
+            <td>{contrato.dataFimVigencia || 'N/A'}</td> 
             <td>{contrato.status}</td>
             <td>{contrato.valorAluguel}</td>
             <td>{contrato.valorMulta}</td>
-            <td className="acoes">
-              <button onClick={() => onEditar(contrato)} title="Editar" className="btn-editar">
-                &#9998;
+            <td className="acoes-contratos">
+              <button onClick={() => onEditar(contrato)} title="Editar" className="btn-editar-contratos">
+                <AiOutlineEdit style={{strokeWidth: 100 }}/>
               </button>
-              <button onClick={() => onExcluir(contrato.id)} title="Excluir" className="btn-excluir">
-                &#128465;
+              <button onClick={() => onExcluir(contrato.id)} title="Excluir" className="btn-excluir-contratos">
+                <AiOutlineDelete style={{ strokeWidth: 80 }}/>
               </button>
             </td>
           </tr>
