@@ -112,11 +112,26 @@ async function confirmarExclusao() {
     setSidebarRetracted(prev => !prev);
   }
 
-function atualizarDados() {
-  listarContratos()
-    .then(setContratos)
-    .catch((erro) => console.error("Erro ao atualizar contratos:", erro));
-}
+    const atualizarDados = async () => {
+      try {
+        // Recarrega os agendamentos
+        const contratosAtualizados = await listarContratos();
+
+        // Atualiza o estado com os agendamentos mais recentes
+        setContratos(contratosAtualizados);
+
+        // Exibe a mensagem de sucesso (toast)
+        setToastMensagem("Contratos atualizados com sucesso!");
+
+        // Limpa a mensagem após 3 segundos
+        setTimeout(() => {
+          setToastMensagem('');
+        }, 3000);
+      } catch (error) {
+        console.error("Erro ao atualizar contratos:", error);
+        setToastMensagem("Erro ao atualizar contratos.");
+      }
+    };
 
 
 async function carregarContratos() {

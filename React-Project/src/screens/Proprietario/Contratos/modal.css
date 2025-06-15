@@ -99,7 +99,7 @@
 
 .col-1-form-contrato{
  
-  width: 40%;
+  width: 43%;
   display: flex;
   flex-direction: column;
 
@@ -115,7 +115,7 @@
 
 
 .col-2-form-contrato{
-  
+  width: 43%;
   display: flex;
   flex-direction: column;
 }
@@ -125,22 +125,36 @@
 
   padding:  0px 30px;
 
- 
-  
-  
-  
- 
-  
+
 
 }
 
 
 
 .form-group-contrato {
-  flex: 1 1 45%; /* Adjust to 45% width for fields to fit well on row */
+  flex: 1 1 45%;
   display: flex;
   flex-direction: column;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .form-group-contrato.full-width {
   width: 100%;
@@ -260,6 +274,50 @@
 
 
 
+.arquivo-visual-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f5f5f5;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.nome-arquivo {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.botao-download,
+.botao-trocar {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botao-download:hover {
+  background-color: #0056b3;
+}
+
+.botao-trocar {
+  background-color: #ffc107;
+  color: black;
+}
+
+.botao-trocar:hover {
+  background-color: #e0a800;
+}
+
+
+
+
 
 
 
@@ -306,6 +364,7 @@
   .form-group-contrato select,
   .form-group-contrato textarea {
     height: 40px;
+    
   }
 
   .form-group-contrato label {
@@ -317,3 +376,62 @@
     align-items: flex-end;
   }
 }
+
+
+.btn-download-contrato {
+  background-color: #326978;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-download-contrato i {
+  margin-right: 6px;
+}
+
+
+
+.name-arquivo{
+  
+  width: 100%;
+  font-size: 14px;
+}
+
+
+
+.arquivo-salvo-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  height: 35px;
+  padding: 5px 10px;
+}
+
+.btn-substituir-arquivo {
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  color: #326978;
+  cursor: pointer;
+  width: 15%;
+  height: 100%;
+  
+}
+
+
+
+
+
+
+
+
+
+

@@ -24,6 +24,8 @@ export default function ModalContrato({ contrato, onClose, onSalvar, token, }) {
   const [tipoContrato, setTipoContrato] = useState(contrato?.tipoContrato || 'Venda');
   const [observacao, setObservacao] = useState(contrato?.observacao || '');
   const [modeloContrato, setModeloContrato] = useState(null);
+  const [arquivoExistente, setArquivoExistente] = useState(null);
+
   const [erros, setErros] = useState({});
 
 
@@ -53,6 +55,8 @@ useEffect(() => {
 useEffect(() => {
   if (!contrato) return;
 
+
+  setArquivoExistente(contrato.arquivoContratoUrl || null); // armazena o nome se existir
 
 
   // Define o tipo de contrato formatado
@@ -94,7 +98,12 @@ useEffect(() => {
 
   const proprietarioId = getProprietarioIdFromToken(token);
 
-
+function abreviarNomeArquivo(nome, limite = 30) {
+  if (!nome) return '';
+  return nome.length <= limite
+    ? nome
+    : nome.slice(0, limite / 2) + '...' + nome.slice(-10);
+}
 
 
 // ModalContrato.jsx
@@ -151,6 +160,26 @@ const handleSalvarContrato = async (e) => {
   }
 };
 
+
+
+const handleAbrirContrato = async () => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(`http://localhost:8080/contratos/download/${contrato.id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    console.error("Erro ao abrir contrato");
+    return;
+  }
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  window.open(url, "_blank");
+};
 
   return (
     <div className="modal-fundo" onClick={(e) => {
@@ -288,20 +317,40 @@ const handleSalvarContrato = async (e) => {
 
                 <div className="form-group-contrato">
                   <label>Modelo contrato</label>
-                  <input 
-                    type="file" 
-                    onChange={(e) => {
-                      setModeloContrato(e.target.files[0]);
-                      console.log("Arquivo selecionado:", e.target.files[0]); 
-                      setErros(prev => ({ ...prev, modeloContrato: undefined })); 
-                      console.log(e.target.files[0]); // Verifica se o arquivo foi selecionado corretamente
-                    }} 
-                    accept=".pdf,.doc,.docx" 
-                  />
-                  
+                  <div className='file'>
+                    {arquivoExistente ? (
+                      <div className="arquivo-salvo-info" >
+                        <span className='name-arquivo'>
+                          <strong>{abreviarNomeArquivo(arquivoExistente.split('/').pop())}</strong>
+                        </span>
+                        <button
+                          type="button"
+                          className="btn-substituir-arquivo"
+                          onClick={() => {
+                            setArquivoExistente(null);
+                            setModeloContrato(null);
+                          }}
+                          title="Substituir arquivo"
+                        >
+                          <i className="fas fa-times"></i>
+                        </button>
+                      </div>
+                    ) : (
+                      <input
+                        type="file"
+                        onChange={(e) => {
+                          setModeloContrato(e.target.files[0]);
+                          setErros(prev => ({ ...prev, modeloContrato: undefined }));
+                        }}
+                        accept=".pdf,.doc,.docx"
+                      />
+                    )}
+                  </div>
+                </div>
+
+
 
                 
-                </div>
               </div>
             </div>
 
@@ -315,14 +364,23 @@ const handleSalvarContrato = async (e) => {
 
             <div className='buttons-contrato-form'>
               <div className='botoes-contrato'>
+                  {contrato?.id && (
+                    <button onClick={handleAbrirContrato} className="btn-download-contrato">
+                      <i className="fas fa-external-link-alt"></i> ABRIR CONTRATO
+                    </button>
+                  )}
                 <button onClick={handleSalvarContrato} className="btn-cadastrar-contrato">
                   {contrato ? 'SALVAR' : 'CADASTRAR'}
                 </button>
                 <button onClick={onClose} className="btn-cancelar-contrato">
                   CANCELAR
                 </button>
+
               </div>
             </div>
+
+
+            
           </div>
         </div>
       </div>
