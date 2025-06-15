@@ -1,0 +1,84 @@
+.tabela-contratos {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.tabela-contratos thead tr {
+  background-color: #326978;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela-contratos thead th {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.tabela-contratos tbody tr {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.tabela-contratos tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.tabela-contratos tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+.tabela-contratos tbody td:first-child {
+  width: 40px;
+}
+
+
+.tabela-contratos tbody td:last-child {
+ 
+  text-align: center;
+}
+
+.acoes-contratos {
+  width:100% ;
+  display: flex;
+  justify-content:ce;
+  gap: 5px; 
+  text-align: center;
+  align-items: center;
+  
+}
+
+.acoes-contratos button {
+  width: 100%;
+  background-color: #d6d6d6;
+  border-radius: 5px;
+  padding: 8px 0px; 
+  color: #326978; 
+
+}
+
+
+.btn-editar-contratos, .btn-excluir-contratos {
+  background: none;
+  border: none;
+  font-size: 15px; 
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btn-editar-contratos:hover {
+  background-color: #326978;
+  color: #fff;
+}
+
+.btn-excluir-contratos:hover {
+   background-color: #326978;
+  color: #fff;
+}
