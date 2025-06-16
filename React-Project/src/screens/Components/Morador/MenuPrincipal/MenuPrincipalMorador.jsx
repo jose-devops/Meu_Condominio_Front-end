@@ -10,7 +10,7 @@ import iconeImovel from "../../../IMG/logo/tela-principal/icone-imovel.png";
 import iconePrestadores from "../../../IMG/logo/tela-principal/icone-prestadores.png";
 
 const itensMenuMorador = [
-  { id: 1, label: "Agendamento", icon: iconeAgendamento, rota: "/agendamentos" },
+  { id: 1, label: "Agendamento", icon: iconeAgendamento, rota: "/agendamentos-morador" },
   { id: 2, label: "Inquilino", icon: iconeInquilino, rota: "/inquilino" },
   { id: 3, label: "Contratos", icon: iconeContratos, rota: "/contratos" },
   { id: 5, label: "Prestadores", icon: iconePrestadores, rota: "/prestadores" },
