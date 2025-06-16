@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
+import { listarStatusImovel, listarMoradores } from '../../../api/Proprietario-Api/ImovelService';
+import { buscarProprietarioLogado } from '../../../api/Proprietario-Api/ImovelService';
+
+
+
+
 
 export default function ModalImovel({ imovel, onClose, onSalvar }) {
-  const [proprietario, setProprietario] = useState('');
+  const [descricao, setDescricao] = useState('');
+
   const [morador, setMorador] = useState('');
   const [situacao, setSituacao] = useState('');
   const [endereco, setEndereco] = useState('');
@@ -14,46 +21,146 @@ export default function ModalImovel({ imovel, onClose, onSalvar }) {
   const [complemento, setComplemento] = useState('');
   const [valorAluguel, setValorAluguel] = useState('');
   const [valorCondominio, setValorCondominio] = useState('');
+  const [observacao, setObservacao] = useState('');
+  const [statusOptions, setStatusOptions] = useState([]);
+  const [moradores, setMoradores] = useState([]);
+  const [proprietarioId, setProprietarioId] = useState('');
+  const [proprietarioNome, setProprietarioNome] = useState('');
+
+
+
+
 
   useEffect(() => {
-    if (imovel) {
-      setProprietario(imovel.proprietario || '');
-      setMorador(imovel.morador || '');
-      setSituacao(imovel.situacao || '');
-      setEndereco(imovel.endereco || '');
-      setCep(imovel.cep || '');
-      setUf(imovel.uf || '');
-      setCidade(imovel.cidade || '');
-      setBairro(imovel.bairro || '');
-      setNumero(imovel.numero || '');
-      setComplemento(imovel.complemento || '');
-      setValorAluguel(imovel.valorAluguel || '');
-      setValorCondominio(imovel.valorCondominio || '');
-    }
-  }, [imovel]);
-
-  function salvar() {
-    const novoImovel = {
-      id: imovel?.id || Date.now(),
-      proprietario, morador, situacao,
-      endereco, cep, uf, cidade, bairro,
-      numero, complemento, valorAluguel, valorCondominio
+    const carregarStatus = async () => {
+      try {
+        const data = await listarStatusImovel();
+        setStatusOptions(data);
+      } catch (error) {
+        console.error("Erro ao carregar status:", error);
+      }
     };
-    onSalvar(novoImovel);
+
+    carregarStatus();
+  }, []);
+
+
+  useEffect(() => {
+    const carregarMoradores = async () => {
+      try {
+        const data = await listarMoradores();
+        setMoradores(data);
+      } catch (error) {
+        console.error("Erro ao carregar moradores:", error);
+      }
+    };
+
+    carregarMoradores();
+  }, []);
+
+
+useEffect(() => {
+  async function carregarProprietario() {
+    try {
+      const data = await buscarProprietarioLogado();
+      setProprietarioNome(data.nome); // ← agora vem do backend
+    } catch (err) {
+      console.error("Erro ao buscar proprietário logado", err);
+    }
   }
+
+  carregarProprietario();
+}, []);
+
+
+
+
+
+
+
+useEffect(() => {
+  if (imovel) {
+    setDescricao(imovel.descrição || '');
+    setMorador(imovel.morador || '');
+    setSituacao(imovel.situacao || '');
+    setEndereco(imovel.endereco || '');
+    setCep(imovel.cep || '');
+    setUf(imovel.uf || '');
+    setCidade(imovel.cidade || '');
+    setBairro(imovel.bairro || '');
+    setNumero(imovel.numero || '');
+    setComplemento(imovel.complemento || '');
+    setValorAluguel(imovel.valorAluguel || '');
+    setValorCondominio(imovel.valorCondominio || '');
+    setObservacao(imovel.observacao || '');
+  } else {
+    // Limpa os campos ao abrir no modo de criação
+    setDescricao('');
+    setMorador('');
+    setSituacao('');
+    setEndereco('');
+    setCep('');
+    setUf('');
+    setCidade('');
+    setBairro('');
+    setNumero('');
+    setComplemento('');
+    setValorAluguel('');
+    setValorCondominio('');
+    setObservacao('');
+   
+  }
+}, [imovel]);
+
+    function salvar() {
+      const novoImovel = {
+        id: imovel?.id || Date.now(),
+        descricao,
+        proprietario: proprietarioId, // <== ID do proprietário logado
+        morador,
+        situacao,
+        endereco,
+        cep,
+        uf,
+        cidade,
+        bairro,
+        numero,
+        complemento,
+        valorAluguel,
+        valorCondominio,
+        observacao
+      };
+      onSalvar(novoImovel);
+    }
 
   return (
     <div className="modal-fundo" onClick={(e) => e.target === e.currentTarget && onClose()}>
+
       <div className="modal-conteudo">
+
         <h3>IMÓVEL</h3>
+
         <div className="modal-form">
+
+
+          <div className="form-row-morador">
+            <div className="form-group">
+              <label>Descrição</label>
+              <input type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
+            </div>
+
+          </div>
+
           <div className="form-row">
             <div className="form-group">
               <label>Proprietário</label>
-              <select value={proprietario} onChange={e => setProprietario(e.target.value)}>
-                <option value="">Selecione...</option>
-                <option value="Ezequiel Mulina">Ezequiel Mulina</option>
-              </select>
+              <input
+                type="text"
+                className="form-control"
+                value={proprietarioNome}
+                disabled
+                readOnly
+              />
             </div>
             <div className="form-group">
               <label>Endereço</label>
@@ -66,6 +173,11 @@ export default function ModalImovel({ imovel, onClose, onSalvar }) {
               <label>Morador</label>
               <select value={morador} onChange={e => setMorador(e.target.value)}>
                 <option value="">Selecione...</option>
+                {moradores.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.nome}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-group">
@@ -76,13 +188,16 @@ export default function ModalImovel({ imovel, onClose, onSalvar }) {
 
           <div className="form-row">
             <div className="form-group">
-              <label>Situação</label>
-              <select value={situacao} onChange={e => setSituacao(e.target.value)}>
-                <option value="">Selecione...</option>
-                <option value="Alugado">Alugado</option>
-                <option value="Disponível">Disponível</option>
-                <option value="Manutenção">Manutenção</option>
-                <option value="Vendido">Vendido</option>
+              <label>Status</label>
+              <select
+                value={situacao}
+                onChange={(e) => setSituacao(e.target.value)}
+                className="form-control"
+              >
+                <option value="">Selecione o status</option>
+                {statusOptions.map((s, index) => (
+                  <option key={index} value={s}>{s}</option>
+                ))}
               </select>
             </div>
             <div className="form-group">
@@ -124,9 +239,31 @@ export default function ModalImovel({ imovel, onClose, onSalvar }) {
             </div>
           </div>
 
-          <div className="botoes">
-            <button onClick={salvar} className="btn-cadastrar">CADASTRAR</button>
-            <button onClick={onClose} className="btn-cancelar">CANCELAR</button>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Observação</label>
+              <textarea
+                value={observacao}
+                onChange={(e) => setObservacao(e.target.value)}
+                rows="4"
+              />
+            </div>
+
+          </div>
+
+          <div className='buttons-imovel-form'>
+            <div className="botoes-imovel">
+                <button
+                  //onClick={handleSalvarImovel}
+                  className="btn-cadastrar-imovel"
+                >
+                  {imovel ? 'SALVAR' : 'CADASTRAR'}
+                </button>
+                <button onClick={onClose} className="btn-cancelar-imovel">
+                  CANCELAR
+                </button>
+            </div>
+              
           </div>
         </div>
       </div>
