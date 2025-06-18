@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import MenuLateral from '../../Components/MenuLateral/MenuLateral'; 
 import LogoAndNotification from '../../Components/MenuLateral/Logo&Notificacao/LogoAndNotification';
 import MenuPrincipal from '../../Components/MenuLateral/MenuPrincipal/MenuPrincipal';
-import Pesquisa from '../../Components/MenuLateral/Pesquisa/Pesquisa';
 import './TelaPrincipal.css';
 
 

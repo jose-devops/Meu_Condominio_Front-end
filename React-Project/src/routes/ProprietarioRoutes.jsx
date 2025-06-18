@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import RoleProtectedRoute from './RoleProtectedRoute';
-
+import TelaImovel from '../screens/Proprietario/Imovel/TelaImovel';
 import TelaPrincipal from '../screens/Proprietario/TelaPrincipal/TelaPrincipal';
 import TelaAgendamento from '../screens/Proprietario/Agendamento/TelaAgendamento';
 import TelaContratos from '../screens/Proprietario/Contratos/TelaContratos';
-import SplashScreen from '../screens/Components/SplashScreen'; // ajuste o caminho se necessário
+import SplashScreen from '../screens/Components/SplashScreen';
 
 const routes = [
 
@@ -43,6 +43,17 @@ const routes = [
       <RoleProtectedRoute allowedRoles={['PROPRIETARIO']}>
         <div style={{ display: 'flex' }}>
           <TelaContratos />
+        </div>
+      </RoleProtectedRoute>
+    }
+  />,
+    <Route
+    key="imovel"
+    path="/imovel"
+    element={
+      <RoleProtectedRoute allowedRoles={['PROPRIETARIO']}>
+        <div style={{ display: 'flex' }}>
+          <TelaImovel />
         </div>
       </RoleProtectedRoute>
     }
