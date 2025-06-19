@@ -1,15 +1,18 @@
 import React from 'react';
-import './EstiloImovel.css';
+import './TabelaImoveis.css';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
 export default function TabelaImoveis({ dados, onEditar, onExcluir }) {
   return (
-    <div className="tabela-container">
+    
       <table className="tabela-imoveis">
         <thead>
           <tr>
+            <th><input type="checkbox" /></th>
             <th>ID</th>
+            <th>Descrição</th>
             <th>Proprietário</th>
-            <th>Inquilino</th>
+            <th>Morador</th>
             <th>Endereço</th>
             <th>CEP</th>
             <th>Cidade</th>
@@ -27,24 +30,32 @@ export default function TabelaImoveis({ dados, onEditar, onExcluir }) {
           ) : (
             dados.map(imovel => (
               <tr key={imovel.id}>
+                <td><input type="checkbox" /></td>
                 <td>{imovel.id}</td>
-                <td>{imovel.proprietario}</td>
-                <td>{imovel.inquilino}</td>
+                <td>{imovel.descricao}</td>
+                <td>{imovel.nomeProprietario}</td>
+                <td>{imovel.nomeMorador}</td>
                 <td>{imovel.endereco}</td>
                 <td>{imovel.cep}</td>
                 <td>{imovel.cidade}</td>
                 <td>{imovel.uf}</td>
                 <td>{imovel.bairro}</td>
-                <td>{imovel.situacao}</td>
-                <td className="acoes">
-                  <button onClick={() => onEditar(imovel)} title="Editar">✏️</button>
-                  <button onClick={() => onExcluir(imovel.id)} title="Excluir">🗑️</button>
+                <td>{imovel.status}</td>
+                <td className="acoes-imoveis">
+
+                  <button onClick={() => onEditar(imovel)} title="Editar" className="btn-editar-imoveis">
+                    <AiOutlineEdit style={{strokeWidth: 100 }}/>
+                  </button>
+                  <button onClick={() => onExcluir(imovel)} title="Excluir" className="btn-excluir-imoveis">
+                    <AiOutlineDelete style={{ strokeWidth: 80 }}/>
+                  </button>
+
                 </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
-    </div>
+
   );
 }

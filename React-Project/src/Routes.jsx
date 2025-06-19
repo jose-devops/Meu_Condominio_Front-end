@@ -16,6 +16,11 @@ import TelaImovel from './screens/Proprietario/Imovel/TelaImovel';
 import TelaPrestador from './screens/Proprietario/Prestador/TelaPrestador';
 import TelaPrincipalMorador from './screens/Morador/TelaPrincipal/TelaPrincipalMorador';
 
+import TelaInquilino from './screens/Proprietario/Inquilino/TelaInquilino';
+
+import TelaAgendamentoMorador from './screens/Morador/TelaAgendamento/TelaAgendamentoMorador';
+
+
 function AppRoutes() {
   return (
     <Router>
@@ -27,8 +32,8 @@ function AppRoutes() {
         <Route path="/login-proprietario" element={<LoginProprietario />} />
         <Route path="/login-morador" element={<LoginMorador />} />
         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
-
         <Route path="/tela-principal-morador" element={<TelaPrincipalMorador />} />
+        <Route path="/agendamentos-morador" element={<TelaAgendamentoMorador />} />
 
 
 
@@ -41,18 +46,18 @@ function AppRoutes() {
         {/* TODO: Cole aqui as rotas antigas enquanto finalizam as migrações */}
 
         <Route
-          path="/imovel"
-          element={
-            <div style={{ display: 'flex' }}>
-              <TelaImovel/>
-            </div>
-          }
-        />
-        <Route
           path="/prestadores"
           element={
             <div style={{ display: 'flex' }}>
               <TelaPrestador/>
+            </div>
+          }
+        />
+        <Route
+          path="/Inquilino"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaInquilino/>
             </div>
           }
         />
