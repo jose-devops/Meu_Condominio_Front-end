@@ -15,7 +15,11 @@ import TelaContratos from './screens/Proprietario/Contratos/TelaContratos'; // <
 import TelaImovel from './screens/Proprietario/Imovel/TelaImovel';
 import TelaPrestador from './screens/Proprietario/Prestador/TelaPrestador';
 import TelaPrincipalMorador from './screens/Morador/TelaPrincipal/TelaPrincipalMorador';
+
+import TelaInquilino from './screens/Proprietario/Inquilino/TelaInquilino';
+
 import TelaAgendamentoMorador from './screens/Morador/TelaAgendamento/TelaAgendamentoMorador';
+
 
 function AppRoutes() {
   return (
@@ -46,6 +50,14 @@ function AppRoutes() {
           element={
             <div style={{ display: 'flex' }}>
               <TelaPrestador/>
+            </div>
+          }
+        />
+        <Route
+          path="/Inquilino"
+          element={
+            <div style={{ display: 'flex' }}>
+              <TelaInquilino/>
             </div>
           }
         />
