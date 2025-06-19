@@ -193,7 +193,6 @@ async function confirmarExclusao() {
         </header>
 
 
-
         <main className="area-imoveis">
 
           <div className="controlesTable-container">
