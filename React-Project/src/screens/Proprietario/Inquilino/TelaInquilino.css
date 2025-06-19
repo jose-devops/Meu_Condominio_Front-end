@@ -1,0 +1,246 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Container principal */
+.inquilino-container {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f7f8;
+  color: #333;
+  width: 100%;
+}
+
+/*
+  Ajuste de espaçamento para aproximar o cabeçalho do topo da tela.
+  A altura (height) foi reduzida e o preenchimento (padding) foi ajustado
+  para diminuir o espaço em branco acima do título "Moradores" e dos ícones.
+*/
+.header-inquilinos{
+  width: 100%;
+  height: 60px; /* Reduz a altura do cabeçalho */
+  padding: 20px 60px; /* Reduz o preenchimento superior e inferior */
+}
+
+.title-header-inquilinos{
+  width: 100%;
+  display: flex;
+}
+
+.Logo-Notification{
+  width: 50%;
+  height: 100%;
+  justify-content: end;
+}
+
+.title-inquilino{
+  width: 50%;
+}
+
+.title-header-inquilinos h1{
+  font-size: 40px;
+}
+
+/* Conteúdo principal */
+.conteudo-principal-inquilino {
+  margin-left: 260px;
+  height: 100vh;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.inquilino-container.sidebar-collapsed .conteudo-principal-inquilino {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
+.inquilino-container.sidebar-collapsed .header {
+  left: 70px;
+  width: calc(100% - 70px);
+}
+
+/*
+  Ajuste de espaçamento para aproximar a área de conteúdo (busca e tabela)
+  do cabeçalho. O preenchimento superior (padding-top) foi ajustado.
+*/
+.area-inquilinos {
+  padding: 20px 60px 0px 60px; /* Ajusta o preenchimento superior */
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Título */
+.titulo-container {
+  display: flex;
+  align-items: center;
+  margin-top: -30px;
+  margin-bottom: -80px;
+  width: auto;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.calendario-icon {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  color: #326978;
+}
+
+/*
+  Ajuste de espaçamento para o container dos controles (campo de busca e botões).
+  As margens superior e inferior (margin-top e margin-bottom) foram reduzidas
+  para aproximar esses elementos do cabeçalho e da tabela.
+*/
+.controlesTable-container {
+  justify-content: space-between;
+  display: flex;
+  width: 100%;
+  margin-bottom: 1%; /* Reduz a margem inferior */
+  margin-top: 1%; /* Reduz a margem superior */
+}
+
+.buscaInquilino-container {
+  width: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.botoes-container-inquilino {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botão atualizar */
+.botao-atualizar-inquilinos {
+  background-color: #326978;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  height: 38px;
+  width: 38px;
+  transition: background-color 0.3s ease;
+}
+
+.botao-atualizar-inquilinos:hover {
+  background-color: #18b8e0;
+}
+
+.Area-Tabela-Inquilinos{
+  width: 100%;
+}
+
+/* Ações */
+.acoes button {
+  background-color: transparent;
+  border: none;
+  color: #326978;
+  cursor: pointer;
+  margin: 0 4px;
+  padding: 6px;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.acoes button:hover {
+  color: #1d4049;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 260px;
+    transition: transform 0.3s ease;
+  }
+
+  .inquilino-container.sidebar-collapsed .sidebar {
+    transform: translateX(0);
+  }
+
+  .conteudo-principal-inquilino {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding-top: 64px;
+  }
+
+  .header {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .tabela-inquilino {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .controles-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .busca-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .botoes-container {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .titulo-container {
+    width: 100%;
+  }
+}
+
+.toast-inquilino {
+  width: 100px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #D9D9D9;
+  color: #155724;
+  border-left: 6px solid #326978;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(224, 138, 138, 0.15);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+}
+
+.toast-sucesso-barra-lateral {
+  width: 5px;
+  background-color: #f51b1b;
+  margin-right: 12px;
+  height: 100%;
+}
+
+.toast-texto {
+  flex: 1;
+}
+
+.toast-fechar {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 12px;
+}
+
+
