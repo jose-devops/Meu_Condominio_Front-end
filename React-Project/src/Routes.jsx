@@ -53,14 +53,6 @@ function AppRoutes() {
             </div>
           }
         />
-        <Route
-          path="/Inquilino"
-          element={
-            <div style={{ display: 'flex' }}>
-              <TelaInquilino/>
-            </div>
-          }
-        />
       </Routes>
       
     </Router>
