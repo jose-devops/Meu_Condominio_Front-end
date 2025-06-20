@@ -26,14 +26,14 @@ export default function TabelaInquilinos({ dados, onEditar, onExcluir }) {
             <td>{inquilino.nome || 'N/A'}</td>
             <td>{inquilino.cpf || 'N/A'}</td>
             <td>{inquilino.dataAniversario || 'N/A'}</td>
-            <td>{inquilino.telefone || 'N/A'}</td>
+            <td>{inquilino.telefonePrincipal || 'N/A'}</td>
             <td>{inquilino.telefoneSecundario || 'N/A'}</td>
             <td>{inquilino.profissao || 'N/A'}</td>
             <td className="acoes-inquilinos">
               <button onClick={() => onEditar(inquilino)} title="Editar" className="btn-editar-inquilinos">
                 <AiOutlineEdit style={{strokeWidth: 100 }}/>
               </button>
-              <button onClick={() => onExcluir(inquilino.id)} title="Excluir" className="btn-excluir-inquilinos">
+              <button onClick={() => onExcluir(inquilino)} title="Excluir" className="btn-excluir-inquilinos">
                 <AiOutlineDelete style={{ strokeWidth: 80 }}/>
               </button>
             </td>

@@ -73,6 +73,7 @@ export const editarInquilino = async (id, dadosInquilino) => {
 
 export const deletarInquilino = async (id) => {
   const token = localStorage.getItem("token");
+  console.log('Token usado para DELETE:', token); // 👈 adicione isso
   const response = await axios.delete(`http://localhost:8080/morador/deletar/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,

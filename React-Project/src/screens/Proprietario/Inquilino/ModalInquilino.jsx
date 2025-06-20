@@ -62,6 +62,7 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
     if (!nome.trim()) novosErros.nome = "Nome é obrigatório.";
     if (!cpf.trim()) novosErros.cpf = "CPF é obrigatório.";
     if (!email.trim()) novosErros.email = "Email é obrigatório.";
+    
     if (!telefonePrincipal.trim()) novosErros.telefonePrincipal = "Telefone principal é obrigatório.";
     if (!rendaMensal.trim()) novosErros.rendaMensal = "Renda mensal é obrigatória.";
 
@@ -201,6 +202,8 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
                     onChange={e => setEmail(e.target.value)} 
                   />
                 </div>
+                {erros.email && <div className="campo-erro">{erros.email}</div>}
+
               </div>
 
               <div className='col-2-form-inquilino'>
@@ -262,10 +265,13 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
                     type="password" 
                     value={senha} 
                     onChange={e => setSenha(e.target.value)}
-                    placeholder="••••••••"
+                    
 
                   />
                 </div>
+             
+
+
               </div>
             </div>
 

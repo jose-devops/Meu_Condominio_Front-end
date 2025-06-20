@@ -12,15 +12,11 @@
   width: 100%;
 }
 
-/*
-  Ajuste de espaçamento para aproximar o cabeçalho do topo da tela.
-  A altura (height) foi reduzida e o preenchimento (padding) foi ajustado
-  para diminuir o espaço em branco acima do título "Moradores" e dos ícones.
-*/
+
 .header-inquilinos{
   width: 100%;
-  height: 60px; /* Reduz a altura do cabeçalho */
-  padding: 20px 60px; /* Reduz o preenchimento superior e inferior */
+  height: 100px;
+  padding: 60px; 
 }
 
 .title-header-inquilinos{
@@ -59,52 +55,18 @@
   width: calc(100% - 70px);
 }
 
-/*
-  Ajuste de espaçamento para aproximar a área de conteúdo (busca e tabela)
-  do cabeçalho. O preenchimento superior (padding-top) foi ajustado.
-*/
+
 .area-inquilinos {
-  padding: 20px 60px 0px 60px; /* Ajusta o preenchimento superior */
+  padding: 0px 60px 0px 60px;
   flex-direction: column;
   width: 100%;
 }
 
-/* Título */
-.titulo-container {
-  display: flex;
-  align-items: center;
-  margin-top: -30px;
-  margin-bottom: -80px;
-  width: auto;
-}
 
-.titulo {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #333;
-  display: flex;
-  align-items: center;
-}
 
-.calendario-icon {
-  margin-left: 10px;
-  font-size: 1.4rem;
-  color: #326978;
-}
 
-/*
-  Ajuste de espaçamento para o container dos controles (campo de busca e botões).
-  As margens superior e inferior (margin-top e margin-bottom) foram reduzidas
-  para aproximar esses elementos do cabeçalho e da tabela.
-*/
-.controlesTable-container {
-  justify-content: space-between;
-  display: flex;
-  width: 100%;
-  margin-bottom: 1%; /* Reduz a margem inferior */
-  margin-top: 1%; /* Reduz a margem superior */
-}
+
+
 
 .buscaInquilino-container {
   width: 400px;

@@ -76,9 +76,10 @@ export default function TelaInquilino({ token }) {
     setModalConfirmOpen(true);
   }
 
-    function excluirInquilino(inquilino) {
-    abrirConfirmacaoExclusao(inquilino.id);
-  }
+function excluirInquilino(inquilino) {
+  console.log("Inquilino clicado para exclusão:", inquilino);
+  abrirConfirmacaoExclusao(inquilino.id); // ← pode estar errado se não for id
+}
 
   function cancelarExclusao() {
     setModalConfirmOpen(false);
@@ -100,27 +101,27 @@ export default function TelaInquilino({ token }) {
     }
   }
 
-  async function confirmarExclusao() {
-    if (idExcluir !== null) {
-      try {
-        const token = localStorage.getItem('token');
-        await deletarInquilino(idExcluir, token); // Chama a API DELETE
+async function confirmarExclusao() {
+  if (idExcluir !== null) {
+    try {
+      console.log("Tentando deletar ID:", idExcluir); // <== Adicione isso
+      const token = localStorage.getItem('token');
+      await deletarInquilino(idExcluir); // se idExcluir for undefined aqui, já temos a causa
 
-        // Recarrega os inquilinos atualizados
-        const dataAtualizada = await listarInquilinos();
-        setInquilinos(dataAtualizada);
+      const dataAtualizada = await listarInquilinos();
+      setInquilinos(dataAtualizada);
 
-        setToastMensagem('Inquilino excluído com sucesso!');
-      } catch (error) {
-        console.error("Erro ao excluir inquilino:", error);
-        setToastMensagem('Erro ao excluir inquilino.');
-      } finally {
-        setModalConfirmOpen(false);
-        setIdExcluir(null);
-        setTimeout(() => setToastMensagem(''), 3000);
-      }
+      setToastMensagem('Inquilino excluído com sucesso!');
+    } catch (error) {
+      console.error("Erro ao excluir inquilino:", error);
+      setToastMensagem('Erro ao excluir inquilino.');
+    } finally {
+      setModalConfirmOpen(false);
+      setIdExcluir(null);
+      setTimeout(() => setToastMensagem(''), 3000);
     }
   }
+}
 
 
 
@@ -130,9 +131,9 @@ export default function TelaInquilino({ token }) {
 
   const atualizarDados = async () => {
     try {
-      // Aqui você pode adicionar a chamada para a API quando estiver disponível
-      // const inquilinosAtualizados = await listarInquilinos();
-      // setInquilinos(inquilinosAtualizados);
+     
+      const inquilinosAtualizados = await listarInquilinos();
+      setInquilinos(inquilinosAtualizados);
       
       setToastMensagem("Inquilinos atualizados com sucesso!");
       setTimeout(() => {
@@ -212,7 +213,7 @@ export default function TelaInquilino({ token }) {
 
         {modalConfirmOpen && (
           <ConfirmDialog
-            mensagem={`Tem certeza que deseja excluir o inquilino de ID: ${idExcluir}?`}
+            mensagem={`Tem certeza que deseja excluir o Morador de ID: ${idExcluir}?`}
             onConfirm={confirmarExclusao}
             onCancel={cancelarExclusao}
           />

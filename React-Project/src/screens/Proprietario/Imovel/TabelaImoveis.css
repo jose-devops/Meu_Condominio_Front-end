@@ -48,7 +48,7 @@
 .acoes-imoveis {
   width:100% ;
   display: flex;
-  justify-content:ce;
+  justify-content:center;
   gap: 5px; 
   text-align: center;
   align-items: center;
