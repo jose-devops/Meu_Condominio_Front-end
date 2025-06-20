@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
+import { cadastrarMorador, editarInquilino } from '../../../api/Proprietario-Api/MoradorService';
+
 
 export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) {
   const [nome, setNome] = useState(inquilino?.nome || '');
   const [cpf, setCpf] = useState(inquilino?.cpf || '');
   const [dataAniversario, setDataAniversario] = useState(inquilino?.dataAniversario || '');
   const [rendaMensal, setRendaMensal] = useState(inquilino?.rendaMensal || '');
-  const [telefone, setTelefone] = useState(inquilino?.telefone || '');
+  const [telefonePrincipal, setTelefonePrincipal] = useState(inquilino?.telefonePrincipal || '');
+  const [telefoneSecundario, setTelefoneSecundario] = useState(inquilino?.telefoneSecundario || '');
+  const [ativo, setAtivo] = useState(inquilino?.ativo || true);  // Correção aqui
+  const [idProprietario, setIdProprietario] = useState(inquilino?.idProprietario || getProprietarioIdFromToken(token));
+
   const [profissao, setProfissao] = useState(inquilino?.profissao || '');
   const [email, setEmail] = useState(inquilino?.email || '');
   const [senha, setSenha] = useState(inquilino?.senha || '');
@@ -14,57 +20,90 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
 
   const [erros, setErros] = useState({});
 
+
+
+    function getProprietarioIdFromToken(token) {
+    if (!token) return null;
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
+      return Number(payload.id || payload.sub || null);
+    } catch {
+      return null;
+    }
+  }
+
+  const proprietarioId = getProprietarioIdFromToken(token);
+
   useEffect(() => {
     if (!inquilino) return;
+ 
+
 
     setNome(inquilino.nome || '');
     setCpf(inquilino.cpf || '');
     setDataAniversario(inquilino.dataAniversario || '');
     setRendaMensal(inquilino.rendaMensal?.toString() || '');
-    setTelefone(inquilino.telefone || '');
+    setTelefonePrincipal(inquilino.telefonePrincipal || '');
+    setTelefoneSecundario(inquilino.telefoneSecundario || '');
     setProfissao(inquilino.profissao || '');
-    setEmail(inquilino.email || '');
-    setSenha(inquilino.senha || '');
+    setEmail(inquilino.usuarioEmail || '');
+    setSenha(inquilino.usuarioSenha || '');
     setObservacao(inquilino.observacao || '');
+    setAtivo(inquilino.ativo !== undefined ? inquilino.ativo : true); 
+
   }, [inquilino]);
 
-  const handleSalvarInquilino = async (e) => {
-    e.preventDefault();
+  const handleSalvarInquilino = async () => {
+    const novosErros = {};
 
-    const inquilinoErros = {};
-    if (!nome) inquilinoErros.nome = "Preencha o nome";
-    if (!cpf) inquilinoErros.cpf = "Preencha o CPF";
-    if (!telefone) inquilinoErros.telefone = "Preencha o telefone";
-    if (!profissao) inquilinoErros.profissao = "Preencha a profissão";
+    // Validação de campos obrigatórios
+    if (!nome.trim()) novosErros.nome = "Nome é obrigatório.";
+    if (!cpf.trim()) novosErros.cpf = "CPF é obrigatório.";
+    if (!email.trim()) novosErros.email = "Email é obrigatório.";
+    
+    if (!telefonePrincipal.trim()) novosErros.telefonePrincipal = "Telefone principal é obrigatório.";
+    if (!rendaMensal.trim()) novosErros.rendaMensal = "Renda mensal é obrigatória.";
 
-    setErros(inquilinoErros);
+  
 
-    if (Object.keys(inquilinoErros).length > 0) {
+    // Se houver erros, exibimos e paramos o processo
+    if (Object.keys(novosErros).length > 0) {
+      setErros(novosErros);
       return;
     }
 
-    const inquilinoData = {
-      id: inquilino?.id || null,
+    // Limpar erros
+    setErros({});
+
+    // Estruturar os dados para envio
+    const dadosInquilino = {
+     
+      id: inquilino?.id, 
       nome,
+      ativo, // Assumindo que ativo é uma opção booleana
       cpf,
-      dataAniversario: dataAniversario || undefined,
-      rendaMensal: rendaMensal ? Number(rendaMensal) : undefined,
-      telefone,
+      dataAniversario,
+      email,
+      ...(senha && { senha }),
+      rendaMensal,
       profissao,
-      email: email || undefined,
-      senha: senha || undefined,
-      observacao: observacao || undefined,
+      observacao,
+      telefonePrincipal,
+      telefoneSecundario,
+      idProprietario,
     };
+  
 
     try {
-      // Aqui você pode adicionar a chamada para a API quando estiver disponível
-      if (inquilino?.id) {
-        // Edição
-        // await alterarInquilino(inquilino.id, inquilinoData);
+      // Se o inquilino já existe, atualiza
+      if (inquilino) {
+        await editarInquilino(inquilino.id, dadosInquilino);
         onSalvar({ tipo: "sucesso", mensagem: "Inquilino atualizado com sucesso!" });
       } else {
-        // Criação
-        // await cadastrarInquilino(inquilinoData);
+        // Caso contrário, cria um novo
+        await cadastrarMorador(dadosInquilino, token);  // Função de cadastrar inquilino
         onSalvar({ tipo: "sucesso", mensagem: "Inquilino cadastrado com sucesso!" });
       }
     } catch (error) {
@@ -72,6 +111,7 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
       onSalvar({ tipo: "erro", mensagem: "Erro ao salvar o inquilino." });
     }
   };
+
 
   return (
     <div className="modal-fundo" onClick={(e) => {
@@ -87,8 +127,11 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
           </div>
 
           <div className="modal-form-inquilino">
+
             <div className='form-inquilino-cols'>
+
               <div className='col-1-form-inquilino'>
+
                 <div className="form-group-inquilino">
                   <label>Nome</label>
                   <input 
@@ -100,6 +143,38 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
                     }} 
                   />
                   {erros.nome && <div className="campo-erro">{erros.nome}</div>}
+                </div>
+
+                <div className="form-group-inquilino-tipo-radio">
+                  <label className='desc-raddio'>
+                    <span>Status:</span>
+                  </label>
+                  <div className="radio-options-inquilino">
+                    <label className="radio-label">
+                      <input 
+                        type="radio" 
+                        name="tipoContrato" 
+                        value="1" 
+                        checked={ativo === true}
+                        onChange={() => setAtivo(true)}
+                      />
+                      Ativo
+                    </label>
+
+                    <label className="radio-label">
+                      <input 
+                        type="radio" 
+                        name="tipoContrato" 
+                        value="0" 
+                        checked={ativo === false}
+                        onChange={() => setAtivo(false)} 
+                      />
+                      Inativo
+                    </label>
+                    {erros.status && <div className="campo-erro">{erros.status}</div>}
+
+                  </div>
+
                 </div>
 
                 <div className="form-group-inquilino">
@@ -128,6 +203,8 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
                     onChange={e => setEmail(e.target.value)} 
                   />
                 </div>
+                {erros.email && <div className="campo-erro">{erros.email}</div>}
+
               </div>
 
               <div className='col-2-form-inquilino'>
@@ -145,16 +222,29 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
                 </div>
 
                 <div className="form-group-inquilino">
-                  <label>Telefone</label>
+                  <label>Telefone Principal</label>
                   <input 
                     type="text" 
-                    value={telefone} 
+                    value={telefonePrincipal} 
                     onChange={e => {
-                      setTelefone(e.target.value); 
-                      setErros(prev => ({ ...prev, telefone: undefined }));
+                      setTelefonePrincipal(e.target.value); 
+                      setErros(prev => ({ ...prev, telefonePrincipal: undefined }));
                     }} 
                   />
-                  {erros.telefone && <div className="campo-erro">{erros.telefone}</div>}
+                  {erros.telefonePrincipal && <div className="campo-erro">{erros.telefone}</div>}
+                </div>
+
+                <div className="form-group-inquilino">
+                  <label>Telefone Secundario</label>
+                  <input 
+                    type="text" 
+                    value={telefoneSecundario} 
+                    onChange={e => {
+                      setTelefoneSecundario(e.target.value); 
+                      setErros(prev => ({ ...prev, telefoneSecundario: undefined }));
+                    }} 
+                  />
+                  {erros.telefoneSecundario && <div className="campo-erro">{erros.telefoneSecundario}</div>}
                 </div>
 
                 <div className="form-group-inquilino">
@@ -175,9 +265,14 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
                   <input 
                     type="password" 
                     value={senha} 
-                    onChange={e => setSenha(e.target.value)} 
+                    onChange={e => setSenha(e.target.value)}
+                    
+
                   />
                 </div>
+             
+
+
               </div>
             </div>
 

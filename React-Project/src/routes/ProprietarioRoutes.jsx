@@ -6,6 +6,7 @@ import TelaPrincipal from '../screens/Proprietario/TelaPrincipal/TelaPrincipal';
 import TelaAgendamento from '../screens/Proprietario/Agendamento/TelaAgendamento';
 import TelaContratos from '../screens/Proprietario/Contratos/TelaContratos';
 import SplashScreen from '../screens/Components/SplashScreen';
+import TelaInquilino from '../screens/Proprietario/Inquilino/TelaInquilino';
 
 const routes = [
 
@@ -57,7 +58,22 @@ const routes = [
         </div>
       </RoleProtectedRoute>
     }
+  />,
+  <Route
+    key="inquilino"
+    path="/inquilino"
+    element={
+      <RoleProtectedRoute allowedRoles={['PROPRIETARIO']}>
+        <div style={{ display: 'flex' }}>
+          <TelaInquilino />
+        </div>
+      </RoleProtectedRoute>
+    }
   />
+
+
+
+  
 ];
 
 export default routes;
