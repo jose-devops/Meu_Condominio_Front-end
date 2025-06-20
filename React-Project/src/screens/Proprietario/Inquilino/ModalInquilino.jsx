@@ -94,6 +94,7 @@ export default function ModalInquilino({ inquilino, onClose, onSalvar, token }) 
       telefoneSecundario,
       idProprietario,
     };
+  
 
     try {
       // Se o inquilino já existe, atualiza

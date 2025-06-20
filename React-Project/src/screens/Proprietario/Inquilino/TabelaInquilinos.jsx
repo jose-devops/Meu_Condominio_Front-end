@@ -25,7 +25,7 @@ export default function TabelaInquilinos({ dados, onEditar, onExcluir }) {
             <td>{inquilino.id.toString().padStart(2, '0')}</td>
             <td>{inquilino.nome || 'N/A'}</td>
             <td>{inquilino.cpf || 'N/A'}</td>
-            <td>{inquilino.dataAniversario || 'N/A'}</td>
+            <td>{inquilino.dataAniversario ? new Date(inquilino.dataAniversario).toLocaleDateString() : 'N/A'}</td>
             <td>{inquilino.telefonePrincipal || 'N/A'}</td>
             <td>{inquilino.telefoneSecundario || 'N/A'}</td>
             <td>{inquilino.profissao || 'N/A'}</td>
