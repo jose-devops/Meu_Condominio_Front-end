@@ -8,6 +8,10 @@ import LogoAndNotification from "../../Components/MenuLateral/Logo&Notificacao/L
 import ConfirmDialog from '../../Components/ConfirmDialog';
 import './TelaInquilino.css';
 
+import { listarInquilinos, deletarInquilino } from '../../../api/Proprietario-Api/MoradorService'; // ajuste o caminho conforme sua pasta
+
+
+
 export default function TelaInquilino({ token }) {
   const [inquilinos, setInquilinos] = useState([]);
   const [busca, setBusca] = useState('');
@@ -17,6 +21,25 @@ export default function TelaInquilino({ token }) {
   const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
   const [idExcluir, setIdExcluir] = useState(null);
   const [toastMensagem, setToastMensagem] = useState('');
+
+
+  async function carregarInquilinos() {
+    try {
+      const resultado = await listarInquilinos(); 
+      setInquilinos(resultado); 
+    } catch (erro) {
+      console.error("Erro ao listar inquilinos:", erro);
+      setErro("Erro ao carregar inquilinos: " + erro.message); 
+    }
+  }
+
+  useEffect(() => {
+    carregarInquilinos(); 
+  }, []);  
+
+
+
+
 
   const handleSalvar = (resposta) => {
     carregarInquilinos();
@@ -53,55 +76,54 @@ export default function TelaInquilino({ token }) {
     setModalConfirmOpen(true);
   }
 
+function excluirInquilino(inquilino) {
+  console.log("Inquilino clicado para exclusão:", inquilino);
+  abrirConfirmacaoExclusao(inquilino.id); // ← pode estar errado se não for id
+}
+
   function cancelarExclusao() {
     setModalConfirmOpen(false);
     setIdExcluir(null);
   }
 
-  function salvarInquilino(novoInquilino) {
-    if (inquilinoSelecionado) {
-      setInquilinos(inqs =>
-        inqs.map(i => (i.id === novoInquilino.id ? novoInquilino : i))
-      );
-    } else {
-      setInquilinos(inqs => [...inqs, { ...novoInquilino, id: Date.now() }]);
+  async function salvarInquilino() {
+    try {
+      const dataAtualizada = await listarMoradores(token); // busca do backend para listar inquilinos
+      setInquilinos(dataAtualizada); // atualiza a lista de inquilinos na tela
+
+      setToastMensagem(inquilinoSelecionado ? 'Inquilino atualizado com sucesso!' : 'Inquilino cadastrado com sucesso!');
+    } catch (error) {
+      console.error("Erro ao salvar ou carregar inquilinos:", error);
+      setToastMensagem('Erro ao salvar inquilino.');
+    } finally {
+      fecharModal(); // fecha o modal após a ação
+      setTimeout(() => setToastMensagem(''), 3000); // limpa a mensagem de sucesso/erro após 3 segundos
     }
-    fecharModal();
-    setTimeout(() => setToastMensagem(""), 3000);
   }
 
-  async function excluirInquilino(id) {
+async function confirmarExclusao() {
+  if (idExcluir !== null) {
     try {
-      // Aqui você pode adicionar a chamada para a API quando estiver disponível
-      // const token = localStorage.getItem('token');
-      // await deletarInquilinoProprietario(id, token);
-      setInquilinos(inqs => inqs.filter(i => i.id !== id));
-      setToastMensagem("Inquilino excluído com sucesso!");
+      console.log("Tentando deletar ID:", idExcluir); // <== Adicione isso
+      const token = localStorage.getItem('token');
+      await deletarInquilino(idExcluir); // se idExcluir for undefined aqui, já temos a causa
+
+      const dataAtualizada = await listarInquilinos();
+      setInquilinos(dataAtualizada);
+
+      setToastMensagem('Inquilino excluído com sucesso!');
     } catch (error) {
       console.error("Erro ao excluir inquilino:", error);
-      setToastMensagem("Erro ao excluir inquilino.");
+      setToastMensagem('Erro ao excluir inquilino.');
+    } finally {
+      setModalConfirmOpen(false);
+      setIdExcluir(null);
+      setTimeout(() => setToastMensagem(''), 3000);
     }
   }
+}
 
-  async function confirmarExclusao() {
-    if (idExcluir !== null) {
-      try {
-        // Aqui você pode adicionar a chamada para a API quando estiver disponível
-        // const token = localStorage.getItem('token');
-        // await deletarInquilinoProprietario(idExcluir, token);
-        setModalConfirmOpen(false);
-        setInquilinos(inquilinos => inquilinos.filter(i => i.id !== idExcluir));
-        setToastMensagem('Inquilino excluído com sucesso!');
-      } catch (error) {
-        console.error("Erro ao excluir inquilino:", error);
-        setToastMensagem('Erro ao excluir inquilino.');
-      } finally {
-        setModalConfirmOpen(false);
-        setIdExcluir(null);
-        setTimeout(() => setToastMensagem(''), 3000);
-      }
-    }
-  }
+
 
   function toggleSidebar() {
     setSidebarRetracted(prev => !prev);
@@ -109,9 +131,9 @@ export default function TelaInquilino({ token }) {
 
   const atualizarDados = async () => {
     try {
-      // Aqui você pode adicionar a chamada para a API quando estiver disponível
-      // const inquilinosAtualizados = await listarInquilinos();
-      // setInquilinos(inquilinosAtualizados);
+     
+      const inquilinosAtualizados = await listarInquilinos();
+      setInquilinos(inquilinosAtualizados);
       
       setToastMensagem("Inquilinos atualizados com sucesso!");
       setTimeout(() => {
@@ -123,23 +145,10 @@ export default function TelaInquilino({ token }) {
     }
   };
 
-  async function carregarInquilinos() {
-    try {
-      // Aqui você pode adicionar a chamada para a API quando estiver disponível
-      // const resultado = await listarInquilinos();
-      // setInquilinos(resultado);
-      
-      // Dados de exemplo para demonstração
-      const dadosExemplo = [];
-      setInquilinos(dadosExemplo);
-    } catch (erro) {
-      console.error("Erro ao listar inquilinos:", erro);
-    }
-  }
 
-  useEffect(() => {
-    carregarInquilinos();
-  }, []);
+
+
+
 
   return (
     <div className={`inquilino-container ${sidebarRetracted ? 'sidebar-collapsed' : ''}`}>
@@ -185,10 +194,10 @@ export default function TelaInquilino({ token }) {
 
           <div className='Area-Tabela-Inquilinos'>
             <TabelaInquilinos
-              dados={inquilinosFiltrados}
-              inquilinos={inquilinos}
+              dados={inquilinosFiltrados}  // Passando a lista filtrada de inquilinos
+              inquilinos={inquilinos}  // Passando a lista completa de inquilinos
               onEditar={abrirModalParaEditar}
-              onExcluir={abrirConfirmacaoExclusao}
+              onExcluir={excluirInquilino}
             />
           </div>
 
@@ -204,7 +213,7 @@ export default function TelaInquilino({ token }) {
 
         {modalConfirmOpen && (
           <ConfirmDialog
-            mensagem={`Tem certeza que deseja excluir o inquilino de ID: ${idExcluir}?`}
+            mensagem={`Tem certeza que deseja excluir o Morador de ID: ${idExcluir}?`}
             onConfirm={confirmarExclusao}
             onCancel={cancelarExclusao}
           />

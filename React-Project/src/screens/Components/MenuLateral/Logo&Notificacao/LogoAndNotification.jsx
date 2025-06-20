@@ -18,7 +18,7 @@ const LogoAndNotification = () => {
       </div>
 
       <div className="logo-container" onClick={toggleModal}>
-        <i class="fa-solid fa-user user"></i>
+        <i className="fa-solid fa-user user"></i>
       </div>
 
       
