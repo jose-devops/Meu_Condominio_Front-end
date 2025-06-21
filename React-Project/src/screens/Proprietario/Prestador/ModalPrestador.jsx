@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css'; // Certifique-se que o CSS correto está sendo importado
+import {
+  listarEspecialidade,
+  cadastrarPrestador,
+  editarPrestador,
+
+} from '../../../api/Proprietario-Api/PrestadoresService';
+
 
 export default function ModalPrestador({ prestador, onClose, onSalvar }) {
-  // Estado inicial do formulário
+  const [especialidades, setEspecialidades] = useState([]);
+
+
   const [formData, setFormData] = useState({
     razao: '',
     cpfCnpj: '',
@@ -13,16 +22,29 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
     observacao: ''
   });
 
+  useEffect(() => {
+  async function carregarEspecialidades() {
+    try {
+      const data = await listarEspecialidade();
+      setEspecialidades(data);
+    } catch (error) {
+      console.error("Erro ao carregar especialidades:", error);
+    }
+  }
+
+  carregarEspecialidades();
+}, []);
+
   // Preenche o formulário se um prestador existente for passado (modo edição)
   useEffect(() => {
     if (prestador) {
       setFormData({
         razao: prestador.razao || '',
         cpfCnpj: prestador.cpfCnpj || '',
-        telefone1: prestador.telefone1 || '',
-        telefone2: prestador.telefone2 || '',
+        telefone1: prestador.telefonePrincipal || '',  // aqui
+        telefone2: prestador.telefoneSecundario || '',
         linkWhatsapp: prestador.linkWhatsapp || '', // Adicionar se existir no modelo de dados
-        especialidade: prestador.profissao || '', // Mapear profissao para especialidade
+        especialidade: prestador.especialidade || prestador.profissao || '', // aqui
         observacao: prestador.observacao || '' // Adicionar se existir no modelo de dados
       });
     }
@@ -34,70 +56,112 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Função para lidar com o salvamento
-  const handleSalvar = (e) => {
-    e.preventDefault(); // Previne o comportamento padrão do formulário
-    // Adiciona lógica de validação se necessário
-    onSalvar({ ...prestador, ...formData }); // Envia os dados atualizados/novos
+
+
+const handleSalvarPrestador = async () => {
+  const { razao, cpfCnpj, telefone1, telefone2, linkWhatsapp, especialidade, observacao } = formData;
+  const novosErros = {};
+
+  if (!razao.trim()) novosErros.razao = "Razão é obrigatória";
+  if (!cpfCnpj.trim()) novosErros.cpfCnpj = "CPF / CNPJ é obrigatório";
+  if (!telefone1.trim()) novosErros.telefone1 = "Telefone Principal é obrigatório";
+  if (!especialidade.trim()) novosErros.especialidade = "Especialidade é obrigatória";
+
+  if (Object.keys(novosErros).length > 0) {
+    setErros(novosErros);
+    return;
+  }
+
+  const dados = {
+    razao,
+    cpfCnpj,
+    telefonePrincipal: telefone1,
+    telefoneSecundario: telefone2,
+    linkWhatsapp,
+    especialidade,
+    observacao
   };
 
-  // Lista de especialidades (exemplo, idealmente viria de uma fonte externa)
-  const especialidades = [
-    "Pedreiro",
-    "Eletricista",
-    "Encanador",
-    "Pintor",
-    "Jardineiro",
-    "Programador",
-    "Médico"
-    // Adicione mais especialidades conforme necessário
-  ];
+  try {
+    if (prestador) {
+      await editarPrestador({ ...dados, id: prestador.id }); // Se ainda for implementar edição
+      onSalvar({ tipo: "sucesso", mensagem: "Prestador atualizado com sucesso!" });
+    } else {
+      await cadastrarPrestador(dados);
+      onSalvar({ tipo: "sucesso", mensagem: "Prestador cadastrado com sucesso!" });
+    }
+    onClose();
+  } catch (error) {
+    console.error(error);
+    onSalvar({ tipo: "erro", mensagem: "Erro ao salvar o Prestador." });
+  }
+};
+
+
+
+
+
+
+  
 
   return (
-    <div className="modal-overlay"> {/* Fundo escurecido */}
-      <div className="modal-content"> {/* Conteúdo do modal */}
-        <div className="modal-header">
-          <h4>PRESTADOR</h4>
-          <button onClick={onClose} className="btn-fechar" aria-label="Fechar">×</button>
+    <div className="modal-fundo" onClick={(e) => {
+      if (e.target === e.currentTarget) onClose();
+    }}>
+      <div className="modal-prestador">
+        <div className='modal-prestador-area'>
+
+          <div className='modal-prestador-header'>
+            <h1>PRESTADOR</h1>
+            <button className="close-button" onClick={onClose}>
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+
         </div>
 
-        <form onSubmit={handleSalvar}> {/* Usar form para semântica e submit */} 
-          <div className="modal-body">
-            <div className="form-row">
-              <div className="form-group">
+          <div className="modal-form-prestador">
+
+            <div className="row-form-prestador">
+
+              <div className="form-group-prestador">
+              
                 <input 
                   type="text" 
                   name="razao" 
                   placeholder="Razão" 
                   value={formData.razao}
                   onChange={handleChange} 
-                  required 
                 />
               </div>
-              <div className="form-group">
+
+
+              <div className="form-group-prestador">
                 <input 
                   type="text" 
                   name="cpfCnpj" 
                   placeholder="CPF / CNPJ" 
                   value={formData.cpfCnpj}
                   onChange={handleChange}
-                  required
+
                 />
               </div>
+
+
             </div>
 
-            <div className="form-row">
-              <div className="form-group">
+            <div className="row-form-prestador">
+              <div className="form-group-prestador">
                 <input 
                   type="tel" // Usar type="tel" para telefones
                   name="telefone1" 
                   placeholder="Telefone principal" 
                   value={formData.telefone1}
                   onChange={handleChange}
-                  required
+               
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group-prestador">
                 <input 
                   type="tel" 
                   name="telefone2" 
@@ -108,33 +172,33 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
               </div>
             </div>
 
-            <div className="form-row">
-              <div className="form-group">
+            <div className="row-form-prestador">
+              <div className="form-group-prestador">
                 <input 
                   type="text" // Poderia ser type="url" se for um link completo
                   name="linkWhatsapp" 
-                  placeholder="Link WhatsApp" 
+                  placeholder="Instagram" 
                   value={formData.linkWhatsapp}
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
-                <select 
-                  name="especialidade" 
-                  value={formData.especialidade}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>Especialidade</option>
-                  {especialidades.map(esp => (
-                    <option key={esp} value={esp}>{esp}</option>
-                  ))}
-                </select>
-              </div>
+                <div className="form-group-prestador">
+                  <select 
+                    name="especialidade" 
+                    value={formData.especialidade}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="" disabled>Especialidade</option>
+                    {especialidades.map(esp => (
+                      <option key={esp} value={esp}>{esp}</option> 
+                    ))}
+                  </select>
+                </div>
             </div>
 
-            <div className="form-row">
-              <div className="form-group full-width">
+            <div className="row-form-prestador">
+              <div className="form-group-prestador full-width">
                 <textarea 
                   name="observacao" 
                   placeholder="Observação" 
@@ -146,11 +210,18 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
             </div>
           </div>
 
-          <div className="modal-footer">
-            <button type="submit" className="btn-cadastrar">CADASTRAR</button>
-            <button type="button" className="btn-cancelar" onClick={onClose}>CANCELAR</button> {/* type="button" para não submeter */} 
+
+
+          <div className="buttons-prestador-form">
+            <div className='botoes-prestador'>
+
+            <button type="button" className="btn-cadastrar" onClick={handleSalvarPrestador}>
+              {prestador ? 'SALVAR' : 'CADASTRAR'}
+            </button>
+            <button type="button" className="btn-cancelar" onClick={onClose}>CANCELAR</button>
+          
+            </div>
           </div>
-        </form>
       </div>
     </div>
   );

@@ -27,7 +27,6 @@ function AppRoutes() {
       <Routes>
         {/* Rota sem menu lateral */}
         
-
         <Route path="/" element={<TelaTipoAcesso />} />
         <Route path="/login-proprietario" element={<LoginProprietario />} />
         <Route path="/login-morador" element={<LoginMorador />} />
@@ -35,24 +34,9 @@ function AppRoutes() {
         <Route path="/tela-principal-morador" element={<TelaPrincipalMorador />} />
         <Route path="/agendamentos-morador" element={<TelaAgendamentoMorador />} />
 
-
-
         {/*Rotas protegidas por tipo de acesso */}
         {ProprietarioRoutes}
-       
 
-
-        {/*APAGAR DEPOIS QUE TIVER TODAS AS TELAS E MANTER AS ROTAS PROTEGITAS POR TIPO */}
-        {/* TODO: Cole aqui as rotas antigas enquanto finalizam as migrações */}
-
-        <Route
-          path="/prestadores"
-          element={
-            <div style={{ display: 'flex' }}>
-              <TelaPrestador/>
-            </div>
-          }
-        />
       </Routes>
       
     </Router>
