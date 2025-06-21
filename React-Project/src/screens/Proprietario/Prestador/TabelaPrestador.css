@@ -1,0 +1,80 @@
+.tabela-prestador{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.tabela-prestador thead tr {
+  background-color: #326978;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  text-align: left;
+}
+
+.tabela-prestador thead th {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.tabela-prestador tbody tr {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.tabela-prestador tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.tabela-prestador tbody td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+.tabela-prestadors tbody td:first-child {
+  width: 40px;
+}
+
+.tabela-prestador tbody td:last-child {
+  text-align: center;
+}
+
+.acoes-prestador {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5px; 
+  text-align: center;
+  align-items: center;
+}
+
+.acoes-prestador button {
+  width: 100%;
+  background-color: #d6d6d6;
+  border-radius: 5px;
+  padding: 8px 0px; 
+  color: #326978; 
+}
+
+.btn-editar-prestador, .btn-excluir-prestador {
+  background: none;
+  border: none;
+  font-size: 15px; 
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btn-editar-prestador:hover {
+  background-color: #326978;
+  color: #fff;
+}
+
+.btn-excluir-prestador:hover {
+  background-color: #326978;
+  color: #fff;
+}
+
