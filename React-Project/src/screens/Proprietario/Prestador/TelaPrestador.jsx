@@ -6,22 +6,66 @@ import ModalPrestador from "./ModalPrestador";
 import BotaoNovo from "../Botoes/BotaoNovo";
 import MenuLateral from "../../Components/MenuLateral/MenuLateral";
 import LogoAndNotification from "../../Components/MenuLateral/Logo&Notificacao/LogoAndNotification";
-import './EstiloPrestador.css';
+import './TelaPrestador.css';
+import ConfirmDialog from '../../Components/ConfirmDialog';
+import { listarEspecialidade } from '../../../api/Proprietario-Api/PrestadoresService';
+import { listarPrestadores, deletarPrestador } from '../../../api/Proprietario-Api/PrestadoresService';
 
-export default function TelaPrestador() {
+export default function TelaPrestador({token}) {
   const [prestadores, setPrestadores] = useState([]);
   const [busca, setBusca] = useState('');
   const [modalAberto, setModalAberto] = useState(false);
   const [prestadorSelecionado, setPrestadorSelecionado] = useState(null);
   const [sidebarRetracted, setSidebarRetracted] = useState(false);
+  const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
+  const [toastMensagem, setToastMensagem] = useState('');
+  const [idExcluir, setIdExcluir] = useState(null);
+
+
+  async function confirmarExclusao() {
+  try {
+    await deletarPrestador(idExcluir, token);
+    setToastMensagem("Prestador excluído com sucesso!");
+    setTimeout(() => setToastMensagem(''), 3000);
+    setModalConfirmOpen(false);
+    setIdExcluir(null);
+    await carregarPrestadores(); 
+  } catch (error) {
+    console.error("Erro ao excluir prestador:", error);
+    setToastMensagem("Erro ao excluir prestador.");
+    setTimeout(() => setToastMensagem(''), 3000);
+  }
+}
+
+
+
+  function abrirConfirmacaoExclusao(id) {
+    setIdExcluir(id);
+    setModalConfirmOpen(true);
+  }
+
+  function excluirPrestador(prestador) {
+    abrirConfirmacaoExclusao(prestador.id); // ← pode estar errado se não for id
+  }
+
+  function cancelarExclusao() {
+    setModalConfirmOpen(false);
+    setIdExcluir(null);
+  }
+
+
+  const carregarPrestadores = async () => {
+    try {
+      const dados = await listarPrestadores();
+      setPrestadores(dados);
+    } catch (error) {
+      console.error("Erro ao carregar prestadores:", error);
+    }
+  };
+
 
   useEffect(() => {
-    // Simulação de dados iniciais, idealmente viria de uma API
-    const dadosMock = [
-      // { id: 1, razao: "Exemplo Prestador", cpfCnpj: "111.222.333-44", dataNascimento: "10/05/1985", telefone1: "(11) 91234-5678", telefone2: "", profissao: "Pedreiro" },
-      // Adicione mais dados mock se necessário para testes
-    ];
-    setPrestadores(dadosMock);
+    carregarPrestadores();
   }, []);
 
   const prestadoresFiltrados = prestadores.filter(p =>
@@ -44,52 +88,76 @@ export default function TelaPrestador() {
     setModalAberto(false);
   }
 
-  function salvarPrestador(novoPrestador) {
-    if (prestadorSelecionado) {
-      setPrestadores(ps =>
-        ps.map(p => (p.id === novoPrestador.id ? novoPrestador : p))
-      );
-    } else {
-      // Simula a adição com um ID único (em um caso real, o backend geraria o ID)
-      setPrestadores(ps => [...ps, { ...novoPrestador, id: Date.now() }]);
+  async function salvarPrestador(resultado) {
+    try {
+      fecharModal();
+      await carregarPrestadores();
+      setToastMensagem(resultado.mensagem); // Usa a mensagem enviada pelo modal
+      setTimeout(() => setToastMensagem(''), 3000);
+    } catch (error) {
+      console.error("Erro ao salvar prestador:", error);
+      setToastMensagem("Erro ao salvar prestador.");
+      setTimeout(() => setToastMensagem(''), 3000);
     }
-    fecharModal();
   }
 
-  function excluirPrestador(id) {
-    setPrestadores(ps => ps.filter(p => p.id !== id));
-  }
+
 
   function toggleSidebar() {
     setSidebarRetracted(prev => !prev);
   }
 
-  function atualizarDados() {
-    console.log("Atualizando dados...");
-    // Lógica para buscar dados atualizados da API
-  }
+  const atualizarDados = async () => {
+    try {
+     
+      const prestadoresAtualizados = await listarPrestadores();
+      setPrestadores(prestadoresAtualizados);
+      
+      setToastMensagem("Prestadores atualizados com sucesso!");
+      setTimeout(() => {
+        setToastMensagem('');
+      }, 3000);
+    } catch (error) {
+      console.error("Erro ao atualizar Prestadores:", error);
+      setToastMensagem("Erro ao atualizar Prestadores.");
+    }
+  };
 
   return (
-    <div className={`tela-prestador-container ${sidebarRetracted ? 'sidebar-collapsed' : ''}`}>
+    <div className={`prestador-container ${sidebarRetracted ? 'sidebar-collapsed' : ''}`}>
       <MenuLateral isCollapsed={sidebarRetracted} toggleSidebar={toggleSidebar} />
-      <div className="conteudo-principal">
-        <header className="header">
-          <LogoAndNotification />
-        </header>
-        <main className="conteudo-prestador">
-          <div className="titulo-container">
-            {/* Título ajustado e ícone conforme imagem 1.png */}
-            <h2 className="titulo">Prestadores <span className="prestador-icon">⚙️</span></h2>
+      <div className="conteudo-principal-prestador">
+
+        <header className="header-prestador">
+          <div className='title-header-prestador'>
+
+            <div className='title-prestador'>
+              <h1>Prestadores</h1>
+            </div>
+
+            <div className='Logo-Notification'>
+              <LogoAndNotification />       
+            </div>
+
           </div>
-          <div className="controles-container">
-            <div className="busca-container">
+ 
+        </header>
+
+
+
+        <main className="area-prestador">
+
+          <div className="controlesTable-container">
+
+            <div className="buscaPrestador-container">
               <CampoBusca
                 placeholder="Faça sua busca..."
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
               />
             </div>
-            <div className="botoes-container">
+
+            <div className="botoes-container-prestador">
               <button className="botao-atualizar" onClick={atualizarDados} title="Atualizar">
                 {/* Ícone de atualização SVG */}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -101,11 +169,15 @@ export default function TelaPrestador() {
             </div>
           </div>
 
-          <TabelaPrestador
-            prestadores={prestadoresFiltrados}
-            onEditar={abrirModalParaEditar}
-            onExcluir={excluirPrestador}
-          />
+          <div className='Area-Tabela-Prestador'>
+
+            <TabelaPrestador
+              prestadores={prestadoresFiltrados}
+              onEditar={abrirModalParaEditar}
+              onExcluir={excluirPrestador}
+            />
+
+          </div>
 
           {modalAberto && (
             <ModalPrestador
@@ -115,7 +187,30 @@ export default function TelaPrestador() {
             />
           )}
         </main>
+
+        {modalConfirmOpen && (
+          <ConfirmDialog
+            mensagem={`Tem certeza que deseja excluir o prestador de ID: ${idExcluir}?`}
+            onConfirm={confirmarExclusao}
+            onCancel={cancelarExclusao}
+          />
+        )}
       </div>
+      {toastMensagem && (
+        <div className="toast-prestador">
+          <div className="toast-sucesso-barra-lateral"></div>
+          <div className="toast-sucesso-conteudo-prestador">
+            <div className="text-toats">
+              <span className="toast-texto">{toastMensagem}</span>
+            </div>
+          </div>
+          <span className="toast-fechar" onClick={() => setToastMensagem('')}>
+            ×
+          </span>
+        </div>
+      )}
+
+
     </div>
   );
 }

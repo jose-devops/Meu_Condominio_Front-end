@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import RoleProtectedRoute from './RoleProtectedRoute';
+import TelaPrestador from '../screens/Proprietario/Prestador/TelaPrestador';
 import TelaImovel from '../screens/Proprietario/Imovel/TelaImovel';
 import TelaPrincipal from '../screens/Proprietario/TelaPrincipal/TelaPrincipal';
 import TelaAgendamento from '../screens/Proprietario/Agendamento/TelaAgendamento';
@@ -69,11 +70,19 @@ const routes = [
         </div>
       </RoleProtectedRoute>
     }
+  />,
+  <Route
+    key="prestadores"
+    path="/prestadores"
+    element={
+      <RoleProtectedRoute allowedRoles={['PROPRIETARIO']}>
+        <div style={{ display: 'flex' }}>
+          <TelaPrestador />
+        </div>
+      </RoleProtectedRoute>
+    }
   />
 
-
-
-  
 ];
 
 export default routes;

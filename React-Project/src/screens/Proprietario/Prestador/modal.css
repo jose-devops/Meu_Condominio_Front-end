@@ -1,190 +1,235 @@
-/* Fundo escurecido do modal */
-.modal-overlay {
+.modal-fundo {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fundo um pouco mais escuro */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1100; /* Garante que fique acima de outros elementos */
-  padding: 20px; /* Espaçamento para evitar que o modal toque as bordas em telas pequenas */
-  box-sizing: border-box;
+  z-index: 1100;
 }
 
-/* Container do conteúdo do modal */
-.modal-content {
-  background-color: white;
-  border-radius: 8px; /* Bordas ligeiramente mais arredondadas */
-  padding: 0; /* Remover padding padrão para controlar com header/body/footer */
+.modal-prestador {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 60%;
+  max-height: 80vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-left: 25px solid #326978;
+  padding: 20px;
+  overflow-y: auto;
+  max-width: 800px;
+}
+
+.modal-prestador-area {
   width: 100%;
-  max-width: 650px; /* Largura máxima do modal, ajustar conforme necessário */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* Garante que o border-radius funcione com o header */
+  height: 100%;
+  padding: 0px 20px;
+ 
+  
 }
 
-/* Cabeçalho do modal */
-.modal-header {
+.modal-prestador-header {
+  width: 100%;
+  height: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 15px 25px;
-  border-bottom: 1px solid #e0e0e0; /* Linha separadora */
-  background-color: #f8f9fa; /* Fundo levemente cinza para o header */
+  position: relative;
+  
 }
 
-.modal-header h4 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
+.modal-prestador h1 {
   color: #333;
+  font-size: 15px;
+  text-align: center;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
-.btn-fechar {
+
+.close-button {
   background: none;
   border: none;
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: #888;
+  font-size: 20px;
+  color: #333;
   cursor: pointer;
-  padding: 0 5px;
-  line-height: 1;
+  padding: 0;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
-.btn-fechar:hover {
-  color: #555;
+.close-button:hover {
+  color: #326978; /* Altera a cor quando o mouse passa por cima */
 }
 
-/* Corpo do modal (formulário) */
-.modal-body {
-  padding: 25px;
+
+
+.modal-form-prestador {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espaçamento entre as linhas do formulário */
-  overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
-  max-height: 60vh; /* Limita a altura máxima do corpo */
+  gap: 10px;
+  padding: 0px 90px;
+  
 }
 
-.form-row {
+.row-form-prestador {
   display: flex;
-  gap: 20px; /* Espaçamento entre campos na mesma linha */
+  justify-content: space-between;
+  gap: 20px;
+  
+  flex-wrap: wrap;
+}
+
+.form-group-prestador {
+  flex: 1 1 45%; /* Adjust to 45% width for fields to fit well on row */
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group-prestador.full-width {
   width: 100%;
 }
 
-.form-group {
-  flex: 1; /* Faz os grupos ocuparem espaço igual */
+.form-group-prestador label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+.form-group-prestador  input,
+.form-group-prestador  select,
+.form-group-prestador  textarea {
+  height: 35px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  margin-bottom: 5%;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 10px;
+}
+
+.form-group-prestador textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.buttons-prestador-form {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-}
-
-.form-group.full-width {
-  flex-basis: 100%; /* Ocupa a linha inteira */
-}
-
-/* Estilos para inputs, select e textarea */
-.form-group input[type="text"],
-.form-group input[type="tel"],
-.form-group input[type="email"], /* Adicionar outros tipos se necessário */
-.form-group select,
-.form-group textarea {
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  width: 100%; /* Ocupa toda a largura do form-group */
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #326978; /* Cor da borda ao focar */
-  outline: none;
-}
-
-.form-group select {
-  /* Aparência padrão do navegador pode variar, estilização adicional pode ser necessária */
-  background-color: white;
-}
-
-.form-group textarea {
-  resize: vertical; /* Permite redimensionamento vertical */
-  min-height: 80px;
-}
-
-/* Rodapé do modal (botões) */
-.modal-footer {
-  display: flex;
-  justify-content: flex-end; /* Alinha botões à direita */
+  justify-content: flex-end;
   gap: 10px;
-  padding: 15px 25px;
-  border-top: 1px solid #e0e0e0; /* Linha separadora */
-  background-color: #f8f9fa; /* Fundo levemente cinza para o footer */
+  margin-top: 20px;
+  padding: 0px 90px;
 }
 
-/* Estilos dos botões */
-.btn-cadastrar,
-.btn-cancelar {
-  padding: 10px 20px;
+.botoes-prestador {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-cadastrar-prestador,
+.btn-cancelar-prestador  {
+  padding: 8px 16px;
   border: none;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-cadastrar {
-  background-color: #326978; /* Cor principal */
-  color: white;
+.btn-cadastrar-prestador {
+
+  background-color: #326978;
+  color: #ffffff;
+  border: 2px solid #326978;
 }
 
-.btn-cadastrar:hover {
-  background-color: #2a5866; /* Cor mais escura no hover */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.btn-cancelar-prestador {
+  background-color: #326978;
+  color: #ffffff;
+  border: 2px solid #326978;
 }
 
-.btn-cancelar {
-  background-color: #6c757d; /* Cinza para cancelar */
-  color: white;
+
+
+.btn-cadastrar-prestador:hover {
+  background-color: #438da1;
+  color: #ffffff;
+  border: 2px solid #326978;
 }
 
-.btn-cancelar:hover {
-  background-color: #5a6268;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.btn-cancelar-prestador:hover {
+  background-color: #438da1;
+  color: #ffffff;
+  border: 2px solid #326978;
 }
 
-/* Responsividade para o modal */
+.erro-campo {
+  color: #f50800;
+  font-size: 0.75rem;
+  margin-top: -5px;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .modal-prestador {
+    width: 75%; 
+  }
+
+  .modal-prestador h1 {
+    font-size: 16px;
+  }
+
+  .row-form-prestador {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group-prestador {
+    flex: 1 1 100%; 
+  }
+
+  .buttons-prestador-form {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
 @media (max-width: 768px) {
-  .modal-content {
-    max-width: 95%;
+  .modal-prestador {
+    width: 90%;
   }
-  .modal-body {
-    padding: 20px;
-  }
-  .modal-header, .modal-footer {
-    padding: 15px 20px;
-  }
-}
 
-@media (max-width: 576px) {
-  .form-row {
-    flex-direction: column; /* Empilha campos em telas pequenas */
-    gap: 15px;
+  .modal-prestador h1 {
+    font-size: 14px;
   }
-  .modal-footer {
-    flex-direction: column-reverse; /* Empilha botões e inverte ordem */
-    align-items: stretch; /* Estica botões */
+
+  .row-form-prestador{
+    flex-direction: column;
+    gap: 10px;
   }
-  .btn-cadastrar,
-  .btn-cancelar {
-    width: 100%;
+
+  .form-group-prestador input,
+  .form-group-prestador  select,
+  .form-group-prestador  textarea {
+    height: 40px;
+  }
+
+  .form-group-prestador label {
+    font-size: 1rem;
+  }
+
+  .buttons-prestador-form {
+    flex-direction: column;
+    align-items: flex-end;
   }
 }
