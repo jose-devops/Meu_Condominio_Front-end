@@ -66,7 +66,7 @@ const MenuLateralMorador = ({ isCollapsed, toggleSidebar }) => {
           </a>
         </li>
         <li className="sidebar-item-morador">
-          <a href="/prestadores" className="sidebar-link-morador">
+          <a href="/prestadores-morador" className="sidebar-link-morador">
             <div className="icon-container-morador">
               <img src={iconePrestadores} alt="Prestadores" width="30" height="30" />
             </div>

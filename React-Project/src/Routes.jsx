@@ -19,7 +19,7 @@ import TelaPrincipalMorador from './screens/Morador/TelaPrincipal/TelaPrincipalM
 import TelaInquilino from './screens/Proprietario/Inquilino/TelaInquilino';
 
 import TelaAgendamentoMorador from './screens/Morador/TelaAgendamento/TelaAgendamentoMorador';
-
+import TelaPrestadorMorador from './screens/Morador/TelaPrestador/TelaPrestadorMorador';
 
 function AppRoutes() {
   return (
@@ -33,6 +33,9 @@ function AppRoutes() {
         <Route path="/registro-proprietario" element={<RegistroProprietario />} />
         <Route path="/tela-principal-morador" element={<TelaPrincipalMorador />} />
         <Route path="/agendamentos-morador" element={<TelaAgendamentoMorador />} />
+        <Route path="/prestadores-morador" element={<TelaPrestadorMorador />} />
+
+
 
         {/*Rotas protegidas por tipo de acesso */}
         {ProprietarioRoutes}
