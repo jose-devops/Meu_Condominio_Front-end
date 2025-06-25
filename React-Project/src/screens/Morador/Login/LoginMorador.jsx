@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import './LoginMorador.css';
-import logo from '../../IMG/logo/logo_principal.png';
+import logo from '../../IMG/logo/logo_principal_white.png';
 import Splash from '../../Components/SplashScreen';
 import { loginMorador } from '../../../api/auth';  // Importando a função de login do Morador
 import { saveToken } from '../../../utils/authUtils';
