@@ -5,6 +5,9 @@ import MenuLateralMorador from '../../Components/Morador/MenuLateral/MenuLateral
 import LogoAndNotification from "../../Components/MenuLateral/Logo&Notificacao/LogoAndNotification";
 import TabelaPrestadorMorador from '../../Components/Morador/PrestadorMorador/TabelaPrestadorMorador';
 import './TelaPrestadorMorador.css';
+import ModalContratoMorador from '../../Components/Morador/ModalContrato/ModalContratoMorador';
+import ModalPerfilMorador from '../../Components/Morador/ModalMorador/ModalPerfilMorador';
+
 
 export default function TelaPrestadorMorador() {
   const [prestadores, setPrestadores] = useState([]);
@@ -12,6 +15,9 @@ export default function TelaPrestadorMorador() {
   const [modalAberto, setModalAberto] = useState(false);
   const [prestadorSelecionado, setPrestadorSelecionado] = useState(null);
   const [sidebarRetracted, setSidebarRetracted] = useState(false);
+  const [showModalContrato, setShowModalContrato] = useState(false); // Estado para controlar a exibição do modal
+  const [showModalPerfilMorador, setShowModalPerfilMorador] = useState(false);
+  
 
   useEffect(() => {
     // Simulação de dados iniciais, idealmente viria de uma API
@@ -27,6 +33,25 @@ export default function TelaPrestadorMorador() {
     (p.cpfCnpj && p.cpfCnpj.toLowerCase().includes(busca.toLowerCase())) ||
     (p.profissao && p.profissao.toLowerCase().includes(busca.toLowerCase()))
   );
+
+
+  
+const openModalPerfilMorador = () => {
+  setShowModalPerfilMorador(true);
+};
+
+const closeModalPerfilMorador = () => {
+  setShowModalPerfilMorador(false);
+};
+
+
+  const openModalContrato = () => {
+    setShowModalContrato(true);
+  };
+
+  const closeModalContrato = () => {
+    setShowModalContrato(false);
+  };
 
   function abrirModalParaEditar(prestador) {
     setPrestadorSelecionado(prestador);
@@ -68,7 +93,7 @@ export default function TelaPrestadorMorador() {
 
   return (
     <div className={`morador-tela-prestador-container ${sidebarRetracted ? 'morador-sidebar-collapsed' : ''}`}>
-      <MenuLateralMorador isCollapsed={sidebarRetracted} toggleSidebar={toggleSidebar} />
+      <MenuLateralMorador isCollapsed={sidebarRetracted} toggleSidebar={toggleSidebar} openModalContrato={openModalContrato}  openModalPerfilMorador={openModalPerfilMorador} />
       <div className="morador-conteudo-principal">
         <header className="morador-header">
           <LogoAndNotification />
@@ -92,6 +117,11 @@ export default function TelaPrestadorMorador() {
             onEditar={abrirModalParaEditar}
             onExcluir={excluirPrestador}
           />
+
+
+          {showModalContrato && <ModalContratoMorador onClose={closeModalContrato} />}
+          {showModalPerfilMorador && <ModalPerfilMorador onClose={closeModalPerfilMorador} />}
+        
         </main>
       </div>
     </div>

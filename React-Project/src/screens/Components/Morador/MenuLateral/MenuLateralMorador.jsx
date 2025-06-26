@@ -10,12 +10,11 @@ import iconeContratos   from '../../../IMG/ICON/tela-principal/icone-contratos.p
 import iconePrestadores from '../../../IMG/ICON/tela-principal/icone-prestadores.png';
 import iconeSair        from '../../../IMG/ICON/tela-principal/icone-sair.png';
 
-import ModalContratoMorador    from '../ModalContrato/ModalContratoMorador';
-import ModalPerfilMorador      from '../ModalMorador/ModalPerfilMorador'; // <-- modal do Inquilino
 
-export default function MenuLateralMorador({ isCollapsed, toggleSidebar }) {
+
+export default function MenuLateralMorador({ isCollapsed, toggleSidebar, openModalContrato, closeModalContrato, openModalPerfilMorador }) {
   const [mostrarModalContrato, setMostrarModalContrato] = useState(false);
-  const [mostrarModalInquilino, setMostrarModalInquilino] = useState(false);
+
   const navigate = useNavigate();
   const token = localStorage.getItem('token'); // para passar ao modal
 
@@ -25,18 +24,6 @@ export default function MenuLateralMorador({ isCollapsed, toggleSidebar }) {
     navigate('/login-morador');
   };
 
-  function handleClick(rota) {
-    switch (rota) {
-      case '/contrato-morador':
-        setMostrarModalContrato(true);
-        break;
-      case '/morador':               // rota que usava para “Inquilino”
-        setMostrarModalInquilino(true);
-        break;
-      default:
-        navigate(rota);
-    }
-  }
 
   return (
     <div className={`sidebar-morador ${isCollapsed ? 'retracted-morador' : ''}`}>
@@ -47,22 +34,29 @@ export default function MenuLateralMorador({ isCollapsed, toggleSidebar }) {
       </div>
 
       <ul className="list-unstyled-morador flex-grow-1-morador">
+
+
+
         <li className="sidebar-item-morador">
-          <button onClick={() => handleClick('/tela-principal-morador')} className="sidebar-link-morador">
-            <img src={iconeHome} alt="Home" width="30" height="30" />
+          <a href="/tela-principal-morador" className="sidebar-link-morador">
+            <div className="icon-container-morador">
+              <img src={iconeHome} alt="Home" width="30" height="30" />
+            </div>
             <span className="sidebar-text-morador">Home</span>
-          </button>
+          </a>
         </li>
 
         <li className="sidebar-item-morador">
-          <button onClick={() => handleClick('/agendamentos-morador')} className="sidebar-link-morador">
-            <img src={iconeAgendamento} alt="Agendamento" width="30" height="30" />
+          <a href="/agendamentos-morador" className="sidebar-link-morador" onClick={() => setMostrarModalContrato(true)}>
+            <div className="icon-container-morador">
+              <img src={iconeAgendamento} alt="Agendamento" width="30" height="30" />
+            </div>
             <span className="sidebar-text-morador">Agendamento</span>
-          </button>
+          </a>
         </li>
 
         <li className="sidebar-item-morador">
-          <a href="/morador" className="sidebar-link-morador">
+          <a className="sidebar-link-morador" onClick={openModalPerfilMorador}>
             <div className="icon-container-morador">
               <img src={iconeInquilino} alt="Inquilino" width="30" height="30" />
             </div>
@@ -70,42 +64,40 @@ export default function MenuLateralMorador({ isCollapsed, toggleSidebar }) {
           </a>
         </li>
 
-        <li className="sidebar-item-morador">
-          <button onClick={() => handleClick('/contrato-morador')} className="sidebar-link-morador">
-            <img src={iconeContratos} alt="Contratos" width="30" height="30" />
-            <span className="sidebar-text-morador">Contratos</span>
-          </button>
-        </li>
 
         <li className="sidebar-item-morador">
-          <button onClick={() => handleClick('/prestadores-morador')} className="sidebar-link-morador">
-            <img src={iconePrestadores} alt="Prestadores" width="30" height="30" />
-            <span className="sidebar-text-morador">Prestadores</span>
-          </button>
+          <a className="sidebar-link-morador" onClick={openModalContrato}>
+            <div className="icon-container-morador">
+              <img src={iconeContratos} alt="Contratos" width="30" height="30" />
+            </div>
+            <span className="sidebar-text-morador">Contratos</span>
+          </a>
         </li>
+
+
+        <li className="sidebar-item-morador">
+          <a href="/prestadores-morador" className="sidebar-link-morador">
+            <div className="icon-container-morador">
+              <img src={iconePrestadores} alt="Prestadores" width="30" height="30" />
+            </div>
+            <span className="sidebar-text-morador">Prestadores</span>
+          </a>
+        </li>
+
       </ul>
+
 
       <ul>
         <li className="sidebar-item-morador">
           <button className="sidebar-link-morador" onClick={handleLogout}>
-            <img src={iconeSair} alt="Sair" width="30" height="30" />
+            <div className="icon-container-morador">
+              <img src={iconeSair} alt="Sair" width="30" height="30" />
+            </div>
             {!isCollapsed && <span className="sidebar-text-morador">Sair</span>}
           </button>
         </li>
       </ul>
 
-      {/* Modais */}
-      {mostrarModalContrato && (
-        <ModalContratoMorador onClose={() => setMostrarModalContrato(false)} />
-      )}
-
-      {mostrarModalInquilino && (
-        <ModalPerfilMorador
-          token={token}
-          onClose={() => setMostrarModalInquilino(false)}
-          onSalvar={() => setMostrarModalInquilino(false)}
-        />
-      )}
     </div>
   );
 }
