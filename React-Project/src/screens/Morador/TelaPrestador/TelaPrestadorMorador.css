@@ -1,0 +1,134 @@
+.morador-tela-prestador-container {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f7f8;
+  color: #333;
+  width: 100%;
+}
+
+.morador-conteudo-principal {
+  margin-left: 260px; /* Espaçamento com a barra lateral aberta */
+  height: 100vh;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.morador-tela-prestador-container.morador-sidebar-collapsed .morador-conteudo-principal {
+  margin-left: 130px; /* Espaço maior quando a barra lateral for recolhida */
+  width: calc(100% - 80px); /* Ajuste da largura para compensar o espaço da barra */
+}
+
+.morador-header {
+  width: 100%;
+  height: 100px;
+  padding: 60px;
+}
+
+.morador-titulo-container {
+  display: flex;
+  align-items: center;
+  margin-top: -30px;
+  margin-bottom: -80px;
+  width: auto;
+}
+
+.morador-titulo {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.morador-prestador-icon {
+  margin-left: 10px;
+  font-size: 1.3rem;
+  color: #326978;
+}
+
+/* Controles */
+.morador-controles-container {
+  justify-content: space-between;
+  display: flex;
+  width: 100%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.morador-busca-container {
+  width: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.morador-botoes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.morador-botao-atualizar {
+  background-color: #326978;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  height: 38px;
+  width: 38px;
+  transition: background-color 0.3s ease;
+}
+
+.morador-botao-atualizar:hover {
+  background-color: #18b8e0;
+}
+
+/* Área da tabela */
+.morador-area-tabela-prestadores {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 6px;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .morador-conteudo-principal {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding-top: 64px;
+  }
+
+  .morador-header {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .morador-area-tabela-prestadores {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .morador-controles-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .morador-busca-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .morador-botoes-container {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .morador-titulo-container {
+    width: 100%;
+  }
+}
