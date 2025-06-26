@@ -1,0 +1,68 @@
+.morador-tabela-prestadores {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .morador-tabela-prestadores thead tr {
+    background-color: #326978;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .morador-tabela-prestadores thead th {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .morador-tabela-prestadores tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+  }
+  
+  .morador-tabela-prestadores tbody tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+  
+  .morador-tabela-prestadores tbody td {
+    padding: 10px 10px;
+    vertical-align: middle;
+  }
+  
+  .morador-btn-editar-prestador,
+  .morador-btn-excluir-prestador {
+    border: none;
+    background: #d6d6d6;
+    color: #326978;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    margin: 0 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  
+  .morador-btn-editar-prestador:hover {
+    background: #326978;
+    color: #fff;
+  }
+  
+  .morador-btn-excluir-prestador:hover {
+    background: #f44336;
+    color: #fff;
+  }
+  
+  @media (max-width: 768px) {
+    .morador-tabela-prestadores {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+  

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import ModalContratoMorador from "../ModalContrato/ModalContratoMorador";// Importe o modal
 import "./MenuPrincipalMorador.css";
 
 import iconeAgendamento from "../../../IMG/logo/tela-principal/icone-agendamento.png";
@@ -12,19 +12,26 @@ import iconePrestadores from "../../../IMG/logo/tela-principal/icone-prestadores
 const itensMenuMorador = [
   { id: 1, label: "Agendamento", icon: iconeAgendamento, rota: "/agendamentos-morador" },
   { id: 2, label: "Inquilino", icon: iconeInquilino, rota: "/inquilino" },
-  { id: 3, label: "Contratos", icon: iconeContratos, rota: "/contratos" },
-  { id: 5, label: "Prestadores", icon: iconePrestadores, rota: "/prestadores" },
+  { id: 3, label: "Contratos", icon: iconeContratos },
+  { id: 5, label: "Prestadores", icon: iconePrestadores, rota: "/prestadores-morador" },
 ];
 
 export default function MenuPrincipalMorador() {
   const [ativo, setAtivo] = useState(null);
+  const [mostrarModal, setMostrarModal] = useState(false); // Estado para controlar a exibição do modal
   const navigate = useNavigate();
 
   function handleClick(item) {
     setAtivo(item.id);
-    if (item.rota) {
-      navigate(item.rota);
+    if (item.label === "Contratos") {
+      setMostrarModal(true); // Exibe o modal quando clicar em "Contratos"
+    } else if (item.rota) {
+      navigate(item.rota); // Navega para as outras rotas
     }
+  }
+
+  function fecharModal() {
+    setMostrarModal(false); // Fecha o modal
   }
 
   return (
@@ -45,6 +52,9 @@ export default function MenuPrincipalMorador() {
           </div>
         ))}
       </div>
+
+      {/* Exibe o modal quando a variável mostrarModal for true */}
+      {mostrarModal && <ModalContratoMorador onClose={fecharModal} />}
     </div>
   );
 }
