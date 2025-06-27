@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './ModalContratoMorador.css'; // Alteração no nome do CSS
-import { listarImoveis, listarMoradores, listarStatusContrato, cadastrarContrato, alterarContrato } from '../../../../api/Proprietario-Api/ContratoService';
+import { listarImoveis, listarMoradores, listarStatusContrato, cadastrarContrato, alterarContrato, } from '../../../../api/Proprietario-Api/ContratoService';
+import { listarContratoMorador  } from '../../../../api/Morador-Api/ContratoMoradorService';
 
 import axios from 'axios';
 
-export default function ModalContratoMorador({ contrato, onClose, onSalvar, token }) {
+export default function ModalContratoMorador({ contrato, onClose, onSalvar, token, somenteVisualizar = false  }) {
 
   const [imoveis, setImoveis] = useState([]);
   const [moradores, setMoradores] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
   const [imovel, setImovel] = useState('');
+
+  const [contratoMorador, setContratoMorador] = useState(null);
 
   const [morador, setMorador] = useState(contrato?.morador || '');
   const [dataPosse, setDataPosse] = useState(contrato?.dataPosse || '');
@@ -23,9 +26,27 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
   const [modeloContrato, setModeloContrato] = useState(null);
   const [arquivoExistente, setArquivoExistente] = useState(null);
 
+
+
   
 
   const [erros, setErros] = useState({});
+
+
+  useEffect(() => {
+const carregarContrato = async () => {
+  try {
+    const data = await listarContratoMorador();
+    if (data.length > 0) {
+      setContratoMorador(data[0]); // Corrigido aqui
+    }
+  } catch (error) {
+    console.error('Erro ao carregar contrato:', error);
+  }
+};;
+
+  carregarContrato();
+}, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -46,29 +67,29 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
   }, []);
 
   useEffect(() => {
-    if (!contrato) return;
+    if (!contratoMorador) return;
 
-    setArquivoExistente(contrato.arquivoContratoUrl || null);
+    setArquivoExistente(contratoMorador.arquivoContratoUrl || null);
 
     setTipoContrato(
-      contrato.tipoContrato === 'ALUGUEL' ? 'Aluguel' :
-      contrato.tipoContrato === 'VENDA' ? 'Venda' :
+      contratoMorador.tipoContrato === 'ALUGUEL' ? 'Aluguel' :
+      contratoMorador.tipoContrato === 'VENDA' ? 'Venda' :
       'Venda'
     );
 
-    setImovel(contrato.imovel?.id?.toString() || contrato.imovelId?.toString() || '');
-    setMorador(contrato.morador?.id?.toString() || contrato.moradorId?.toString() || '');
-    setDataPosse(contrato.dataInicioVigencia || '');
-    setDataDespejo(contrato.dataFimVigencia || '');
-    setValorMulta(contrato.valorMulta?.toString() || '');
-    setValorAluguel(contrato.valorAluguel?.toString() || '');
-    setDataAssinatura(contrato.dataAssinatura || '');
-    setStatus(contrato.status || '');
-    setObservacao(contrato.observacao || '');
+    setImovel(contratoMorador.imovel?.id?.toString() || contratoMorador.imovelId?.toString() || '');
+    setMorador(contratoMorador.morador?.id?.toString() || contratoMorador.moradorId?.toString() || '');
+    setDataPosse(contratoMorador.dataInicioVigencia || '');
+    setDataDespejo(contratoMorador.dataFimVigencia || '');
+    setValorMulta(contratoMorador.valorMulta?.toString() || '');
+    setValorAluguel(contratoMorador.valorAluguel?.toString() || '');
+    setDataAssinatura(contratoMorador.dataAssinatura || '');
+    setStatus(contratoMorador.status || '');
+    setObservacao(contratoMorador.observacao || '');
     setModeloContrato(null);
 
-    console.log(contrato);
-  }, [contrato]);
+    console.log(contratoMorador);
+  }, [contratoMorador]);
 
   function getProprietarioIdFromToken(token) {
     if (!token) return null;
@@ -143,7 +164,7 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
 
   const handleAbrirContrato = async () => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:8080/contratos/download/${contrato.id}`, {
+    const response = await fetch(`http://localhost:8080/contratos/download/${contratoMorador.id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -208,7 +229,7 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
 
                 <div className="form-group-contrato-morador">
                   <label>Morador</label>
-                  <select value={morador} onChange={e => {setMorador(e.target.value); setErros(prev => ({ ...prev, morador: undefined })) }}>
+                  <select disabled={somenteVisualizar}  value={morador} onChange={e => {setMorador(e.target.value); setErros(prev => ({ ...prev, morador: undefined })) }}>
                     <option value="">Selecione...</option>
                     {moradores.map((morador) => (
                       <option key={morador.id} value={morador.id}>
@@ -321,16 +342,14 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
 
             <div className='buttons-contrato-morador-form'>
               <div className='botoes-contrato-morador'>
-                  {contrato?.id && (
+                  {contratoMorador?.id && (
                     <button onClick={handleAbrirContrato} className="btn-download-contrato-morador">
                       <i className="fas fa-external-link-alt"></i> ABRIR CONTRATO
                     </button>
                   )}
-                <button onClick={handleSalvarContrato} className="btn-cadastrar-contrato-morador">
-                  {contrato ? 'SALVAR' : 'CADASTRAR'}
-                </button>
+
                 <button onClick={onClose} className="btn-cancelar-contrato-morador">
-                  CANCELAR
+                  Fechar
                 </button>
               </div>
             </div>
