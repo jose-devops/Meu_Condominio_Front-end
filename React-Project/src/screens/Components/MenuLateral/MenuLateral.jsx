@@ -74,7 +74,7 @@ const MenuLateral = ({ isCollapsed, toggleSidebar }) => {
             <div className="icon-container">
               <img src={iconeInquilino} alt="Inquilino" width="30" height="30" />
             </div>
-            <span className="sidebar-text">Inquilino</span>
+            <span className="sidebar-text">Morador</span>
           </a>
         </li>
         <li className="sidebar-item">

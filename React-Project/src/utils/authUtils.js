@@ -21,3 +21,12 @@ export const isLoggedIn = () => {
 export const getTipoAcesso = () => {
   return localStorage.getItem('tipoAcesso');
 };
+
+export const getUserRole = () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const decodedToken = jwt_decode(token);
+    return decodedToken.role;  
+  }
+  return null; 
+};
