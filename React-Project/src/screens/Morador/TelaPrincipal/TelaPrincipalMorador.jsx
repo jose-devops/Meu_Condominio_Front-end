@@ -44,7 +44,7 @@ const closeModalPerfilMorador = () => {
               <h1>Olá, Morador</h1>
               <h2>Seja bem vindo!</h2>
             </div>
-            <div className='Notification-User-morador' onClick={openModalContrato}>
+            <div className='Notification-User-morador' onClick={openModalPerfilMorador}>
               <LogoAndNotificationMorador />
             </div>
           </div>
@@ -59,9 +59,9 @@ const closeModalPerfilMorador = () => {
 
 
           
-      {/* Modal de contrato */}
-{showModalContrato && <ModalContratoMorador onClose={closeModalContrato} />}
-{showModalPerfilMorador && <ModalPerfilMorador onClose={closeModalPerfilMorador} />}
+        {/* Modal de contrato */}
+        {showModalContrato && <ModalContratoMorador onClose={closeModalContrato} />}
+        {showModalPerfilMorador && <ModalPerfilMorador onClose={closeModalPerfilMorador} />}
 
         </div>
       </div>

@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './ModalPerfilMorador.css';
 
-export default function ModalPerfilMorador({ prestador, onClose, onSalvar, token }) {
-  const [nome, setNome] = useState(prestador?.nome || '');
-  const [cpf, setCpf] = useState(prestador?.cpf || '');
-  const [dataAniversario, setDataAniversario] = useState(prestador?.dataAniversario || '');
-  const [rendaMensal, setRendaMensal] = useState(prestador?.rendaMensal || '');
-  const [telefonePrincipal, setTelefonePrincipal] = useState(prestador?.telefonePrincipal || '');
-  const [telefoneSecundario, setTelefoneSecundario] = useState(prestador?.telefoneSecundario || '');
-  const [ativo, setAtivo] = useState(prestador?.ativo ?? true);
-  const [idProprietario, setIdProprietario] = useState(prestador?.idProprietario || getProprietarioIdFromToken(token));
-  const [profissao, setProfissao] = useState(prestador?.profissao || '');
-  const [email, setEmail] = useState(prestador?.email || '');
-  const [senha, setSenha] = useState(prestador?.senha || '');
-  const [observacao, setObservacao] = useState(prestador?.observacao || '');
+export default function ModalPerfilMorador({ inquilino, onClose, onSalvar, token }) {
+
+
+
+  const [nome, setNome] = useState(inquilino?.nome || '');
+  const [cpf, setCpf] = useState(inquilino?.cpf || '');
+  const [dataAniversario, setDataAniversario] = useState(inquilino?.dataAniversario || '');
+  const [rendaMensal, setRendaMensal] = useState(inquilino?.rendaMensal || '');
+  const [telefonePrincipal, setTelefonePrincipal] = useState(inquilino?.telefonePrincipal || '');
+  const [telefoneSecundario, setTelefoneSecundario] = useState(inquilino?.telefoneSecundario || '');
+  const [ativo, setAtivo] = useState(inquilino?.ativo || true);  // Correção aqui
+  const [idProprietario, setIdProprietario] = useState(inquilino?.idProprietario || getProprietarioIdFromToken(token));
+
+  const [profissao, setProfissao] = useState(inquilino?.profissao || '');
+  const [email, setEmail] = useState(inquilino?.email || '');
+  const [senha, setSenha] = useState(inquilino?.senha || '');
+  const [observacao, setObservacao] = useState(inquilino?.observacao || '');
+
   const [erros, setErros] = useState({});
+
+
+
+
+
+
 
   function getProprietarioIdFromToken(token) {
     if (!token) return null;
@@ -28,20 +39,25 @@ export default function ModalPerfilMorador({ prestador, onClose, onSalvar, token
     }
   }
 
+
   useEffect(() => {
-    if (!prestador) return;
-    setNome(prestador.nome || '');
-    setCpf(prestador.cpf || '');
-    setDataAniversario(prestador.dataAniversario || '');
-    setRendaMensal(prestador.rendaMensal?.toString() || '');
-    setTelefonePrincipal(prestador.telefonePrincipal || '');
-    setTelefoneSecundario(prestador.telefoneSecundario || '');
-    setProfissao(prestador.profissao || '');
-    setEmail(prestador.email || '');
-    setSenha(prestador.senha || '');
-    setObservacao(prestador.observacao || '');
-    setAtivo(prestador.ativo ?? true);
-  }, [prestador]);
+    if (!inquilino) return;
+ 
+
+
+    setNome(inquilino.nome || '');
+    setCpf(inquilino.cpf || '');
+    setDataAniversario(inquilino.dataAniversario || '');
+    setRendaMensal(inquilino.rendaMensal?.toString() || '');
+    setTelefonePrincipal(inquilino.telefonePrincipal || '');
+    setTelefoneSecundario(inquilino.telefoneSecundario || '');
+    setProfissao(inquilino.profissao || '');
+    setEmail(inquilino.usuarioEmail || '');
+    setSenha(inquilino.usuarioSenha || '');
+    setObservacao(inquilino.observacao || '');
+    setAtivo(inquilino.ativo !== undefined ? inquilino.ativo : true); 
+
+  }, [inquilino]);
 
   const handleSalvarPrestador = async () => {
     const novosErros = {};
@@ -85,90 +101,252 @@ export default function ModalPerfilMorador({ prestador, onClose, onSalvar, token
     }
   };
 
+
+
+    const handleSalvarInquilino = async () => {
+    const novosErros = {};
+
+    // Validação de campos obrigatórios
+    if (!nome.trim()) novosErros.nome = "Nome é obrigatório.";
+    if (!cpf.trim()) novosErros.cpf = "CPF é obrigatório.";
+    if (!email.trim()) novosErros.email = "Email é obrigatório.";
+    
+    if (!telefonePrincipal.trim()) novosErros.telefonePrincipal = "Telefone principal é obrigatório.";
+    if (!rendaMensal.trim()) novosErros.rendaMensal = "Renda mensal é obrigatória.";
+
+  
+
+    // Se houver erros, exibimos e paramos o processo
+    if (Object.keys(novosErros).length > 0) {
+      setErros(novosErros);
+      return;
+    }
+
+    // Limpar erros
+    setErros({});
+
+    // Estruturar os dados para envio
+    const dadosInquilino = {
+     
+      id: inquilino?.id, 
+      nome,
+      ativo, // Assumindo que ativo é uma opção booleana
+      cpf,
+      dataAniversario,
+      email,
+      ...(senha && { senha }),
+      rendaMensal,
+      profissao,
+      observacao,
+      telefonePrincipal,
+      telefoneSecundario,
+      idProprietario,
+    };
+  
+
+    try {
+      // Se o inquilino já existe, atualiza
+      if (inquilino) {
+        await editarInquilino(inquilino.id, dadosInquilino);
+        onSalvar({ tipo: "sucesso", mensagem: "Inquilino atualizado com sucesso!" });
+      } else {
+        // Caso contrário, cria um novo
+        await cadastrarMorador(dadosInquilino, token);  // Função de cadastrar inquilino
+        onSalvar({ tipo: "sucesso", mensagem: "Inquilino cadastrado com sucesso!" });
+      }
+    } catch (error) {
+      console.error(error);
+      onSalvar({ tipo: "erro", mensagem: "Erro ao salvar o inquilino." });
+    }
+  };
+
   return (
-    <div className="modal-fundo-prestador" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="modal-prestador">
-        <div className="modal-prestador-area">
-          <div className="modal-prestador-header">
-            <h1>PRESTADOR</h1>
-            <button className="close-button-prestador" onClick={onClose}>×</button>
+    <div className="modal-fundo" onClick={(e) => {
+      if (e.target === e.currentTarget) onClose();
+    }}>
+      <div className="modal-inquilino">
+        <div className='modal-inquilino-area'>
+          <div className='modal-inquilino-header'>
+            <h1>MORADOR</h1>
+            <button className="close-button" onClick={onClose}>
+              <i className="fas fa-times"></i>
+            </button>
           </div>
-          <div className="modal-form-prestador">
-            <div className="form-prestador-cols">
-              <div className="col-1-form-prestador">
-                {/* Campos coluna 1 */}
-                <div className="form-group-prestador">
+
+          <div className="modal-form-inquilino">
+
+            <div className='form-inquilino-cols'>
+
+              <div className='col-1-form-inquilino'>
+
+                <div className="form-group-inquilino">
                   <label>Nome</label>
-                  <input type="text" value={nome} onChange={e => { setNome(e.target.value); setErros(prev => ({ ...prev, nome: undefined })); }} />
-                  {erros.nome && <div className="campo-erro-prestador">{erros.nome}</div>}
+                  <input 
+                    type="text" 
+                    value={nome} 
+                    onChange={e => {
+                      setNome(e.target.value); 
+                      setErros(prev => ({ ...prev, nome: undefined }));
+                    }} 
+                  />
+                  {erros.nome && <div className="campo-erro">{erros.nome}</div>}
                 </div>
-                <div className="form-group-prestador-tipo-radio">
-                  <label>Status:</label>
-                  <div className="radio-options-prestador">
-                    <label>
-                      <input type="radio" checked={ativo === true} onChange={() => setAtivo(true)} /> Ativo
+
+                <div className="form-group-inquilino-tipo-radio">
+                  <label className='desc-raddio'>
+                    <span>Status:</span>
+                  </label>
+                  <div className="radio-options-inquilino">
+                    <label className="radio-label">
+                      <input 
+                        type="radio" 
+                        name="tipoContrato" 
+                        value="1" 
+                        checked={ativo === true}
+                        onChange={() => setAtivo(true)}
+                      />
+                      Ativo
                     </label>
-                    <label>
-                      <input type="radio" checked={ativo === false} onChange={() => setAtivo(false)} /> Inativo
+
+                    <label className="radio-label">
+                      <input 
+                        type="radio" 
+                        name="tipoContrato" 
+                        value="0" 
+                        checked={ativo === false}
+                        onChange={() => setAtivo(false)} 
+                      />
+                      Inativo
                     </label>
+                    {erros.status && <div className="campo-erro">{erros.status}</div>}
+
                   </div>
+
                 </div>
-                <div className="form-group-prestador">
-                  <label>Data Aniversário</label>
-                  <input type="date" value={dataAniversario} onChange={e => setDataAniversario(e.target.value)} />
+
+                <div className="form-group-inquilino">
+                  <label>Data aniversário</label>
+                  <input 
+                    type="date" 
+                    value={dataAniversario} 
+                    onChange={e => setDataAniversario(e.target.value)} 
+                  />
                 </div>
-                <div className="form-group-prestador">
-                  <label>Renda Mensal</label>
-                  <input type="text" value={rendaMensal} onChange={e => setRendaMensal(e.target.value)} />
+
+                <div className="form-group-inquilino">
+                  <label>Renda mensal</label>
+                  <input 
+                    type="text" 
+                    value={rendaMensal} 
+                    onChange={e => setRendaMensal(e.target.value)} 
+                  />
                 </div>
-                <div className="form-group-prestador">
+
+                <div className="form-group-inquilino">
                   <label>Email</label>
-                  <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                  {erros.email && <div className="campo-erro-prestador">{erros.email}</div>}
+                  <input 
+                    type="email" 
+                    value={email} 
+                    onChange={e => setEmail(e.target.value)} 
+                  />
                 </div>
+                {erros.email && <div className="campo-erro">{erros.email}</div>}
+
               </div>
-              <div className="col-2-form-prestador">
-                {/* Campos coluna 2 */}
-                <div className="form-group-prestador">
+
+              <div className='col-2-form-inquilino'>
+                <div className="form-group-inquilino">
                   <label>CPF</label>
-                  <input type="text" value={cpf} onChange={e => { setCpf(e.target.value); setErros(prev => ({ ...prev, cpf: undefined })); }} />
-                  {erros.cpf && <div className="campo-erro-prestador">{erros.cpf}</div>}
+                  <input 
+                    type="text" 
+                    value={cpf} 
+                    onChange={e => {
+                      setCpf(e.target.value); 
+                      setErros(prev => ({ ...prev, cpf: undefined }));
+                    }} 
+                  />
+                  {erros.cpf && <div className="campo-erro">{erros.cpf}</div>}
                 </div>
-                <div className="form-group-prestador">
+
+                <div className="form-group-inquilino">
                   <label>Telefone Principal</label>
-                  <input type="text" value={telefonePrincipal} onChange={e => { setTelefonePrincipal(e.target.value); setErros(prev => ({ ...prev, telefonePrincipal: undefined })); }} />
-                  {erros.telefonePrincipal && <div className="campo-erro-prestador">{erros.telefonePrincipal}</div>}
+                  <input 
+                    type="text" 
+                    value={telefonePrincipal} 
+                    onChange={e => {
+                      setTelefonePrincipal(e.target.value); 
+                      setErros(prev => ({ ...prev, telefonePrincipal: undefined }));
+                    }} 
+                  />
+                  {erros.telefonePrincipal && <div className="campo-erro">{erros.telefone}</div>}
                 </div>
-                <div className="form-group-prestador">
-                  <label>Telefone Secundário</label>
-                  <input type="text" value={telefoneSecundario} onChange={e => { setTelefoneSecundario(e.target.value); setErros(prev => ({ ...prev, telefoneSecundario: undefined })); }} />
-                  {erros.telefoneSecundario && <div className="campo-erro-prestador">{erros.telefoneSecundario}</div>}
+
+                <div className="form-group-inquilino">
+                  <label>Telefone Secundario</label>
+                  <input 
+                    type="text" 
+                    value={telefoneSecundario} 
+                    onChange={e => {
+                      setTelefoneSecundario(e.target.value); 
+                      setErros(prev => ({ ...prev, telefoneSecundario: undefined }));
+                    }} 
+                  />
+                  {erros.telefoneSecundario && <div className="campo-erro">{erros.telefoneSecundario}</div>}
                 </div>
-                <div className="form-group-prestador">
+
+                <div className="form-group-inquilino">
                   <label>Profissão</label>
-                  <input type="text" value={profissao} onChange={e => { setProfissao(e.target.value); setErros(prev => ({ ...prev, profissao: undefined })); }} />
-                  {erros.profissao && <div className="campo-erro-prestador">{erros.profissao}</div>}
+                  <input 
+                    type="text" 
+                    value={profissao} 
+                    onChange={e => {
+                      setProfissao(e.target.value); 
+                      setErros(prev => ({ ...prev, profissao: undefined }));
+                    }} 
+                  />
+                  {erros.profissao && <div className="campo-erro">{erros.profissao}</div>}
                 </div>
-                <div className="form-group-prestador">
+
+                <div className="form-group-inquilino">
                   <label>Senha</label>
-                  <input type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                  <input 
+                    type="password" 
+                    value={senha} 
+                    onChange={e => setSenha(e.target.value)}
+                    
+
+                  />
                 </div>
+             
+
+
               </div>
             </div>
-            <div className="row-form-prestador">
-              <div className="form-group-prestador full-width">
+
+            <div className="row-form-inquilino">
+              <div className="form-group-inquilino full-width">
                 <label>Observação</label>
-                <textarea value={observacao} onChange={e => setObservacao(e.target.value)} rows="3" />
+                <textarea 
+                  value={observacao} 
+                  onChange={(e) => setObservacao(e.target.value)} 
+                  rows="3" 
+                />
               </div>
             </div>
-            <div className="buttons-prestador-form">
-              <div className="botoes-prestador">
-                <button onClick={handleSalvarPrestador} className="btn-cadastrar-prestador">{prestador ? 'SALVAR' : 'CADASTRAR'}</button>
-                <button onClick={onClose} className="btn-cancelar-prestador">CANCELAR</button>
+
+            <div className='buttons-inquilino-form'>
+              <div className='botoes-inquilino'>
+                <button onClick={handleSalvarInquilino} className="btn-cadastrar-inquilino">
+                  {'SALVAR'}
+                </button>
+                <button onClick={onClose} className="btn-cancelar-inquilino">
+                  CANCELAR
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>  );
+    </div>
+  );
 }

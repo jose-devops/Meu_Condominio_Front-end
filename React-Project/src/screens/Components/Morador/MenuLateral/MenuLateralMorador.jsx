@@ -5,7 +5,7 @@ import './MenuLateralMorador.css';
 
 import iconeHome        from '../../../IMG/ICON/tela-principal/icone-home.png';
 import iconeAgendamento from '../../../IMG/ICON/tela-principal/icone-agendamento.png';
-import iconeInquilino   from '../../../IMG/ICON/tela-principal/icone-inquilino.png';
+
 import iconeContratos   from '../../../IMG/ICON/tela-principal/icone-contratos.png';
 import iconePrestadores from '../../../IMG/ICON/tela-principal/icone-prestadores.png';
 import iconeSair        from '../../../IMG/ICON/tela-principal/icone-sair.png';
@@ -55,14 +55,7 @@ export default function MenuLateralMorador({ isCollapsed, toggleSidebar, openMod
           </a>
         </li>
 
-        <li className="sidebar-item-morador">
-          <a className="sidebar-link-morador" onClick={openModalPerfilMorador}>
-            <div className="icon-container-morador">
-              <img src={iconeInquilino} alt="Inquilino" width="30" height="30" />
-            </div>
-            <span className="sidebar-text-morador">Morador</span>
-          </a>
-        </li>
+
 
 
         <li className="sidebar-item-morador">
