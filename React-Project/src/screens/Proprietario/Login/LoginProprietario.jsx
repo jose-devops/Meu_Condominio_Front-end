@@ -1,5 +1,5 @@
 /*IMPORTS API*/
-import { login } from '../../../api/auth';
+import { loginProprietario } from '../../../api/auth';
 import { saveToken } from '../../../utils/authUtils';
 
 /* IMPORTS INTERFACE*/
@@ -48,7 +48,7 @@ const handleLoginClick = async () => {
   if (erroLocal) return;
 
   try {
-    const token = await login(email, senha);
+    const token = await loginProprietario(email, senha);
     saveToken(token);
     localStorage.setItem('tipoAcesso', 'PROPRIETARIO');
 

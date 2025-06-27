@@ -11,7 +11,6 @@ import iconePrestadores from "../../../IMG/logo/tela-principal/icone-prestadores
 
 const itensMenuMorador = [
   { id: 1, label: "Agendamento", icon: iconeAgendamento, rota: "/agendamentos-morador" },
-  { id: 2, label: "Inquilino", icon: iconeInquilino },            // sem rota
   { id: 3, label: "Contratos", icon: iconeContratos },
   { id: 5, label: "Prestadores", icon: iconePrestadores, rota: "/prestadores-morador" },
 ];

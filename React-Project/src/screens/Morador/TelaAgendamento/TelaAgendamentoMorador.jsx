@@ -10,6 +10,12 @@ import TabelaAgendamentosMorador from '../../Components/Morador/AgendamentosMora
 import ModalAgendamentoMorador from '../../Components/Morador/AgendamentosMorador/ModalAgendamentoMorador';       
 import BotaoNovoMorador from '../../Components/Morador/AgendamentosMorador/BotaoNovoMorador';
 import MenuLateralMorador from '../../Components/Morador/MenuLateral/MenuLateralMorador';
+import ModalContratoMorador from '../../Components/Morador/ModalContrato/ModalContratoMorador';
+import ModalPerfilMorador from '../../Components/Morador/ModalMorador/ModalPerfilMorador';
+
+
+
+
 function getProprietarioIdFromToken(token) {
   if (!token) return null;
   try {
@@ -33,6 +39,26 @@ export default function TelaAgendamentoMorador() {
   const proprietarioId = getProprietarioIdFromToken(token);
   const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
   const [idExcluir, setIdExcluir] = useState(null);
+  const [showModalContrato, setShowModalContrato] = useState(false); // Estado para controlar a exibição do modal
+  const [showModalPerfilMorador, setShowModalPerfilMorador] = useState(false);
+  
+    
+const openModalPerfilMorador = () => {
+  setShowModalPerfilMorador(true);
+};
+
+const closeModalPerfilMorador = () => {
+  setShowModalPerfilMorador(false);
+};
+
+
+  const openModalContrato = () => {
+    setShowModalContrato(true);
+  };
+
+  const closeModalContrato = () => {
+    setShowModalContrato(false);
+  };
 
   const carregarAgendamentos = async () => {
     try {
@@ -146,7 +172,7 @@ export default function TelaAgendamentoMorador() {
 
   return (
     <div className={`morador-agendamento-container ${sidebarRetracted ? 'morador-sidebar-collapsed' : ''}`}>
-      <MenuLateralMorador isCollapsed={sidebarRetracted} toggleSidebar={toggleSidebar} />
+      <MenuLateralMorador isCollapsed={sidebarRetracted} toggleSidebar={toggleSidebar} openModalContrato={openModalContrato}  openModalPerfilMorador={openModalPerfilMorador} />
       <div className="morador-conteudo-principal-agendamento">
         <header className="morador-header-agendamentos">
           <div className='morador-title-header-agendamentos'>
@@ -185,6 +211,12 @@ export default function TelaAgendamentoMorador() {
               onExcluir={abrirConfirmacaoExclusao} 
             />
           </div>
+
+
+                          {/* Modal de contrato */}
+                    {showModalContrato && <ModalContratoMorador onClose={closeModalContrato} />}
+                    {showModalPerfilMorador && <ModalPerfilMorador onClose={closeModalPerfilMorador} />}
+                  
 
           {modalAberto && (
             <ModalAgendamentoMorador

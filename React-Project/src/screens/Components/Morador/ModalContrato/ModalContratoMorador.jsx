@@ -23,6 +23,8 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
   const [modeloContrato, setModeloContrato] = useState(null);
   const [arquivoExistente, setArquivoExistente] = useState(null);
 
+  
+
   const [erros, setErros] = useState({});
 
   useEffect(() => {
@@ -79,6 +81,7 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
       return null;
     }
   }
+  
 
   const proprietarioId = getProprietarioIdFromToken(token);
 
