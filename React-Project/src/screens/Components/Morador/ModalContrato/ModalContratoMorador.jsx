@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ModalContratoMorador.css'; // Alteração no nome do CSS
-import { listarImoveis, listarMoradores, listarStatusContrato, cadastrarContrato, alterarContrato, } from '../../../../api/Proprietario-Api/ContratoService';
-import { listarContratoMorador  } from '../../../../api/Morador-Api/ContratoMoradorService';
+import { listarContratoMorador } from '../../../../api/Morador-Api/ContratoMoradorService';
 
 import axios from 'axios';
 
@@ -15,6 +14,7 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
   const [contratoMorador, setContratoMorador] = useState(null);
 
   const [morador, setMorador] = useState(contrato?.morador || '');
+
   const [dataPosse, setDataPosse] = useState(contrato?.dataPosse || '');
   const [dataDespejo, setDataDespejo] = useState(contrato?.dataDespejo || '');
   const [valorMulta, setValorMulta] = useState(contrato?.valorMulta || '');
@@ -28,46 +28,34 @@ export default function ModalContratoMorador({ contrato, onClose, onSalvar, toke
 
 
 
+
   
 
   const [erros, setErros] = useState({});
 
 
   useEffect(() => {
-const carregarContrato = async () => {
-  try {
-    const data = await listarContratoMorador();
-    if (data.length > 0) {
-      setContratoMorador(data[0]); // Corrigido aqui
-    }
-  } catch (error) {
-    console.error('Erro ao carregar contrato:', error);
-  }
-};;
-
-  carregarContrato();
-}, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const imoveisData = await listarImoveis();
-        const moradoresData = await listarMoradores();
-        const statusData = await listarStatusContrato();
-
-        setImoveis(imoveisData);
-        setMoradores(moradoresData);
-        setStatusOptions(statusData);
-      } catch (error) {
-        console.error("Erro ao carregar imóveis ou moradores", error);
+  const carregarContrato = async () => {
+    try {
+      const data = await listarContratoMorador();
+      if (data.length > 0) {
+        setContratoMorador(data[0]); // Corrigido aqui
       }
+    } catch (error) {
+      console.error('Erro ao carregar contrato:', error);
     }
+  };;
 
-    fetchData();
+    carregarContrato();
   }, []);
+
+
 
   useEffect(() => {
     if (!contratoMorador) return;
+
+    console.log(contratoMorador);
+    
 
     setArquivoExistente(contratoMorador.arquivoContratoUrl || null);
 
@@ -77,8 +65,11 @@ const carregarContrato = async () => {
       'Venda'
     );
 
-    setImovel(contratoMorador.imovel?.id?.toString() || contratoMorador.imovelId?.toString() || '');
-    setMorador(contratoMorador.morador?.id?.toString() || contratoMorador.moradorId?.toString() || '');
+    setMorador(contratoMorador.nomeMorador || ''); 
+
+
+    setImovel(contratoMorador.nomeImovel || '');
+ 
     setDataPosse(contratoMorador.dataInicioVigencia || '');
     setDataDespejo(contratoMorador.dataFimVigencia || '');
     setValorMulta(contratoMorador.valorMulta?.toString() || '');
@@ -90,6 +81,9 @@ const carregarContrato = async () => {
 
     console.log(contratoMorador);
   }, [contratoMorador]);
+
+
+
 
   function getProprietarioIdFromToken(token) {
     if (!token) return null;
@@ -113,54 +107,7 @@ const carregarContrato = async () => {
       : nome.slice(0, limite / 2) + '...' + nome.slice(-10);
   }
 
-  const handleSalvarContrato = async (e) => {
-    e.preventDefault();
 
-    const contratosErros = {};
-    if (!morador) contratosErros.morador = "Preencha o morador";
-    if (!imovel) contratosErros.imovel = "Preencha o imóvel";
-    if (!status) contratosErros.status = "Preencha o status";
-    if (!dataPosse) contratosErros.dataPosse = "Preencha a data da posse";
-    if (!dataDespejo) contratosErros.dataDespejo = "Preencha a data de despejo";
-    if (!valorMulta) contratosErros.valorMulta = "Preencha o valor da multa";
-    if (!valorAluguel) contratosErros.valorAluguel = "Preencha o valor do aluguel";
-    if (!dataAssinatura) contratosErros.dataAssinatura = "Preencha a data de assinatura";
-
-    setErros(contratosErros);
-
-    if (Object.keys(contratosErros).length > 0) {
-      setErros(contratosErros);
-      return;
-    }
-
-    const contratoData = {
-      id: contrato?.id || null,
-      imovelId: imovel,
-      moradorId: morador,
-      dataDespejo: dataDespejo || undefined,
-      valorMulta: valorMulta ? Number(valorMulta) : undefined,
-      valorAluguel: valorAluguel ? Number(valorAluguel) : undefined,
-      status: status || undefined,
-      tipoContrato: tipoContrato.toUpperCase(),
-      observacao: observacao || undefined,
-      dataAssinatura,
-      dataInicioVigencia: dataPosse || undefined,
-      dataFimVigencia: dataDespejo
-    };
-
-    try {
-      if (contrato?.id) {
-        await alterarContrato(contrato.id, contratoData, modeloContrato);
-        onSalvar({ tipo: "sucesso", mensagem: "Contrato atualizado com sucesso!" });
-      } else {
-        await cadastrarContrato(contratoData, modeloContrato);
-        onSalvar({ tipo: "sucesso", mensagem: "Contrato cadastrado com sucesso!" });
-      }
-    } catch (error) {
-      console.error(error);
-      onSalvar({ tipo: "erro", mensagem: "Erro ao salvar o contrato." });
-    }
-  };
 
   const handleAbrirContrato = async () => {
     const token = localStorage.getItem("token");
@@ -204,6 +151,7 @@ const carregarContrato = async () => {
                   <div className="radio-options-contrato-morador">
                     <label className="radio-label">
                       <input 
+                        disabled
                         type="radio" 
                         name="tipoContrato" 
                         value="Venda" 
@@ -215,6 +163,7 @@ const carregarContrato = async () => {
 
                     <label className="radio-label">
                       <input 
+                        disabled
                         type="radio" 
                         name="tipoContrato" 
                         value="Aluguel" 
@@ -229,32 +178,27 @@ const carregarContrato = async () => {
 
                 <div className="form-group-contrato-morador">
                   <label>Morador</label>
-                  <select disabled={somenteVisualizar}  value={morador} onChange={e => {setMorador(e.target.value); setErros(prev => ({ ...prev, morador: undefined })) }}>
-                    <option value="">Selecione...</option>
-                    {moradores.map((morador) => (
-                      <option key={morador.id} value={morador.id}>
-                        {morador.nome}
-                      </option>
-                    ))}
-                  </select>
+                    <select disabled value={morador} onChange={e => setMorador(e.target.value)}>
+                      <option value={morador}>{morador}</option> 
+                    </select>
                   {erros.morador && <div className="campo-erro">{erros.morador}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Data posse</label>
-                  <input type="date" value={dataPosse} onChange={e =>{setDataPosse(e.target.value); setErros(prev => ({ ...prev, dataPosse: undefined })); }} />
+                  <input disabled type="date" value={dataPosse} onChange={e =>{setDataPosse(e.target.value); setErros(prev => ({ ...prev, dataPosse: undefined })); }} />
                   {erros.dataPosse && <div className="campo-erro">{erros.dataPosse}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Valor multa</label>
-                  <input type="text" value={valorMulta} onChange={e => { setValorMulta(e.target.value); setErros(prev => ({ ...prev, valorMulta: undefined })); }} />
+                  <input disabled type="text" value={valorMulta} onChange={e => { setValorMulta(e.target.value); setErros(prev => ({ ...prev, valorMulta: undefined })); }} />
                   {erros.valorMulta && <div className="campo-erro">{erros.valorMulta}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Data assinatura</label>
-                  <input type="date" value={dataAssinatura} onChange={e => {setDataAssinatura(e.target.value); setErros(prev => ({ ...prev, dataAssinatura: undefined })); }} />
+                  <input disabled type="date" value={dataAssinatura} onChange={e => {setDataAssinatura(e.target.value); setErros(prev => ({ ...prev, dataAssinatura: undefined })); }} />
                   {erros.dataAssinatura && <div className="campo-erro">{erros.dataAssinatura}</div>}
                 </div>
               </div>
@@ -262,57 +206,49 @@ const carregarContrato = async () => {
               <div className='col-2-form-contrato-morador'>
                 <div className="form-group-contrato-morador">
                   <label>Imóvel</label>
-                    <select value={imovel} onChange={e =>{ setImovel(e.target.value.toString()); setErros(prev => ({ ...prev, imovel: undefined })) }}>
-                      <option value="">Selecione...</option>
-                      {imoveis.map((imovelObj) => (
-                        <option key={imovelObj.id} value={imovelObj.id.toString()}>
-                          {imovelObj.descricao}
-                        </option>
-                      ))}
+                    <select disabled value={imovel} onChange={e => setImovel(e.target.value)}>
+                      <option value={imovel}>{imovel}</option> 
                     </select>
                     {erros.imovel && <div className="campo-erro">{erros.imovel}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Status</label>
-                  <select value={status} onChange={e => {setStatus(e.target.value); setErros(prev => ({ ...prev, status: undefined })) }}>
-                    <option value="">Selecione...</option>
-                    {statusOptions.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
+                    <select disabled  value={status} onChange={e => setStatus(e.target.value)}>
+                      <option  value={status}>{status}</option> 
+                    </select>
                   {erros.status && <div className="campo-erro">{erros.status}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Data despejo</label>
-                  <input type="date" value={dataDespejo} onChange={e => {setDataDespejo(e.target.value); setErros(prev => ({ ...prev, dataDespejo: undefined })); }} />
+                  <input disabled type="date" value={dataDespejo} onChange={e => {setDataDespejo(e.target.value); setErros(prev => ({ ...prev, dataDespejo: undefined })); }} />
                   {erros.dataDespejo && <div className="campo-erro">{erros.dataDespejo}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Valor aluguel</label>
-                  <input type="text" value={valorAluguel} onChange={e => { setValorAluguel(e.target.value); }} />
+                  <input disabled type="text" value={valorAluguel} onChange={e => { setValorAluguel(e.target.value); }} />
                   {erros.valorAluguel && <div className="campo-erro">{erros.valorAluguel}</div>}
                 </div>
 
                 <div className="form-group-contrato-morador">
                   <label>Modelo contrato</label>
                   <div className='file'>
-                    {arquivoExistente ? (
+                    {arquivoExistente ?  (
                       <div className="arquivo-salvo-info" >
                         <span className='name-arquivo'>
                           <strong>{abreviarNomeArquivo(arquivoExistente.split('/').pop())}</strong>
                         </span>
                         <button
+                          
                           type="button"
                           className="btn-substituir-arquivo"
                           onClick={() => {
                             setArquivoExistente(null);
                             setModeloContrato(null);
                           }}
+                          disabled
                           title="Substituir arquivo"
                         >
                           <i className="fas fa-times"></i>
@@ -320,6 +256,7 @@ const carregarContrato = async () => {
                       </div>
                     ) : (
                       <input
+                        disabled
                         type="file"
                         onChange={(e) => {
                           setModeloContrato(e.target.files[0]);
@@ -336,7 +273,7 @@ const carregarContrato = async () => {
             <div className="row-form-contrato-morador">
               <div className="form-group-contrato-morador full-width">
                 <label>Observação</label>
-                <textarea value={observacao} onChange={(e) => setObservacao(e.target.value)} rows="2" />
+                <textarea disabled value={observacao} onChange={(e) => setObservacao(e.target.value)} rows="2" />
               </div>
             </div>
 
