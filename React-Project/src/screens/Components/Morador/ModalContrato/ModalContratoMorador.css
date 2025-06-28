@@ -330,4 +330,23 @@
     gap: 10px;
     border: 2px solid #000000;
   }
+
+
+
+  input[disabled], select[disabled], textarea[disabled] {
+  background-color: #f5f5f5; /* Um fundo mais claro, mas com contraste */
+  color: #333; /* Cor do texto em um tom mais forte de preto */
+  border: 2px solid #000000; /* Borda mais visível */
+}
+
+/* Para campos de texto, como textarea */
+textarea[disabled] {
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Para melhorar o contraste nos labels */
+label {
+  color: #333; /* Cor dos labels em um tom mais forte */
+}
   
