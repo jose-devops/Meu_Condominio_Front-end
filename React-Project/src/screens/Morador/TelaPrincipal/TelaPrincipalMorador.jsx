@@ -60,7 +60,7 @@ const closeModalPerfilMorador = () => {
 
           
         {/* Modal de contrato */}
-        {showModalContrato && <ModalContratoMorador onClose={closeModalContrato} />}
+        {showModalContrato && <ModalContratoMorador  onClose={closeModalContrato} />}
         {showModalPerfilMorador && <ModalPerfilMorador onClose={closeModalPerfilMorador} />}
 
         </div>
