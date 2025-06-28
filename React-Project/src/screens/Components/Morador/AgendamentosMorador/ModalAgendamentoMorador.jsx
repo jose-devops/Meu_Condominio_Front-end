@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ModalAgendamentoMorador.css';
 
+import {
+  cadastrarAgendamentoMorador,
+  editarAgendamentoMorador,
+  listarTiposAgendamento,
+  listarStatusAgendamento
+} from '../../../../api/Morador-Api/AgendamentoMoradorService';
 
 
-export default function ModalAgendamentoMorador({ agendamento, token, onClose, onSalvar }) {
+
+export default function ModalAgendamentoMorador({ agendamentoMorador, token, onClose, onSalvar }) {
   const [descricao, setDescricao] = useState('');
   const [tipoAgendamento, setTipoAgendamento] = useState('');
   const [local, setLocalAgendamento] = useState('');
@@ -17,7 +24,7 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
   const [erros, setErros] = useState({});
   const modalRef = useRef(null);
 
-  function getProprietarioIdFromToken(token) {
+  function getMoradorIdFromToken(token) {
     if (!token) return null;
     try {
       const payloadBase64 = token.split('.')[1];
@@ -29,27 +36,43 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
     }
   }
 
-  const proprietarioId = getProprietarioIdFromToken(token);
+  const moradorId = getMoradorIdFromToken(token);
 
-  useEffect(() => {
-    if (agendamento) {
-      setDescricao(agendamento.descricao || '');
-      setTipoAgendamento(agendamento.tipoAgendamento || '');
-      setLocalAgendamento(agendamento.local || '');
-      setStatus(agendamento.status || '');
-      setDataInicio(agendamento.dataInicio?.slice(0, 16) || '');
-      setDataFim(agendamento.dataFim?.slice(0, 16) || '');
-      setObservacao(agendamento.observacao || '');
-    } else {
-      setDescricao('');
-      setTipoAgendamento('');
-      setLocalAgendamento('');
-      setStatus('');
-      setDataInicio('');
-      setDataFim('');
-      setObservacao('');
-    }
-  }, [agendamento]);
+    useEffect(() => {
+      if (agendamentoMorador) {
+        setDescricao(agendamentoMorador.descricao || '');
+        setTipoAgendamento(agendamentoMorador.tipoAgendamento || '');
+        setLocalAgendamento(agendamentoMorador.local || '');
+        setStatus(agendamentoMorador.status || '');
+        setDataInicio(agendamentoMorador.dataInicio?.slice(0, 16) || '');
+        setDataFim(agendamentoMorador.dataFim?.slice(0, 16) || '');
+        setObservacao(agendamentoMorador.observacao || '');
+      } else {
+       
+        setDescricao('');
+        setTipoAgendamento('');
+        setLocalAgendamento('');
+        setStatus('');
+        setDataInicio('');
+        setDataFim('');
+        setObservacao('');
+      }
+    }, [agendamentoMorador]);
+
+    useEffect(() => {
+      listarStatusAgendamento().then(setStatusOptions);
+      listarTiposAgendamento()
+        .then(setTiposAgendamento)
+        .catch((err) =>
+          console.error('Erro ao carregar tipos de agendamento:', err)
+        );
+    }, []);
+
+    const formatarParaLocalDateTime = (dataString) => {
+      if (!dataString.includes(':')) return dataString + 'T00:00:00';
+      if (dataString.length === 16) return dataString + ':00'; // datetime-local retorna até minutos
+      return dataString; // já completo
+    };
 
 
 
@@ -82,8 +105,21 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
       dataInicio: formatarParaLocalDateTime(dataInicio),
       dataFim: formatarParaLocalDateTime(dataFim),
       observacao,
-      id: agendamento?.id
+      id: agendamentoMorador?.id
     };
+
+    try {
+      if (agendamentoMorador) {
+        await editarAgendamentoMorador(dados);
+        onSalvar({ tipo: "sucesso", mensagem: "Agendamento atualizado com sucesso!" });
+      } else {
+        await cadastrarAgendamentoMorador(dados);
+        onSalvar({ tipo: "sucesso", mensagem: "Agendamento cadastrado com sucesso!" });
+      }
+    } catch (error) {
+      console.error(error);
+      onSalvar({ tipo: "erro", mensagem: "Erro ao salvar o agendamento." });
+    }
 
 
   };
@@ -111,7 +147,7 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
                 <label>Descrição</label>
                 <input
                   value={descricao}
-                  //onChange={(e) => setDescricao(e.target.value)}
+                  onChange={(e) => setDescricao(e.target.value)}
                 />
                 {erros.descricao && <span className="morador-erro-campo">{erros.descricao}</span>}
               </div>
@@ -119,10 +155,17 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
                 <label>Tipo agendamento</label>
                 <select
                   value={tipoAgendamento}
-                  //onChange={(e) => setTipoAgendamento(e.target.value)}
+                  onChange={(e) => setTipoAgendamento(e.target.value)}
                 >
                   <option value="">Selecione...</option>
- 
+                  {tiposAgendamento.map((tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo
+                        .replace('_', ' ')
+                        .toLowerCase()
+                        .replace(/^\w/, (c) => c.toUpperCase())}
+                    </option>
+                  ))}
                 </select>
                 {erros.tipoAgendamento && <span className="morador-erro-campo">{erros.tipoAgendamento}</span>}
               </div>
@@ -132,7 +175,7 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
                 <label>Local</label>
                 <input
                   value={local}
-                  //onChange={(e) => setLocalAgendamento(e.target.value)}
+                  onChange={(e) => setLocalAgendamento(e.target.value)}
                 />
                 {erros.local && <span className="morador-erro-campo">{erros.local}</span>}
               </div>
@@ -140,7 +183,11 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
                 <label>Status</label>
                 <select value={status} onChange={(e) => setStatus(e.target.value)}>
                   <option value="">Selecione...</option>
- 
+                  {statusOptions.map((status) => (
+                    <option key={status} value={status}>
+                      {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+                    </option>
+                  ))}
                 </select>
                 {erros.status && <span className="morador-erro-campo">{erros.status}</span>}
               </div>
@@ -151,7 +198,7 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
                 <input
                   type="datetime-local"
                   value={dataInicio}
-                  //onChange={(e) => setDataInicio(e.target.value)}
+                  onChange={(e) => setDataInicio(e.target.value)}
                 />
                 {erros.dataInicio && <span className="morador-erro-campo">{erros.dataInicio}</span>}
               </div>
@@ -180,7 +227,7 @@ export default function ModalAgendamentoMorador({ agendamento, token, onClose, o
                   onClick={handleSalvarAgendamento}
                   className="morador-btn-cadastrar-agendamento"
                 >
-                  {agendamento ? 'SALVAR' : 'CADASTRAR'}
+                  {agendamentoMorador ? 'SALVAR' : 'CADASTRAR'}
                 </button>
                 <button onClick={onClose} className="morador-btn-cancelar-agendamento">
                   CANCELAR

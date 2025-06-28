@@ -1,5 +1,7 @@
-import { listarAgendamentosProprietario } from '../../../api/Proprietario-Api/AgendamentoService';
-import { deletarAgendamentoProprietario } from '../../../api/Proprietario-Api/AgendamentoService';
+import { listarAgendamentosMorador } from '../../../api/Morador-Api/AgendamentoMoradorService';
+import { deletarAgendamentoMorador } from '../../../api/Morador-Api/AgendamentoMoradorService';
+
+
 import ConfirmDialog from '../../Components/ConfirmDialog';
 import React, { useState, useEffect } from 'react';
 import MenuLateral from "../../Components/MenuLateral/MenuLateral";
@@ -16,7 +18,7 @@ import ModalPerfilMorador from '../../Components/Morador/ModalMorador/ModalPerfi
 
 
 
-function getProprietarioIdFromToken(token) {
+function getMoradorIdFromToken(token) {
   if (!token) return null;
   try {
     const payloadBase64 = token.split('.')[1];
@@ -36,7 +38,7 @@ export default function TelaAgendamentoMorador() {
   const [sidebarRetracted, setSidebarRetracted] = useState(false);
   const [toastMensagem, setToastMensagem] = useState('');
   const token = localStorage.getItem('token');
-  const proprietarioId = getProprietarioIdFromToken(token);
+  const moradorId = getMoradorIdFromToken(token);
   const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
   const [idExcluir, setIdExcluir] = useState(null);
   const [showModalContrato, setShowModalContrato] = useState(false); // Estado para controlar a exibição do modal
@@ -63,7 +65,7 @@ const closeModalPerfilMorador = () => {
   const carregarAgendamentos = async () => {
     try {
       const token = localStorage.getItem('token');
-      const resposta = await listarAgendamentosProprietario(token);
+      const resposta = await listarAgendamentosMorador(token);
       setAgendamentos(resposta);
     } catch (error) {
       console.error("Erro ao carregar agendamentos:", error);
@@ -143,7 +145,7 @@ const closeModalPerfilMorador = () => {
   async function excluirAgendamento(id) {
     try {
       const token = localStorage.getItem('token');
-      await deletarAgendamentoProprietario(id, token);
+      await deletarAgendamentoMorador(id, token);
       setAgendamentos(ags => ags.filter(a => a.id !== id));
       setToastMensagem("Agendamento excluído com sucesso!");
     } catch (error) {
@@ -158,7 +160,7 @@ const closeModalPerfilMorador = () => {
 
   const atualizarDados = async () => {
     try {
-      const agendamentosAtualizados = await listarAgendamentosProprietario();
+      const agendamentosAtualizados = await listarAgendamentosMorador();
       setAgendamentos(agendamentosAtualizados);
       setToastMensagem("Agendamentos atualizados com sucesso!");
       setTimeout(() => {

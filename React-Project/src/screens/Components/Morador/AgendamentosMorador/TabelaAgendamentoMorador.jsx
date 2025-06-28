@@ -28,21 +28,21 @@ export default function TabelaAgendamentosMorador({ dados, onEditar, onExcluir }
         </tr>
       </thead>
       <tbody>
-        {dados.map((agendamento) => (
-          <tr key={agendamento.id}>
+        {dados.map((agendamentoMorador) => (
+          <tr key={agendamentoMorador.id}>
             <td><input type="checkbox" /></td>
-            <td>{agendamento.id.toString().padStart(2, '0')}</td>
-            <td>{agendamento.descricao}</td>
-            <td>{agendamento.tipoAgendamento}</td>
-            <td>{formatarDataHora(agendamento.dataInicio)}</td>
-            <td>{formatarDataHora(agendamento.dataFim)}</td>
-            <td>{agendamento.status}</td>
-            <td>{agendamento.observacao || '-'}</td>
+            <td>{agendamentoMorador.id.toString().padStart(2, '0')}</td>
+            <td>{agendamentoMorador.descricao}</td>
+            <td>{agendamentoMorador.tipoAgendamento}</td>
+            <td>{formatarDataHora(agendamentoMorador.dataInicio)}</td>
+            <td>{formatarDataHora(agendamentoMorador.dataFim)}</td>
+            <td>{agendamentoMorador.status}</td>
+            <td>{agendamentoMorador.observacao || '-'}</td>
             <td className="morador-acoes-agendamento">
-              <button onClick={() => onEditar(agendamento)} title="Editar" className="morador-btn-editar-agendamento">
+              <button onClick={() => onEditar(agendamentoMorador)} title="Editar" className="morador-btn-editar-agendamento">
                 <AiOutlineEdit style={{ strokeWidth: 100 }} />
               </button>
-              <button onClick={() => onExcluir(agendamento.id)} title="Excluir" className="morador-btn-excluir-agendamento">
+              <button onClick={() => onExcluir(agendamentoMorador.id)} title="Excluir" className="morador-btn-excluir-agendamento">
                 <AiOutlineDelete style={{ strokeWidth: 80 }} />
               </button>
             </td>
