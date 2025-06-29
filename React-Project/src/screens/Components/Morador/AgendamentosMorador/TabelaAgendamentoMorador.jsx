@@ -11,6 +11,21 @@ function formatarDataHora(dataISO) {
   });
 }
 
+const moradorId = (() => {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+  try {
+    const payloadBase64 = token.split('.')[1];
+    const payloadJson = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+    return payload.id || payload.sub || null;
+  } catch {
+    return null;
+  }
+})();
+
+
+
 export default function TabelaAgendamentosMorador({ dados, onEditar, onExcluir }) {
   return (
     <table className="morador-tabela-agendamento">

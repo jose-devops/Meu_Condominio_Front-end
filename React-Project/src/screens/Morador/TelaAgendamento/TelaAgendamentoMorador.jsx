@@ -103,19 +103,20 @@ const closeModalPerfilMorador = () => {
     (a.tipo && a.tipo.toLowerCase().includes(busca.toLowerCase()))
   );
 
-  const handleSalvarComToast = (resposta) => {
-    setToastMensagem('');
-    setTimeout(() => {
-      setToastMensagem(resposta.mensagem);
+const handleSalvarComToast = (resposta) => {
+  setToastMensagem(resposta.mensagem);
 
-      if (resposta.tipo === "sucesso") {
-        carregarAgendamentos(); 
-        setTimeout(() => {
-          setModalAberto(false);
-        }, 1000);
-      }
-    }, 100);
-  };
+  if (resposta.tipo === "sucesso") {
+    carregarAgendamentos(); 
+    setTimeout(() => {
+      setModalAberto(false);
+    }, 1000);
+  }
+
+  setTimeout(() => {
+    setToastMensagem('');
+  }, 3000);
+};
 
   function abrirModalParaEditar(agendamento) {
     setAgendamentoSelecionado(agendamento);
@@ -222,7 +223,7 @@ const closeModalPerfilMorador = () => {
 
           {modalAberto && (
             <ModalAgendamentoMorador
-              agendamento={agendamentoSelecionado}
+              agendamentoMorador={agendamentoSelecionado}
               token={token}
               onClose={fecharModal}
               onSalvar={handleSalvarComToast}
