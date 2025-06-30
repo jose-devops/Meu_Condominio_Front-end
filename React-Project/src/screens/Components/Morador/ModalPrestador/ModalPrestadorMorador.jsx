@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css'; // Certifique-se que o CSS correto está sendo importado
-import {
-  listarEspecialidade,
-  cadastrarPrestador,
-  editarPrestador,
-
-} from '../../../api/Proprietario-Api/PrestadoresService';
 
 
-export default function ModalPrestador({ prestador, onClose, onSalvar }) {
-  const [especialidades, setEspecialidades] = useState([]);
+
+export default function ModalPrestadorMorador({ prestador, onClose, onSalvar }) {
+    const [especialidades, setEspecialidades] = useState([]);
+  
 
 
   const [formData, setFormData] = useState({
@@ -22,18 +18,9 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
     observacao: ''
   });
 
-  useEffect(() => {
-  async function carregarEspecialidades() {
-    try {
-      const data = await listarEspecialidade();
-      setEspecialidades(data);
-    } catch (error) {
-      console.error("Erro ao carregar especialidades:", error);
-    }
-  }
 
-  carregarEspecialidades();
-}, []);
+
+
 
   // Preenche o formulário se um prestador existente for passado (modo edição)
   useEffect(() => {
@@ -44,8 +31,9 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
         telefone1: prestador.telefonePrincipal || '',  // aqui
         telefone2: prestador.telefoneSecundario || '',
         linkWhatsapp: prestador.linkWhatsapp || '', // Adicionar se existir no modelo de dados
-        especialidade: prestador.especialidade || prestador.profissao || '', // aqui
+      especialidade: (prestador.especialidade || prestador.profissao || '').trim().toUpperCase(),
         observacao: prestador.observacao || '' // Adicionar se existir no modelo de dados
+      
       });
     }
   }, [prestador]);
@@ -58,44 +46,10 @@ export default function ModalPrestador({ prestador, onClose, onSalvar }) {
 
 
 
-const handleSalvarPrestador = async () => {
-  const { razao, cpfCnpj, telefone1, telefone2, linkWhatsapp, especialidade, observacao } = formData;
-  const novosErros = {};
 
-  if (!razao.trim()) novosErros.razao = "Razão é obrigatória";
-  if (!cpfCnpj.trim()) novosErros.cpfCnpj = "CPF / CNPJ é obrigatório";
-  if (!telefone1.trim()) novosErros.telefone1 = "Telefone Principal é obrigatório";
-  if (!especialidade.trim()) novosErros.especialidade = "Especialidade é obrigatória";
 
-  if (Object.keys(novosErros).length > 0) {
-    setErros(novosErros);
-    return;
-  }
 
-  const dados = {
-    razao,
-    cpfCnpj,
-    telefonePrincipal: telefone1,
-    telefoneSecundario: telefone2,
-    linkWhatsapp,
-    especialidade,
-    observacao
-  };
 
-  try {
-    if (prestador) {
-      await editarPrestador({ ...dados, id: prestador.id }); // Se ainda for implementar edição
-      onSalvar({ tipo: "sucesso", mensagem: "Prestador atualizado com sucesso!" });
-    } else {
-      await cadastrarPrestador(dados);
-      onSalvar({ tipo: "sucesso", mensagem: "Prestador cadastrado com sucesso!" });
-    }
-    onClose();
-  } catch (error) {
-    console.error(error);
-    onSalvar({ tipo: "erro", mensagem: "Erro ao salvar o Prestador." });
-  }
-};
 
 
 
@@ -127,13 +81,13 @@ const handleSalvarPrestador = async () => {
               <div className="form-group-prestador">
                 <label>Nome</label>
 
-              
                 <input 
                   type="text" 
                   name="razao" 
                   placeholder="Razão" 
                   value={formData.razao}
                   onChange={handleChange} 
+                  disabled
                 />
               </div>
 
@@ -147,8 +101,9 @@ const handleSalvarPrestador = async () => {
                   placeholder="CPF / CNPJ" 
                   value={formData.cpfCnpj}
                   onChange={handleChange}
-
+                  disabled
                 />
+
               </div>
 
 
@@ -157,23 +112,26 @@ const handleSalvarPrestador = async () => {
             <div className="row-form-prestador">
               <div className="form-group-prestador">
                 <label>Telefone Principal</label>
+
                 <input 
                   type="tel" // Usar type="tel" para telefones
                   name="telefone1" 
                   placeholder="Telefone principal" 
                   value={formData.telefone1}
                   onChange={handleChange}
+                  disabled
                
                 />
               </div>
               <div className="form-group-prestador">
-                <label>Telefone secundário</label>
+                <label>Telefone Secundário</label>
                 <input 
                   type="tel" 
                   name="telefone2" 
                   placeholder="Telefone secundário" 
                   value={formData.telefone2}
                   onChange={handleChange}
+                  disabled
                 />
               </div>
             </div>
@@ -187,21 +145,19 @@ const handleSalvarPrestador = async () => {
                   placeholder="Instagram" 
                   value={formData.linkWhatsapp}
                   onChange={handleChange}
+                  disabled
                 />
               </div>
                 <div className="form-group-prestador">
                   <label>Especialidade</label>
-                  <select 
-                    name="especialidade" 
+                  <input
+                    type="text"
+                    name="especialidade"
                     value={formData.especialidade}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="" disabled>Especialidade</option>
-                    {especialidades.map(esp => (
-                      <option key={esp} value={esp}>{esp}</option> 
-                    ))}
-                  </select>
+                    disabled
+                  />
+
+                  
                 </div>
             </div>
 
@@ -214,6 +170,7 @@ const handleSalvarPrestador = async () => {
                   rows="4" // Ajuste a altura conforme necessário
                   value={formData.observacao}
                   onChange={handleChange}
+                  disabled
                 />
               </div>
             </div>
@@ -224,10 +181,7 @@ const handleSalvarPrestador = async () => {
           <div className="buttons-prestador-form">
             <div className='botoes-prestador'>
 
-            <button type="button" className="btn-cadastrar" onClick={handleSalvarPrestador}>
-              {prestador ? 'SALVAR' : 'CADASTRAR'}
-            </button>
-            <button type="button" className="btn-cancelar" onClick={onClose}>CANCELAR</button>
+            <button type="button" className="btn-cancelar" onClick={onClose}>FECHAR</button>
           
             </div>
           </div>

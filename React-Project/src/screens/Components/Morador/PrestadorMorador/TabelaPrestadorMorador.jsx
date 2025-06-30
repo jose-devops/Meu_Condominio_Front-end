@@ -1,42 +1,39 @@
 import React from "react";
 import './TabelaPrestadorMorador.css';
+import { AiOutlineEdit, AiOutlineEye, AiOutlineFile, AiOutlineInfo, AiOutlineOrderedList, } from 'react-icons/ai';
+
 
 export default function TabelaPrestadorMorador({ prestadores, onEditar, onExcluir }) {
   return (
-    <table className="morador-tabela-prestadores">
+    <table className="tabela-prestador-morador">
       <thead>
         <tr>
+           <th><input type="checkbox" /></th>
           <th>ID</th>
-          <th>Razão</th>
+          <th>Nome</th>
           <th>CPF / CNPJ</th>
-          <th>Data Nascimento</th>
           <th>Telefone Principal</th>
           <th>Telefone Secundário</th>
-          <th>Profissão</th>
-          <th>Ações</th>
+          <th>Especialidade</th>
+          <th>Ações</th> 
         </tr>
       </thead>
       <tbody>
-        {prestadores.map((prestador) => (
-          <tr key={prestador.id}>
-            <td>{prestador.id}</td>
-            <td>{prestador.razao}</td>
-            <td>{prestador.cpfCnpj}</td>
-            <td>{prestador.dataNascimento}</td>
-            <td>{prestador.telefone1}</td>
-            <td>{prestador.telefone2}</td>
-            <td>{prestador.profissao}</td>
-            <td>
-              <button
-                className="morador-btn-editar-prestador"
-                onClick={() => onEditar(prestador)}
-                title="Editar"
-              >✏</button>
-              <button
-                className="morador-btn-excluir-prestador"
-                onClick={() => onExcluir(prestador.id)}
-                title="Excluir"
-              >🗑</button>
+        {prestadores.map((prestadorMorador) => (
+          <tr key={prestadorMorador.id}>
+             <td><input type="checkbox" /></td>
+            <td>{prestadorMorador.id}</td>
+            <td>{prestadorMorador.razao}</td>
+            <td>{prestadorMorador.cpfCnpj}</td>
+            <td>{prestadorMorador.telefonePrincipal}</td>
+            <td>{prestadorMorador.telefoneSecundario}</td>
+            <td>{prestadorMorador.especialidade}</td>
+          
+            <td className="acoes-prestador-morador">
+              <button onClick={() => onEditar(prestadorMorador)} title="Editar" className="btn-editar-prestador-morador">
+                <AiOutlineFile style={{strokeWidth: 100 }}/>
+              </button>
+
             </td>
           </tr>
         ))}
