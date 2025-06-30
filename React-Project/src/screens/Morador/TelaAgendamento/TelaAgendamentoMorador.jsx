@@ -182,7 +182,7 @@ const handleSalvarComToast = (resposta) => {
             <div className='morador-title-agendamento'>
               <h1>Agendamentos</h1>
             </div>
-            <div className='morador-Logo-Notification'>
+            <div className='morador-Logo-Notification'  onClick={openModalPerfilMorador}>
               <LogoAndNotification />
             </div>
           </div>

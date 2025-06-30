@@ -139,10 +139,10 @@
 .botao-trocar {
   width: 140px;
   margin-top: 35%;
-  background-color: #ffffff;
-  border: 1px solid #4892AB;
+  background-color: #ffffff !important;
+  border: 1px solid #4892AB !important;
   border-radius:10px;
-  color: #326978;
+  color: #326978 !important;
   
   font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
