@@ -21,20 +21,7 @@ const LogoAndNotification = () => {
         <i className="fa-solid fa-user user"></i>
       </div>
 
-      
-
-      {modalOpen && (
-        <div className="modal-container-user" onClick={() => setModalOpen(false)}>
-          <div className="modal-user" onClick={e => e.stopPropagation()}>
-            <ul>
-              <li><FaUserCircle /> Perfil</li>
-              <li><FaCog /> Config</li>
-              <hr className="divider" />
-              <li><FaSignOutAlt /> Sair</li>
-            </ul>
-          </div>
-        </div>
-      )}
+    
     </div>
   );
 };
