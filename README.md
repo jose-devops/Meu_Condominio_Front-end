@@ -55,18 +55,26 @@ O objetivo do **Meu Condomínio** é **automatizar processos, aumentar a transpa
 ### Passos
 
 
-# Clone o projeto
+#### Clone o projeto
 ```bash
 git clone https://github.com/seuusuario/backend-meu-condominio.git
 cd React-Project
 ```
 
-# Compile o projeto
+#### Compile o projeto
 ```bash
 npm install vite
 npm install react-icons
 ```
-# Execute o projeto
+#### Execute o projeto
 ```bash
 npm run dev
 ```
+
+## ⚠️ Questões importantes
+
+#### Para rodar com o Back-end junto deve configurar o mesmo que esta neste link:
+```bash
+https://github.com/jose-devops/Meu_Condominio_backend/tree/main
+```
+
